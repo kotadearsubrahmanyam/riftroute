@@ -1,0 +1,45 @@
+================================================================================
+                     RIFTROUTE CANDIDATE COMPARISON REPORT                      
+================================================================================
+Comparison ID:           comp_cand_20_205_179_128_27528_cand_85_236_96_163_25138_20261002131026
+Timestamp (UTC):         2026-10-02T13:10:26.385970100+00:00
+
+CANDIDATE METRICS COMPARISON:
+--------------------------------------------------------------------------------
+METRIC                   CANDIDATE A                CANDIDATE B               
+--------------------------------------------------------------------------------
+Candidate ID             cand_20_205_179_128_27528  cand_85_236_96_163_25138  
+Destination              20.205.179.128             85.236.96.163             
+Service                  PUBG PC                    PUBG PC                   
+Dominant Fingerprint     9718DCB2AE6A739E           573DB7F28966FC31          
+Dominant FP %            100.0                    % 33.3                     %
+Hops (Median)            20                         12                        
+Responding Hops          7                          8                         
+Timeout Hops             13                         4                         
+Final Hop Median RTT     60.00 ms                   271.00 ms                 
+Final Hop p95 RTT        62.60 ms                   272.00 ms                 
+Route Transition Rate    0.0                      % 100.0                    %
+--------------------------------------------------------------------------------
+
+COMPARATIVE EVALUATION:
+Path Relationship:       StructuralRouteVariation
+Final Hop Median Delta:  +211.00 ms (Candidate B - Candidate A)
+Final Hop p95 Delta:     +209.40 ms (Candidate B - Candidate A)
+Hop Count Delta:         -8 hops (Candidate B - Candidate A)
+
+STRUCTURAL PATH DIFFERENCES:
+  * Hop 3: Candidate A traversed 182.71.238.101 vs Candidate B traversed 59.144.94.157
+  * Hop 4: Candidate A traversed 104.44.56.135 vs Candidate B traversed 116.119.73.209
+  * Hop 5: Candidate A traversed 51.10.36.182 vs Candidate B traversed 180.87.38.92
+  * Hop 6: Candidate A traversed 51.10.42.121 vs Candidate B timed out (*)
+  * Hop 7: Candidate A timed out (*) vs Candidate B traversed 209.58.105.1
+  * Hop 10: Candidate A traversed 51.10.4.226 vs Candidate B timed out (*)
+  * Hop 12: Candidate A timed out (*) vs Candidate B traversed 85.236.96.163
+  * Total hop count: Candidate A (20 hops) vs Candidate B (12 hops)
+
+FACTUAL COMPARISON SUMMARY:
+Evaluation between Candidate A (20.205.179.128) and Candidate B (85.236.96.163): Routes exhibit divergent structural paths across intermediate and/or terminal hops. Candidate A final-hop probe median is 60.00 ms (p95: 62.60 ms); Candidate B final-hop probe median is 271.00 ms (p95: 272.00 ms), delta (B - A): +211.00 ms. Hop count delta (B - A): -8 hops.
+
+SCIENTIFIC DISCLAIMER:
+Route comparisons reflect ICMP traceroute probe measurements and topological router vantage points. Probe latency deltas must not be equated to in-game UDP gameplay round-trip times (probe_final_hop_rtt_ms != pubg_ping_ms). RiftRoute does not rank candidates or switch routes automatically; latency differences reflect different physical hosting locations and transit paths.
+================================================================================

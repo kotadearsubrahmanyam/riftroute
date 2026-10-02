@@ -2,6 +2,8 @@ use chrono::Utc;
 use clap::{Parser, Subcommand};
 use std::process::exit;
 
+use rift_baseline::candidate_path::report::CandidateReportRenderer;
+use rift_baseline::candidate_path::CandidateManager;
 use rift_baseline::config::BaselineConfig;
 use rift_baseline::connectivity::ConnectivityTester;
 use rift_baseline::endpoint_analyzer::report::ReportRenderer;
@@ -27,6 +29,84 @@ struct Cli {
 
     #[command(subcommand)]
     command: Commands,
+}
+
+#[derive(Subcommand)]
+enum CandidateSubcommands {
+    #[command(about = "Discover candidate endpoints from packet captures, game processes, or route snapshots")]
+    Discover {
+        #[arg(long, help = "Path to TShark packet metadata export file")]
+        capture_file: Option<String>,
+
+        #[arg(long, help = "Discover from active running game processes")]
+        from_processes: bool,
+
+        #[arg(long, help = "Discover from directory of route snapshot JSONs")]
+        from_snapshots: Option<String>,
+
+        #[arg(short, long, help = "Auto-save discovered candidates to data/route/candidates/")]
+        save: bool,
+
+        #[arg(short, long, help = "Optional path to save discovery output (text or JSON)")]
+        output: Option<String>,
+    },
+
+    #[command(about = "Execute repeated longitudinal route measurements toward a candidate destination")]
+    Measure {
+        #[arg(help = "Candidate destination IP, hostname, or candidate ID")]
+        target: String,
+
+        #[arg(short = 'r', long, default_value_t = 5, help = "Number of repeated measurement runs (default: 5)")]
+        runs: usize,
+
+        #[arg(short = 'm', long, default_value_t = 30, help = "Maximum hops to trace (1-64)")]
+        max_hops: u8,
+
+        #[arg(short = 'w', long, default_value_t = 2000, help = "Per-probe timeout in milliseconds")]
+        timeout_ms: u64,
+
+        #[arg(short = 'i', long, default_value_t = 1000, help = "Pacing interval between runs in milliseconds")]
+        interval_ms: u64,
+
+        #[arg(long, help = "Resolve IP addresses to hostnames")]
+        resolve: bool,
+
+        #[arg(short, long, help = "Auto-save measurement series JSON to data/route/measurements/")]
+        save: bool,
+
+        #[arg(short, long, help = "Optional path to save measurement series output")]
+        output: Option<String>,
+
+        #[arg(long, default_value_t = 180, help = "Total process execution safety timeout in seconds")]
+        timeout_secs: u64,
+    },
+
+    #[command(about = "Objectively compare two candidate measurement series")]
+    Compare {
+        #[arg(help = "Path to Candidate A measurement series JSON")]
+        series_a: String,
+
+        #[arg(help = "Path to Candidate B measurement series JSON")]
+        series_b: String,
+
+        #[arg(short, long, help = "Optional path to save comparison report")]
+        output: Option<String>,
+
+        #[arg(short, long, help = "Auto-save comparison report to reports/phase2/")]
+        save: bool,
+    },
+
+    #[command(about = "Synthesize path diversity across all measured candidate series")]
+    Analyze {
+        #[arg(long, help = "Directory containing candidate series JSONs", default_value = "data/route/measurements")]
+        measurements_dir: String,
+
+        #[arg(short, long, help = "Optional path to save diversity report")]
+        output: Option<String>,
+
+        #[arg(short, long, help = "Auto-save diversity report to reports/phase2/")]
+        save: bool,
+    },
 }
 
 #[derive(Subcommand)]
@@ -74,6 +154,12 @@ enum RouteSubcommands {
 
         #[arg(short, long, help = "Optional path to save stability report")]
         output: Option<String>,
+    },
+
+    #[command(alias = "candidate", about = "Candidate path discovery, repeated measurement, and comparative evaluation")]
+    Candidates {
+        #[command(subcommand)]
+        subcommand: CandidateSubcommands,
     },
 
     #[command(external_subcommand)]
@@ -324,9 +410,252 @@ fn main() {
                     println!("{}", rendered);
                 }
 
+                Some(RouteSubcommands::Candidates { subcommand }) => {
+                    match subcommand {
+                        CandidateSubcommands::Discover {
+                            capture_file,
+                            from_processes,
+                            from_snapshots,
+                            save,
+                            output,
+                        } => {
+                            let candidates = CandidateManager::discover_endpoints(
+                                capture_file.as_deref(),
+                                from_processes,
+                                from_snapshots.as_deref(),
+                            )
+                            .unwrap_or_else(|e| {
+                                eprintln!("[ERROR] Candidate discovery failed: {}", e);
+                                exit(1);
+                            });
+
+                            if candidates.is_empty() && !cli.json {
+                                println!("[INFO] No candidate endpoints discovered from specified sources.");
+                            }
+
+                            if save {
+                                match CandidateReportRenderer::save_discovery(
+                                    &candidates,
+                                    "data/route/candidates",
+                                ) {
+                                    Ok(p) => {
+                                        if !cli.json {
+                                            println!("[SAVED] Candidates saved to: {}", p.display());
+                                        }
+                                    }
+                                    Err(e) => {
+                                        eprintln!("[ERROR] Failed to save candidates: {}", e);
+                                        exit(1);
+                                    }
+                                }
+                            }
+
+                            let rendered = if cli.json {
+                                match CandidateReportRenderer::format_discovery_json(&candidates) {
+                                    Ok(j) => j,
+                                    Err(e) => {
+                                        eprintln!("[ERROR] Failed to serialize candidates JSON: {}", e);
+                                        exit(1);
+                                    }
+                                }
+                            } else {
+                                CandidateReportRenderer::format_discovery_text(&candidates)
+                            };
+
+                            if let Some(ref out_path) = output {
+                                if let Err(e) = std::fs::write(out_path, &rendered) {
+                                    eprintln!("[ERROR] Failed to write discovery report to '{}': {}", out_path, e);
+                                    exit(1);
+                                }
+                                if !cli.json {
+                                    println!("[SAVED] Discovery report saved to: {}", out_path);
+                                }
+                            }
+
+                            println!("{}", rendered);
+                        }
+
+                        CandidateSubcommands::Measure {
+                            target,
+                            runs,
+                            max_hops,
+                            timeout_ms,
+                            interval_ms,
+                            resolve,
+                            save,
+                            output,
+                            timeout_secs,
+                        } => {
+                            if !cli.json {
+                                println!(
+                                    "=== MEASURING CANDIDATE TARGET: {} ({} runs, pacing: {} ms) ===",
+                                    target, runs, interval_ms
+                                );
+                            }
+
+                            let series = CandidateManager::measure_candidate(
+                                &target,
+                                runs,
+                                max_hops,
+                                timeout_ms,
+                                interval_ms,
+                                resolve,
+                                timeout_secs,
+                            )
+                            .unwrap_or_else(|e| {
+                                eprintln!("[ERROR] Candidate measurement failed: {}", e);
+                                exit(1);
+                            });
+
+                            if save {
+                                match CandidateReportRenderer::save_measurement_series(
+                                    &series,
+                                    "data/route/measurements",
+                                ) {
+                                    Ok(p) => {
+                                        if !cli.json {
+                                            println!("[SAVED] Measurement series saved to: {}", p.display());
+                                        }
+                                    }
+                                    Err(e) => {
+                                        eprintln!("[ERROR] Failed to save measurement series: {}", e);
+                                        exit(1);
+                                    }
+                                }
+                            }
+
+                            let rendered = if cli.json {
+                                match CandidateReportRenderer::format_measurement_series_json(&series) {
+                                    Ok(j) => j,
+                                    Err(e) => {
+                                        eprintln!("[ERROR] Failed to serialize series JSON: {}", e);
+                                        exit(1);
+                                    }
+                                }
+                            } else {
+                                CandidateReportRenderer::format_measurement_series_text(&series)
+                            };
+
+                            if let Some(ref out_path) = output {
+                                if let Err(e) = std::fs::write(out_path, &rendered) {
+                                    eprintln!("[ERROR] Failed to write measurement series to '{}': {}", out_path, e);
+                                    exit(1);
+                                }
+                                if !cli.json {
+                                    println!("[SAVED] Measurement series saved to: {}", out_path);
+                                }
+                            }
+
+                            println!("{}", rendered);
+                        }
+
+                        CandidateSubcommands::Compare {
+                            series_a,
+                            series_b,
+                            output,
+                            save,
+                        } => {
+                            let report = CandidateManager::compare_from_files(&series_a, &series_b)
+                                .unwrap_or_else(|e| {
+                                    eprintln!("[ERROR] Candidate comparison failed: {}", e);
+                                    exit(1);
+                                });
+
+                            if save {
+                                match CandidateReportRenderer::save_comparison(&report, "reports/phase2") {
+                                    Ok(p) => {
+                                        if !cli.json {
+                                            println!("[SAVED] Comparison report saved to: {}", p.display());
+                                        }
+                                    }
+                                    Err(e) => {
+                                        eprintln!("[ERROR] Failed to save comparison: {}", e);
+                                        exit(1);
+                                    }
+                                }
+                            }
+
+                            let rendered = if cli.json {
+                                match CandidateReportRenderer::format_comparison_json(&report) {
+                                    Ok(j) => j,
+                                    Err(e) => {
+                                        eprintln!("[ERROR] Failed to serialize comparison JSON: {}", e);
+                                        exit(1);
+                                    }
+                                }
+                            } else {
+                                CandidateReportRenderer::format_comparison_text(&report)
+                            };
+
+                            if let Some(ref out_path) = output {
+                                if let Err(e) = std::fs::write(out_path, &rendered) {
+                                    eprintln!("[ERROR] Failed to write comparison report to '{}': {}", out_path, e);
+                                    exit(1);
+                                }
+                                if !cli.json {
+                                    println!("[SAVED] Comparison report saved to: {}", out_path);
+                                }
+                            }
+
+                            println!("{}", rendered);
+                        }
+
+                        CandidateSubcommands::Analyze {
+                            measurements_dir,
+                            output,
+                            save,
+                        } => {
+                            let div_report =
+                                CandidateManager::analyze_diversity_from_dir(&measurements_dir)
+                                    .unwrap_or_else(|e| {
+                                        eprintln!("[ERROR] Path diversity analysis failed: {}", e);
+                                        exit(1);
+                                    });
+
+                            if save {
+                                match CandidateReportRenderer::save_diversity(&div_report, "reports/phase2") {
+                                    Ok(p) => {
+                                        if !cli.json {
+                                            println!("[SAVED] Diversity report saved to: {}", p.display());
+                                        }
+                                    }
+                                    Err(e) => {
+                                        eprintln!("[ERROR] Failed to save diversity report: {}", e);
+                                        exit(1);
+                                    }
+                                }
+                            }
+
+                            let rendered = if cli.json {
+                                match CandidateReportRenderer::format_diversity_json(&div_report) {
+                                    Ok(j) => j,
+                                    Err(e) => {
+                                        eprintln!("[ERROR] Failed to serialize diversity JSON: {}", e);
+                                        exit(1);
+                                    }
+                                }
+                            } else {
+                                CandidateReportRenderer::format_diversity_text(&div_report)
+                            };
+
+                            if let Some(ref out_path) = output {
+                                if let Err(e) = std::fs::write(out_path, &rendered) {
+                                    eprintln!("[ERROR] Failed to write diversity report to '{}': {}", out_path, e);
+                                    exit(1);
+                                }
+                                if !cli.json {
+                                    println!("[SAVED] Diversity report saved to: {}", out_path);
+                                }
+                            }
+
+                            println!("{}", rendered);
+                        }
+                    }
+                }
+
                 Some(RouteSubcommands::Legacy(args)) => {
                     if args.is_empty() {
-                        eprintln!("Usage: rift-baseline route <COMMAND>\n\nCommands:\n  measure    Measure and record network path toward a target destination\n  compare    Compare two route snapshots and identify structural and RTT changes\n  stability  Analyze route stability across multiple route snapshots\n\nFor more information, try '--help'.");
+                        eprintln!("Usage: rift-baseline route <COMMAND>\n\nCommands:\n  measure     Measure and record network path toward a target destination\n  compare     Compare two route snapshots and identify structural and RTT changes\n  stability   Analyze route stability across multiple route snapshots\n  candidates  Candidate path discovery, repeated measurement, and comparative evaluation\n\nFor more information, try '--help'.");
                         exit(1);
                     }
                     let destination = &args[0];
@@ -360,7 +689,7 @@ fn main() {
                 }
 
                 None => {
-                    eprintln!("Usage: rift-baseline route <COMMAND>\n\nCommands:\n  measure    Measure and record network path toward a target destination\n  compare    Compare two route snapshots and identify structural and RTT changes\n  stability  Analyze route stability across multiple route snapshots\n\nFor more information, try '--help'.");
+                    eprintln!("Usage: rift-baseline route <COMMAND>\n\nCommands:\n  measure     Measure and record network path toward a target destination\n  compare     Compare two route snapshots and identify structural and RTT changes\n  stability   Analyze route stability across multiple route snapshots\n  candidates  Candidate path discovery, repeated measurement, and comparative evaluation\n\nFor more information, try '--help'.");
                     exit(1);
                 }
             }

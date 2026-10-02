@@ -1,0 +1,32 @@
+[
+  {
+    "candidate_id": "cand_20_205_179_128_27528",
+    "ip": "20.205.179.128",
+    "port": 27528,
+    "protocol": "UDP",
+    "service_name": "PUBG PC",
+    "process_name": "TslGame.exe",
+    "local_port": 50837,
+    "discovery_method": "Passive TShark UDP Capture Analysis",
+    "evidence_level": "DirectlyObserved",
+    "first_seen_utc": "2026-10-02T13:03:44.713211400+00:00",
+    "last_seen_utc": "2026-10-02T13:03:44.713211400+00:00",
+    "observation_count": 7679,
+    "role_hypothesis": "Highest Traffic UDP Endpoint (Authoritative Gameplay Stream Hypothesis)"
+  },
+  {
+    "candidate_id": "cand_85_236_96_163_25138",
+    "ip": "85.236.96.163",
+    "port": 25138,
+    "protocol": "UDP",
+    "service_name": "PUBG PC",
+    "process_name": "TslGame.exe",
+    "local_port": 25628,
+    "discovery_method": "Passive TShark UDP Capture Analysis",
+    "evidence_level": "DirectlyObserved",
+    "first_seen_utc": "2026-10-02T13:03:44.713211400+00:00",
+    "last_seen_utc": "2026-10-02T13:03:44.713211400+00:00",
+    "observation_count": 1324,
+    "role_hypothesis": "Secondary UDP Endpoint #2 (Auxiliary / Signaling Hypothesis)"
+  }
+]

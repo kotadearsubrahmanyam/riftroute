@@ -1,0 +1,27 @@
+================================================================================
+                   RIFTROUTE CANDIDATE PATH DIVERSITY REPORT                    
+================================================================================
+Report ID:               div_20261002_131030
+Timestamp (UTC):         2026-10-02T13:10:30.184009700+00:00
+Service:                 PUBG PC
+Candidates Analyzed:     2
+Unique Dominant Paths:   2
+Structural Divergences:  1 pairwise
+Shared Path Pairs:       0 pairwise
+
+CANDIDATE PATH OVERVIEW:
+--------------------------------------------------------------------------------
+CANDIDATE ID         DESTINATION          MED RTT    p95 RTT    HOPS  
+--------------------------------------------------------------------------------
+cand_20_205_179_128_27528 20.205.179.128       60.0 ms    62.6 ms    20    
+  -> Dominant FP: 9718DCB2AE6A739E (100.0%) | Trans: 0.0%
+cand_85_236_96_163_25138 85.236.96.163        271.0 ms   272.0 ms   12    
+  -> Dominant FP: 573DB7F28966FC31 (33.3%) | Trans: 100.0%
+--------------------------------------------------------------------------------
+
+ARCHITECTURAL STATUS:
+Direct Client Routing Only (Phase 2). Relay-backed routing is UNAVAILABLE_IN_PHASE_2. Observed path diversity reflects physical server hosting locations and upstream BGP/transit differences.
+
+SCIENTIFIC DISCLAIMER:
+Candidate path diversity measures empirical routing topology divergence. It does not manipulate traffic or deploy virtual relays.
+================================================================================

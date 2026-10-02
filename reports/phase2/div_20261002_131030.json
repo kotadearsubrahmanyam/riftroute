@@ -1,0 +1,54 @@
+{
+  "report_id": "div_20261002_131030",
+  "timestamp_utc": "2026-10-02T13:10:30.184009700+00:00",
+  "service_name": "PUBG PC",
+  "total_candidates": 2,
+  "candidate_summaries": [
+    {
+      "candidate_id": "cand_20_205_179_128_27528",
+      "destination": "20.205.179.128",
+      "target_ip": "20.205.179.128",
+      "target_port": 27528,
+      "service_name": "PUBG PC",
+      "run_count": 3,
+      "dominant_fingerprint": "9718DCB2AE6A739E",
+      "dominant_fingerprint_pct": 100.0,
+      "final_hop_median_rtt_ms": 60.0,
+      "final_hop_p95_rtt_ms": 62.6,
+      "final_hop_max_rtt_ms": 63.0,
+      "final_hop_std_dev_ms": 1.5092308563562362,
+      "hop_count_median": 20,
+      "responding_hop_count_median": 7,
+      "timeout_hop_count_median": 13,
+      "route_transition_rate_pct": 0.0,
+      "path_difference_classification": "SameObservedPath"
+    },
+    {
+      "candidate_id": "cand_85_236_96_163_25138",
+      "destination": "85.236.96.163",
+      "target_ip": "85.236.96.163",
+      "target_port": 25138,
+      "service_name": "PUBG PC",
+      "run_count": 3,
+      "dominant_fingerprint": "573DB7F28966FC31",
+      "dominant_fingerprint_pct": 33.33333333333333,
+      "final_hop_median_rtt_ms": 271.0,
+      "final_hop_p95_rtt_ms": 272.0,
+      "final_hop_max_rtt_ms": 272.0,
+      "final_hop_std_dev_ms": 1.224744871391589,
+      "hop_count_median": 12,
+      "responding_hop_count_median": 8,
+      "timeout_hop_count_median": 4,
+      "route_transition_rate_pct": 100.0,
+      "path_difference_classification": "MinorResponseVariation"
+    }
+  ],
+  "unique_fingerprints_across_all_candidates": [
+    "573DB7F28966FC31",
+    "9718DCB2AE6A739E"
+  ],
+  "structural_variation_count": 1,
+  "shared_path_count": 0,
+  "architectural_status": "Direct Client Routing Only (Phase 2). Relay-backed routing is UNAVAILABLE_IN_PHASE_2. Observed path diversity reflects physical server hosting locations and upstream BGP/transit differences.",
+  "scientific_disclaimer": "Candidate path diversity measures empirical routing topology divergence. It does not manipulate traffic or deploy virtual relays."
+}

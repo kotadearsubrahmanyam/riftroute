@@ -1,0 +1,21 @@
+================================================================================
+                     RIFTROUTE CANDIDATE DISCOVERY REPORT                       
+================================================================================
+Discovered Candidates: 2
+Timestamp (UTC):       2026-10-02T13:10:36.813515700+00:00
+
+CANDIDATE ENDPOINTS:
+--------------------------------------------------------------------------------
+CANDIDATE ID           ENDPOINT                 PROTO    SERVICE    EVIDENCE    
+--------------------------------------------------------------------------------
+cand_20_205_179_128_27528 20.205.179.128:27528     UDP      PUBG PC    DirectlyObserved
+  -> Role Hypothesis: Highest Traffic UDP Endpoint (Authoritative Gameplay Stream Hypothesis)
+  -> Discovery:       Passive TShark UDP Capture Analysis
+cand_85_236_96_163_25138 85.236.96.163:25138      UDP      PUBG PC    DirectlyObserved
+  -> Role Hypothesis: Secondary UDP Endpoint #2 (Auxiliary / Signaling Hypothesis)
+  -> Discovery:       Passive TShark UDP Capture Analysis
+--------------------------------------------------------------------------------
+METHODOLOGY & GOVERNANCE:
+All endpoints identified non-invasively via passive packet metadata parsing or
+active OS socket state inspection. No traffic modification or redirection occurred.
+================================================================================

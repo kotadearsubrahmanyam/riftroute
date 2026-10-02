@@ -490,4 +490,299 @@ fn test_cli_route_stability_snapshots() {
     assert_eq!(val.get("dominant_fingerprint_pct").unwrap().as_f64().unwrap(), 100.0);
 }
 
+#[test]
+fn test_cli_route_candidates_help() {
+    let output = Command::new(env!("CARGO_BIN_EXE_rift-baseline"))
+        .args(["route", "candidates", "--help"])
+        .output()
+        .expect("execute route candidates --help");
+
+    assert!(output.status.success());
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    assert!(stdout.contains("discover"));
+    assert!(stdout.contains("measure"));
+    assert!(stdout.contains("compare"));
+    assert!(stdout.contains("analyze"));
+}
+
+#[test]
+fn test_cli_route_candidates_discover_from_capture_json() {
+    let capture_path = std::path::Path::new("../../../data/baseline/raw/pubg_endpoints_60s.txt");
+    if !capture_path.exists() {
+        // Try relative to workspace
+        let fallback = std::path::Path::new("data/baseline/raw/pubg_endpoints_60s.txt");
+        if !fallback.exists() {
+            return; // Skip if test fixture not present
+        }
+    }
+
+    let p = if capture_path.exists() { capture_path } else { std::path::Path::new("data/baseline/raw/pubg_endpoints_60s.txt") };
+
+    let output = Command::new(env!("CARGO_BIN_EXE_rift-baseline"))
+        .args([
+            "--json",
+            "route",
+            "candidates",
+            "discover",
+            "--capture-file",
+            p.to_str().unwrap(),
+        ])
+        .output()
+        .expect("execute route candidates discover");
+
+    assert!(output.status.success(), "Stderr: {}", String::from_utf8_lossy(&output.stderr));
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    let val: serde_json::Value = serde_json::from_str(&stdout).expect("valid JSON array");
+    assert!(val.is_array());
+    let arr = val.as_array().unwrap();
+    assert!(!arr.is_empty());
+    assert_eq!(arr[0].get("service_name").unwrap().as_str().unwrap(), "PUBG PC");
+    assert!(arr[0].get("candidate_id").is_some());
+    assert!(arr[0].get("ip").is_some());
+}
+
+#[test]
+fn test_cli_route_candidates_discover_text() {
+    let capture_path = std::path::Path::new("../../../data/baseline/raw/pubg_endpoints_60s.txt");
+    let p = if capture_path.exists() {
+        capture_path
+    } else {
+        std::path::Path::new("data/baseline/raw/pubg_endpoints_60s.txt")
+    };
+    if !p.exists() {
+        return;
+    }
+
+    let output = Command::new(env!("CARGO_BIN_EXE_rift-baseline"))
+        .args([
+            "route",
+            "candidates",
+            "discover",
+            "--capture-file",
+            p.to_str().unwrap(),
+        ])
+        .output()
+        .expect("execute route candidates discover text");
+
+    assert!(output.status.success(), "Stderr: {}", String::from_utf8_lossy(&output.stderr));
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    assert!(stdout.contains("RIFTROUTE CANDIDATE DISCOVERY REPORT"));
+    assert!(stdout.contains("CANDIDATE ENDPOINTS:"));
+    assert!(stdout.contains("PUBG PC"));
+}
+
+#[test]
+fn test_cli_route_candidates_compare_and_analyze() {
+    let temp_dir = tempfile::tempdir().expect("create temp dir");
+    let series_a_path = temp_dir.path().join("series_a.json");
+    let series_b_path = temp_dir.path().join("series_b.json");
+
+    let series_a_json = r#"{
+      "candidate_id": "cand_20_205_179_128_7000",
+      "destination": "20.205.179.128",
+      "target_ip": "20.205.179.128",
+      "target_port": 7000,
+      "service_name": "PUBG PC",
+      "run_count": 2,
+      "measurement_snapshots": [
+        {
+          "measurement_id": "m1",
+          "timestamp_utc": "2026-10-02T10:00:00Z",
+          "destination": "20.205.179.128",
+          "destination_ip": "20.205.179.128",
+          "destination_port": 7000,
+          "probe_method": "Windows Tracert",
+          "resolve_hostnames": false,
+          "active_interface": "Wi-Fi",
+          "source_ipv4": "192.168.1.14",
+          "default_gateway": "192.168.1.1",
+          "hop_count": 2,
+          "responding_hops": 2,
+          "timeout_hops": 0,
+          "hops": [
+            {
+              "hop_number": 1,
+              "addresses": ["192.168.1.1"],
+              "primary_address": "192.168.1.1",
+              "hostname": null,
+              "rtt_samples_ms": [1.0],
+              "responded": true,
+              "timeout_count": 0,
+              "probe_count": 1,
+              "rtt_stats": null,
+              "is_timeout": false,
+              "raw_line": ""
+            },
+            {
+              "hop_number": 2,
+              "addresses": ["20.205.179.128"],
+              "primary_address": "20.205.179.128",
+              "hostname": null,
+              "rtt_samples_ms": [55.0],
+              "responded": true,
+              "timeout_count": 0,
+              "probe_count": 1,
+              "rtt_stats": null,
+              "is_timeout": false,
+              "raw_line": ""
+            }
+          ],
+          "fingerprint": "FP_A_SNAP",
+          "fingerprint_sha256": "FP_A_SNAP",
+          "canonical_path": "1:192.168.1.1->2:20.205.179.128",
+          "measurement_duration_ms": 1000,
+          "scientific_disclaimer": ""
+        }
+      ],
+      "measurement_ids": ["m1"],
+      "unique_fingerprints": ["FP_A_SNAP"],
+      "dominant_fingerprint": "FP_A_SNAP",
+      "dominant_fingerprint_pct": 100.0,
+      "path_difference_classification": "SameObservedPath",
+      "final_hop_probe_stats": {
+        "sample_count": 1,
+        "min_ms": 55.0,
+        "median_ms": 55.0,
+        "mean_ms": 55.0,
+        "p95_ms": 55.0,
+        "p99_ms": 55.0,
+        "max_ms": 55.0,
+        "std_dev_ms": 0.0,
+        "jitter_ms": null
+      },
+      "hop_count_median": 2,
+      "responding_hop_count_median": 2,
+      "timeout_hop_count_median": 0,
+      "route_transition_count": 0,
+      "route_transition_rate_pct": 0.0,
+      "execution_window_start": "2026-10-02T10:00:00Z",
+      "execution_window_end": "2026-10-02T10:01:00Z",
+      "scientific_disclaimer": "Disclaimer"
+    }"#;
+
+    let series_b_json = r#"{
+      "candidate_id": "cand_85_236_96_163_8000",
+      "destination": "85.236.96.163",
+      "target_ip": "85.236.96.163",
+      "target_port": 8000,
+      "service_name": "PUBG PC",
+      "run_count": 2,
+      "measurement_snapshots": [
+        {
+          "measurement_id": "m2",
+          "timestamp_utc": "2026-10-02T10:00:00Z",
+          "destination": "85.236.96.163",
+          "destination_ip": "85.236.96.163",
+          "destination_port": 8000,
+          "probe_method": "Windows Tracert",
+          "resolve_hostnames": false,
+          "active_interface": "Wi-Fi",
+          "source_ipv4": "192.168.1.14",
+          "default_gateway": "192.168.1.1",
+          "hop_count": 2,
+          "responding_hops": 2,
+          "timeout_hops": 0,
+          "hops": [
+            {
+              "hop_number": 1,
+              "addresses": ["192.168.1.1"],
+              "primary_address": "192.168.1.1",
+              "hostname": null,
+              "rtt_samples_ms": [1.0],
+              "responded": true,
+              "timeout_count": 0,
+              "probe_count": 1,
+              "rtt_stats": null,
+              "is_timeout": false,
+              "raw_line": ""
+            },
+            {
+              "hop_number": 2,
+              "addresses": ["85.236.96.163"],
+              "primary_address": "85.236.96.163",
+              "hostname": null,
+              "rtt_samples_ms": [145.0],
+              "responded": true,
+              "timeout_count": 0,
+              "probe_count": 1,
+              "rtt_stats": null,
+              "is_timeout": false,
+              "raw_line": ""
+            }
+          ],
+          "fingerprint": "FP_B_SNAP",
+          "fingerprint_sha256": "FP_B_SNAP",
+          "canonical_path": "1:192.168.1.1->2:85.236.96.163",
+          "measurement_duration_ms": 1000,
+          "scientific_disclaimer": ""
+        }
+      ],
+      "measurement_ids": ["m2"],
+      "unique_fingerprints": ["FP_B_SNAP"],
+      "dominant_fingerprint": "FP_B_SNAP",
+      "dominant_fingerprint_pct": 100.0,
+      "path_difference_classification": "SameObservedPath",
+      "final_hop_probe_stats": {
+        "sample_count": 1,
+        "min_ms": 145.0,
+        "median_ms": 145.0,
+        "mean_ms": 145.0,
+        "p95_ms": 145.0,
+        "p99_ms": 145.0,
+        "max_ms": 145.0,
+        "std_dev_ms": 0.0,
+        "jitter_ms": null
+      },
+      "hop_count_median": 2,
+      "responding_hop_count_median": 2,
+      "timeout_hop_count_median": 0,
+      "route_transition_count": 0,
+      "route_transition_rate_pct": 0.0,
+      "execution_window_start": "2026-10-02T10:00:00Z",
+      "execution_window_end": "2026-10-02T10:01:00Z",
+      "scientific_disclaimer": "Disclaimer"
+    }"#;
+
+    std::fs::write(&series_a_path, series_a_json).expect("write series_a");
+    std::fs::write(&series_b_path, series_b_json).expect("write series_b");
+
+    // 1. Test compare
+    let output_comp = Command::new(env!("CARGO_BIN_EXE_rift-baseline"))
+        .args([
+            "--json",
+            "route",
+            "candidates",
+            "compare",
+            series_a_path.to_str().unwrap(),
+            series_b_path.to_str().unwrap(),
+        ])
+        .output()
+        .expect("execute route candidates compare");
+
+    assert!(output_comp.status.success(), "Stderr: {}", String::from_utf8_lossy(&output_comp.stderr));
+    let stdout_comp = String::from_utf8_lossy(&output_comp.stdout);
+    let val_comp: serde_json::Value = serde_json::from_str(&stdout_comp).expect("valid JSON compare");
+    assert_eq!(val_comp.get("path_relationship").unwrap().as_str().unwrap(), "StructuralRouteVariation");
+    assert_eq!(val_comp.get("final_hop_median_delta_ms").unwrap().as_f64().unwrap(), 90.0);
+
+    // 2. Test analyze
+    let output_ana = Command::new(env!("CARGO_BIN_EXE_rift-baseline"))
+        .args([
+            "--json",
+            "route",
+            "candidates",
+            "analyze",
+            "--measurements-dir",
+            temp_dir.path().to_str().unwrap(),
+        ])
+        .output()
+        .expect("execute route candidates analyze");
+
+    assert!(output_ana.status.success(), "Stderr: {}", String::from_utf8_lossy(&output_ana.stderr));
+    let stdout_ana = String::from_utf8_lossy(&output_ana.stdout);
+    let val_ana: serde_json::Value = serde_json::from_str(&stdout_ana).expect("valid JSON analyze");
+    assert_eq!(val_ana.get("total_candidates").unwrap().as_u64().unwrap(), 2);
+    assert_eq!(val_ana.get("structural_variation_count").unwrap().as_u64().unwrap(), 1);
+}
+
 
