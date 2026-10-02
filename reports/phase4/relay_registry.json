@@ -1,0 +1,96 @@
+{
+  "relays": [
+    {
+      "relay_id": "relay_local_01",
+      "public_address": "127.0.0.1",
+      "control_port": 44321,
+      "identity_fingerprint": "8E3412F65923AA58",
+      "public_key_hex": "73c12ead2c4fdc5d0c0edfe23abee7ed602f47ead0ac110eeaef0317a7ce00be",
+      "location": {
+        "country": "IN",
+        "region": "Localhost",
+        "city": "Localhost",
+        "provider": "Loopback",
+        "asn": null,
+        "provenance": "OperatorDeclared"
+      },
+      "protocol_version": 1,
+      "capabilities": [
+        "ping",
+        "tcp_probe"
+      ],
+      "status": "Online",
+      "last_seen_utc": "2026-10-02T14:16:10.730704400+00:00",
+      "notes": "Local loopback testing relay"
+    },
+    {
+      "relay_id": "relay_in_mum_01",
+      "public_address": "13.232.0.1",
+      "control_port": 44321,
+      "identity_fingerprint": "UNVERIFIED_MUMBAI",
+      "public_key_hex": "",
+      "location": {
+        "country": "IN",
+        "region": "MH",
+        "city": "Mumbai",
+        "provider": "Candidate Cloud Node",
+        "asn": 16509,
+        "provenance": "Unverified"
+      },
+      "protocol_version": 1,
+      "capabilities": [
+        "ping",
+        "traceroute"
+      ],
+      "status": "Offline",
+      "last_seen_utc": null,
+      "notes": "Candidate node in Mumbai, India"
+    },
+    {
+      "relay_id": "relay_in_maa_01",
+      "public_address": "14.139.160.1",
+      "control_port": 44321,
+      "identity_fingerprint": "UNVERIFIED_CHENNAI",
+      "public_key_hex": "",
+      "location": {
+        "country": "IN",
+        "region": "TN",
+        "city": "Chennai",
+        "provider": "Candidate Cloud Node",
+        "asn": null,
+        "provenance": "Unverified"
+      },
+      "protocol_version": 1,
+      "capabilities": [
+        "ping",
+        "traceroute"
+      ],
+      "status": "Offline",
+      "last_seen_utc": null,
+      "notes": "Candidate node in Chennai, India"
+    },
+    {
+      "relay_id": "relay_sg_sin_01",
+      "public_address": "20.205.179.1",
+      "control_port": 44321,
+      "identity_fingerprint": "UNVERIFIED_SINGAPORE",
+      "public_key_hex": "",
+      "location": {
+        "country": "SG",
+        "region": "Singapore",
+        "city": "Singapore",
+        "provider": "Candidate Cloud Node",
+        "asn": 8075,
+        "provenance": "Unverified"
+      },
+      "protocol_version": 1,
+      "capabilities": [
+        "ping",
+        "traceroute"
+      ],
+      "status": "Offline",
+      "last_seen_utc": null,
+      "notes": "Candidate node in Singapore gaming hub"
+    }
+  ]
+}

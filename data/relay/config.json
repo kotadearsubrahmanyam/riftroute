@@ -1,0 +1,30 @@
+{
+  "relay_id": "relay_local_01",
+  "listen_address": "127.0.0.1",
+  "control_port": 44321,
+  "identity_path": "data/relay/identity.json",
+  "authorized_clients_path": null,
+  "authorized_clients": [
+    {
+      "client_id": "riftroute_client",
+      "public_key_hex": "574a056f9d097d0e88805ea4ca4b41907fc3139cf5cfe65f359bb164cde5ac02",
+      "description": "Local RiftRoute Diagnostic Client",
+      "added_at_utc": "2026-10-02T14:16:24Z"
+    }
+  ],
+  "location": {
+    "country": "IN",
+    "region": "AP",
+    "city": "Vijayawada",
+    "provider": "Localhost Dedicated Relay Node",
+    "asn": null,
+    "provenance": "OperatorDeclared"
+  },
+  "max_concurrent_jobs": 5,
+  "max_request_size_bytes": 65536,
+  "rate_limit_per_minute": 120,
+  "allow_private_targets": true,
+  "challenge_ttl_seconds": 30,
+  "session_ttl_minutes": 60,
+  "log_level": "info"
+}

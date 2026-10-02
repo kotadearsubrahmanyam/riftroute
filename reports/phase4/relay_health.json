@@ -1,0 +1,11 @@
+{
+  "relay_id": "relay_local_01",
+  "is_alive": true,
+  "uptime_seconds": 7,
+  "cpu_usage_pct": 0.0,
+  "memory_used_bytes": 8388608,
+  "active_measurement_jobs": 0,
+  "total_measurements_completed": 0,
+  "last_successful_measurement_utc": null,
+  "status": "Online"
+}

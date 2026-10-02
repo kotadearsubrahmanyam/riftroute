@@ -1,0 +1,6 @@
+[workspace]
+members = [
+    "rift-baseline",
+    "rift-relay",
+]
+resolver = "2"

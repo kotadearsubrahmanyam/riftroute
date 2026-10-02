@@ -10,3 +10,4 @@ pub mod endpoint_analyzer;
 pub mod route_intelligence;
 pub mod candidate_path;
 pub mod monitoring;
+pub mod relay;

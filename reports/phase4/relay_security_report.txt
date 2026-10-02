@@ -1,0 +1,87 @@
+================================================================================
+           RIFTROUTE PHASE 4 — RELAY SECURITY & THREAT MODEL REPORT             
+================================================================================
+Generated: 2026-10-02T14:17:34Z
+Scope:     RiftRoute Relay Daemon Architecture, Authentication & Protocol v1
+
+1. SECURITY PRINCIPLES & BOUNDARIES
+--------------------------------------------------------------------------------
+1. OBSERVATION ONLY:
+   The relay daemon operates strictly as a remote measurement agent. It possesses
+   ZERO capability to inject, divert, modify, or proxy live operating system
+   traffic. No TUN/TAP interfaces, WireGuard tunnels, or packet sockets are created.
+
+2. LEAST PRIVILEGE EXECUTION:
+   The daemon runs unprivileged (UID 10001 `riftrelay` in Docker, `riftroute` in systemd).
+   Only `CAP_NET_RAW` is retained exclusively for ICMP Echo Request generation.
+   Root filesystem is mounted read-only (`ProtectSystem=strict`, `read_only: true`).
+
+3. ZERO SHELL INVOCATION:
+   Under NO circumstances is `sh`, `bash`, `cmd.exe`, or `powershell.exe` spawned.
+   Measurement probes are invoked via strict `Command::new("ping")` without argument
+   interpolation.
+
+2. PROTOCOL & FRAMING SAFETY
+--------------------------------------------------------------------------------
+- Framing: Length-delimited framing `[4-byte big-endian length][JSON payload]`.
+- Maximum Frame Size: 65,536 bytes (64 KB). Any frame header exceeding 64 KB is
+  instantly dropped, preventing memory allocation exhaustion (CVE-style DoS).
+- Zero-Length Frame: Strictly rejected as protocol violation.
+- Deserialization: Strongly typed Rust `serde_json` with enum discrimination.
+  Unexpected or unknown JSON fields are rejected.
+
+3. AUTHENTICATION & IDENTITY INTEGRITY
+--------------------------------------------------------------------------------
+- Algorithm: Ed25519 (256-bit Edwards-curve Digital Signature Algorithm).
+- Fingerprinting: Truncated uppercase SHA-256 hash (16 characters) of Ed25519 public key.
+- Mutual Authentication:
+  1. Client sends `Hello` with `client_id` and public key.
+  2. Relay issues 256-bit cryptographically secure random nonce (`challenge_nonce`).
+  3. Relay returns its own declared public key. Client immediately computes SHA-256
+     fingerprint and rejects connection if it deviates from registered registry value
+     (`RelayFailureMode::IdentityMismatch`).
+  4. Client signs structured canonical message:
+     `riftroute_auth:<challenge_nonce>:<relay_id>:<client_id>`
+  5. Relay validates signature against stored whitelist. Replay attacks are impossible
+     because each nonce is consumed and destroyed immediately upon receipt.
+  6. Expired challenges (TTL: 30 seconds) are purged automatically.
+- Session Tokens: 256-bit CSPRNG hex tokens with configurable TTL (default: 60 minutes).
+  All subsequent diagnostic requests (`GetStatus`, `GetCapabilities`, `RunMeasurement`)
+  require valid session token header.
+
+4. DESTINATION SANITIZATION & ABUSE PREVENTION
+--------------------------------------------------------------------------------
+1. Metacharacter Sanitization:
+   Destinations containing shell metacharacters (`;`, `&`, `|`, `` ` ``, `$`, `\`, `>`, `<`, etc.)
+   or leading hyphens (`-`) are unconditionally rejected prior to process spawning
+   (`RelayFailureMode::InvalidMeasurementRequest`).
+2. SSRF & Internal Network Protection:
+   Probing of loopback (`127.0.0.0/8`, `::1`) and private IPv4/IPv6 ranges
+   (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`, `fc00::/7`, `fe80::/10`)
+   is strictly prohibited by default.
+   Can only be overridden in explicit local testing mode (`allow_private_targets = true`).
+3. Rate Limiting:
+   In-memory IP sliding-window rate limiter prevents flooding and resource starvation.
+   Concurrency bounds: `max_concurrent_jobs` (default: 5). Excess requests receive
+   `RelayFailureMode::RateLimitExceeded`.
+
+5. RELAY FAILURE MODES AUDIT (STEP 23)
+--------------------------------------------------------------------------------
+Ten explicit failure modes are defined, typed, and handled without crashing:
+1.  RelayOffline:                  Relay daemon unreachable or TCP connection refused.
+2.  ControlChannelTimeout:         Socket timeout during framing or handshake.
+3.  AuthenticationFailure:         Unauthorized client ID or invalid signature.
+4.  InvalidMeasurementRequest:     Prohibited target, shell metacharacter, or loopback.
+5.  DestinationUnreachable:        Target unresponsive to ICMP/TCP probe.
+6.  RelayMeasurementTimeout:       Probe execution timed out on relay node.
+7.  MalformedResponse:             Protocol frame corrupt or unparsable JSON.
+8.  ProtocolVersionMismatch:       Client requested incompatible protocol version.
+9.  IdentityMismatch:              Server public key fingerprint mismatch (MITM alert).
+10. RateLimitExceeded:             Request limit or concurrency threshold exceeded.
+
+6. CONCLUSION
+--------------------------------------------------------------------------------
+The RiftRoute Phase 4 Relay Architecture conforms to rigorous defensive systems
+engineering standards. It guarantees mathematical transparency, tamper resistance,
+and network safety while completely isolating gaming traffic from speculative relay paths.
+================================================================================

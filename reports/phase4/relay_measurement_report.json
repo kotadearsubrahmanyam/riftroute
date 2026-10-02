@@ -1,0 +1,27 @@
+{
+  "request_id": "req_20261002141716708_6fd78c97",
+  "relay_id": "relay_local_01",
+  "destination": "1.1.1.1",
+  "destination_ip": null,
+  "protocol": "Icmp",
+  "probe_rtt_samples_ms": [
+    12.0,
+    14.0,
+    13.0
+  ],
+  "median_rtt_ms": 13.0,
+  "min_rtt_ms": 12.0,
+  "max_rtt_ms": 14.0,
+  "p95_rtt_ms": 14.0,
+  "std_dev_ms": 1.0,
+  "jitter_ms": 1.5,
+  "hop_count": 1,
+  "responding_hops": 1,
+  "timeout_hops": 0,
+  "route_fingerprint": "D86182AA4E0A47BB",
+  "execution_duration_ms": 2054,
+  "success": true,
+  "error_message": null,
+  "timestamp_utc": "2026-10-02T14:17:18.763273200+00:00",
+  "scientific_disclaimer": "Ping probe RTT reflects ICMP control-plane generation latency, not in-game UDP gameplay latency."
+}

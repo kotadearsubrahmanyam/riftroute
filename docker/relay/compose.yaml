@@ -1,0 +1,38 @@
+# ==============================================================================
+# RiftRoute Phase 4 Relay Daemon — Docker Compose Specification
+# ==============================================================================
+#
+# Container orchestration for running an isolated RiftRoute diagnostic relay.
+# STRICT CONSTRAINT: No host networking, no routing table access, no live VPN.
+# ==============================================================================
+
+version: '3.8'
+
+services:
+  rift-relay:
+    build:
+      context: ../..
+      dockerfile: docker/relay/Dockerfile
+    image: riftroute-relay:0.1.0
+    container_name: riftroute-relay
+    restart: unless-stopped
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_RAW # Required for ICMP echo requests (ping)
+    ports:
+      - "44321:44321"
+    volumes:
+      - ./config.json:/etc/riftroute/config.json:ro
+      - ./identity.json:/etc/riftroute/identity.json:ro
+      - /tmp:/tmp:rw
+    environment:
+      - RUST_LOG=info
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

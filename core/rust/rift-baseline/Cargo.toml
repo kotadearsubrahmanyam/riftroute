@@ -20,6 +20,10 @@ windows-sys = { version = "0.59", features = [
     "Win32_System_Diagnostics_ToolHelp",
     "Win32_System_Threading",
 ] }
+ed25519-dalek = { version = "3.0.0", features = ["rand_core", "serde"] }
+hex = "0.4.3"
+rand = "0.10.3"
+rift-relay = { path = "../rift-relay" }
 
 [dev-dependencies]
 tempfile = "3.10"

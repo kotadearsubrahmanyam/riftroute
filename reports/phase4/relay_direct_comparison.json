@@ -1,0 +1,21 @@
+{
+  "target_destination": "1.1.1.1",
+  "relay_id": "relay_local_01",
+  "relay_endpoint": "127.0.0.1:44321",
+  "direct_median_ms": 11.0,
+  "direct_p95_ms": 13.7,
+  "direct_jitter_ms": 2.5,
+  "direct_fingerprint": "064DEE4B85A3144A",
+  "direct_hop_count": 6,
+  "client_to_relay_probe_rtt_ms": 0.2808,
+  "relay_to_destination_probe_rtt_ms": 11.0,
+  "composed_relay_rtt_ms": 11.2808,
+  "delta_median_ms": 0.2807999999999993,
+  "delta_p95_ms": 0.5808,
+  "delta_jitter_ms": 0.0,
+  "path_difference_summary": "Route structures diverge: Direct path fingerprint '064DEE4B85A3144A' vs Relay leg fingerprint 'BA5E47339F25AB46'; Hop topology: Direct path 6 hops vs Relay leg 1 hops (Client->Relay transit introduced)",
+  "network_overhead_ms": 0.2807999999999993,
+  "control_plane_roundtrip_ms": 11354.520199999999,
+  "timestamp_utc": "2026-10-02T14:17:34.450904500+00:00",
+  "scientific_disclaimer": "Comparison reflects ICMP/TCP diagnostic probe latency differences. Composed relay latency is leg 1 + leg 2 arithmetic estimate and does not represent live UDP gaming traffic."
+}

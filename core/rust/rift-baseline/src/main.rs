@@ -14,6 +14,13 @@ use rift_baseline::monitoring::report::MonitoringReportRenderer;
 use rift_baseline::monitoring::MonitoringManager;
 use rift_baseline::process::ProcessManager;
 use rift_baseline::report::{BaselineSession, ReportGenerator};
+use rift_baseline::relay::client::RelayClient;
+use rift_baseline::relay::models::{
+    LocationMetadata, ProbeProtocol, RelayNode, RelayStatusType,
+};
+use rift_baseline::relay::registry::RelayRegistry;
+use rift_baseline::relay::report::RelayReportRenderer;
+use rift_baseline::relay::RelayManager;
 use rift_baseline::route::RouteAnalyzer;
 use rift_baseline::route_intelligence::report::RouteReportRenderer;
 use rift_baseline::route_intelligence::RouteIntelligence;
@@ -209,6 +216,84 @@ enum MonitorSubcommands {
 }
 
 #[derive(Subcommand)]
+enum RelaySubcommands {
+    #[command(about = "Display or manage the local relay node registry")]
+    Registry {
+        #[arg(long, help = "Path to relay registry JSON", default_value = "data/relay/registry.json")]
+        registry: std::path::PathBuf,
+
+        #[arg(short, long, help = "Optional path to save registry report")]
+        output: Option<String>,
+    },
+
+    #[command(about = "Probe relay node health, uptime, and control plane reachability")]
+    Health {
+        #[arg(help = "Relay ID or public address (e.g. relay_local_01 or 127.0.0.1:44321)")]
+        relay: String,
+
+        #[arg(long, help = "Path to client identity JSON", default_value = "data/relay/client_identity.json")]
+        identity: std::path::PathBuf,
+
+        #[arg(long, help = "Path to relay registry JSON", default_value = "data/relay/registry.json")]
+        registry: std::path::PathBuf,
+
+        #[arg(short, long, help = "Optional path to save health report")]
+        output: Option<String>,
+
+        #[arg(short, long, help = "Auto-save health report to reports/phase4/relay_health.json")]
+        save: bool,
+    },
+
+    #[command(about = "Perform a controlled diagnostic measurement from the relay toward a destination")]
+    Measure {
+        #[arg(help = "Relay ID or public address (e.g. relay_local_01 or 127.0.0.1:44321)")]
+        relay: String,
+
+        #[arg(help = "Destination IP address or hostname (e.g. 1.1.1.1 or 20.205.179.128)")]
+        destination: String,
+
+        #[arg(long, help = "Diagnostic probe protocol (icmp or tcp)", default_value = "icmp")]
+        protocol: String,
+
+        #[arg(long, help = "Path to client identity JSON", default_value = "data/relay/client_identity.json")]
+        identity: std::path::PathBuf,
+
+        #[arg(long, help = "Path to relay registry JSON", default_value = "data/relay/registry.json")]
+        registry: std::path::PathBuf,
+
+        #[arg(short, long, help = "Optional path to save measurement report")]
+        output: Option<String>,
+
+        #[arg(short, long, help = "Auto-save measurement report to reports/phase4/")]
+        save: bool,
+    },
+
+    #[command(about = "Objectively compare Direct Client->Dest path vs Relay-Assisted path")]
+    Compare {
+        #[arg(help = "Relay ID or public address (e.g. relay_local_01 or 127.0.0.1:44321)")]
+        relay: String,
+
+        #[arg(help = "Destination IP address or hostname (e.g. 1.1.1.1 or 20.205.179.128)")]
+        destination: String,
+
+        #[arg(long, help = "Diagnostic probe protocol (icmp or tcp)", default_value = "icmp")]
+        protocol: String,
+
+        #[arg(long, help = "Path to client identity JSON", default_value = "data/relay/client_identity.json")]
+        identity: std::path::PathBuf,
+
+        #[arg(long, help = "Path to relay registry JSON", default_value = "data/relay/registry.json")]
+        registry: std::path::PathBuf,
+
+        #[arg(short, long, help = "Optional path to save comparison report")]
+        output: Option<String>,
+
+        #[arg(short, long, help = "Auto-save comparison report to reports/phase4/")]
+        save: bool,
+    },
+}
+
+#[derive(Subcommand)]
 enum RouteSubcommands {
     #[command(about = "Measure and record network path toward a target destination")]
     Measure {
@@ -313,6 +398,12 @@ enum Commands {
     Monitor {
         #[command(subcommand)]
         subcommand: MonitorSubcommands,
+    },
+
+    #[command(about = "Controlled relay infrastructure management, health checks, and path comparison")]
+    Relay {
+        #[command(subcommand)]
+        subcommand: RelaySubcommands,
     },
 }
 
@@ -1215,5 +1306,279 @@ fn main() {
                 }
             }
         }
+
+        Commands::Relay { subcommand } => {
+            match subcommand {
+                RelaySubcommands::Registry { registry, output } => {
+                    let reg = RelayRegistry::load_or_init(&registry);
+                    let rendered = if cli.json {
+                        serde_json::to_string_pretty(&reg).unwrap()
+                    } else {
+                        RelayReportRenderer::format_registry_text(&reg)
+                    };
+
+                    if let Some(ref out_path) = output {
+                        if let Err(e) = std::fs::write(out_path, &rendered) {
+                            eprintln!("[ERROR] Failed to write registry report to '{}': {}", out_path, e);
+                            exit(1);
+                        }
+                        if !cli.json {
+                            println!("[SAVED] Relay registry saved to: {}", out_path);
+                        }
+                    }
+                    println!("{}", rendered);
+                }
+
+                RelaySubcommands::Health {
+                    relay,
+                    identity,
+                    registry,
+                    output,
+                    save,
+                } => {
+                    let reg = RelayRegistry::load_or_init(&registry);
+                    let relay_node = if let Some(r) = reg.get(&relay) {
+                        r.clone()
+                    } else {
+                        let (addr, port) = parse_host_port(&relay, 44321);
+                        RelayNode {
+                            relay_id: format!("relay_adhoc_{}", addr.replace('.', "_")),
+                            public_address: addr,
+                            control_port: port,
+                            identity_fingerprint: "".to_string(),
+                            public_key_hex: "".to_string(),
+                            location: LocationMetadata::default(),
+                            protocol_version: 1,
+                            capabilities: vec!["ping".to_string(), "tcp_probe".to_string()],
+                            status: RelayStatusType::Online,
+                            last_seen_utc: None,
+                            notes: "Ad-hoc relay node target".to_string(),
+                        }
+                    };
+
+                    let (client_key, client_id) = RelayManager::load_or_init_client_identity(&identity)
+                        .unwrap_or_else(|e| {
+                            eprintln!("[ERROR] Failed to load client identity: {}", e);
+                            exit(1);
+                        });
+
+                    let health = match RelayManager::probe_relay_health(&relay_node, &client_key, &client_id.client_id) {
+                        Ok(h) => h,
+                        Err(e) => {
+                            eprintln!("[ERROR] Failed to probe relay health: {}", e);
+                            exit(1);
+                        }
+                    };
+
+                    if save {
+                        if let Err(e) = RelayReportRenderer::save_json(&health, "reports/phase4/relay_health.json") {
+                            eprintln!("[WARN] Failed to auto-save health report: {}", e);
+                        } else if !cli.json {
+                            println!("[SAVED] Health report saved to: reports/phase4/relay_health.json");
+                        }
+                    }
+
+                    let rendered = if cli.json {
+                        serde_json::to_string_pretty(&health).unwrap()
+                    } else {
+                        RelayReportRenderer::format_health_text(&health, &relay_node)
+                    };
+
+                    if let Some(ref out_path) = output {
+                        if let Err(e) = std::fs::write(out_path, &rendered) {
+                            eprintln!("[ERROR] Failed to write health report to '{}': {}", out_path, e);
+                            exit(1);
+                        }
+                    }
+                    println!("{}", rendered);
+                }
+
+                RelaySubcommands::Measure {
+                    relay,
+                    destination,
+                    protocol,
+                    identity,
+                    registry,
+                    output,
+                    save,
+                } => {
+                    let reg = RelayRegistry::load_or_init(&registry);
+                    let relay_node = if let Some(r) = reg.get(&relay) {
+                        r.clone()
+                    } else {
+                        let (addr, port) = parse_host_port(&relay, 44321);
+                        RelayNode {
+                            relay_id: format!("relay_adhoc_{}", addr.replace('.', "_")),
+                            public_address: addr,
+                            control_port: port,
+                            identity_fingerprint: "".to_string(),
+                            public_key_hex: "".to_string(),
+                            location: LocationMetadata::default(),
+                            protocol_version: 1,
+                            capabilities: vec!["ping".to_string(), "tcp_probe".to_string()],
+                            status: RelayStatusType::Online,
+                            last_seen_utc: None,
+                            notes: "Ad-hoc relay node target".to_string(),
+                        }
+                    };
+
+                    let (client_key, client_id) = RelayManager::load_or_init_client_identity(&identity)
+                        .unwrap_or_else(|e| {
+                            eprintln!("[ERROR] Failed to load client identity: {}", e);
+                            exit(1);
+                        });
+
+                    let proto = if protocol.to_lowercase() == "tcp" {
+                        ProbeProtocol::Tcp
+                    } else {
+                        ProbeProtocol::Icmp
+                    };
+
+                    let mut session = match RelayClient::connect(
+                        &relay_node,
+                        &client_key,
+                        &client_id.client_id,
+                        std::time::Duration::from_secs(10),
+                    ) {
+                        Ok(s) => s,
+                        Err(e) => {
+                            eprintln!("[ERROR] Failed to connect to relay: {}", e);
+                            exit(1);
+                        }
+                    };
+
+                    let result = match session.run_measurement(&destination, proto, 20, 1000) {
+                        Ok(r) => r,
+                        Err(e) => {
+                            eprintln!("[ERROR] Relay measurement failed: {}", e);
+                            session.disconnect();
+                            exit(1);
+                        }
+                    };
+                    session.disconnect();
+
+                    if save {
+                        if let Err(e) = RelayReportRenderer::save_json(&result, "reports/phase4/relay_measurement_report.json") {
+                            eprintln!("[WARN] Failed to auto-save measurement report: {}", e);
+                        } else if !cli.json {
+                            println!("[SAVED] Measurement report saved to: reports/phase4/relay_measurement_report.json");
+                        }
+                    }
+
+                    let rendered = if cli.json {
+                        serde_json::to_string_pretty(&result).unwrap()
+                    } else {
+                        format!(
+                            "Relay:                  {}\nDestination:            {}\nProtocol:               {:?}\nMedian Probe RTT:       {:.2} ms\nRoute Fingerprint:      {}\nHop Count:              {}\nExecution Duration:     {} ms\nSuccess:                {}\nScientific Disclaimer:  {}\n",
+                            result.relay_id,
+                            result.destination,
+                            result.protocol,
+                            result.median_rtt_ms.unwrap_or(0.0),
+                            result.route_fingerprint,
+                            result.hop_count,
+                            result.execution_duration_ms,
+                            result.success,
+                            result.scientific_disclaimer
+                        )
+                    };
+
+                    if let Some(ref out_path) = output {
+                        if let Err(e) = std::fs::write(out_path, &rendered) {
+                            eprintln!("[ERROR] Failed to write report to '{}': {}", out_path, e);
+                            exit(1);
+                        }
+                    }
+                    println!("{}", rendered);
+                }
+
+                RelaySubcommands::Compare {
+                    relay,
+                    destination,
+                    protocol,
+                    identity,
+                    registry,
+                    output,
+                    save,
+                } => {
+                    let reg = RelayRegistry::load_or_init(&registry);
+                    let relay_node = if let Some(r) = reg.get(&relay) {
+                        r.clone()
+                    } else {
+                        let (addr, port) = parse_host_port(&relay, 44321);
+                        RelayNode {
+                            relay_id: format!("relay_adhoc_{}", addr.replace('.', "_")),
+                            public_address: addr,
+                            control_port: port,
+                            identity_fingerprint: "".to_string(),
+                            public_key_hex: "".to_string(),
+                            location: LocationMetadata::default(),
+                            protocol_version: 1,
+                            capabilities: vec!["ping".to_string(), "tcp_probe".to_string()],
+                            status: RelayStatusType::Online,
+                            last_seen_utc: None,
+                            notes: "Ad-hoc relay node target".to_string(),
+                        }
+                    };
+
+                    let (client_key, client_id) = RelayManager::load_or_init_client_identity(&identity)
+                        .unwrap_or_else(|e| {
+                            eprintln!("[ERROR] Failed to load client identity: {}", e);
+                            exit(1);
+                        });
+
+                    let proto = if protocol.to_lowercase() == "tcp" {
+                        ProbeProtocol::Tcp
+                    } else {
+                        ProbeProtocol::Icmp
+                    };
+
+                    let comp = match RelayManager::measure_and_compare(
+                        &relay_node,
+                        &destination,
+                        &client_key,
+                        &client_id.client_id,
+                        proto,
+                    ) {
+                        Ok(c) => c,
+                        Err(e) => {
+                            eprintln!("[ERROR] Comparative measurement failed: {}", e);
+                            exit(1);
+                        }
+                    };
+
+                    if save {
+                        if let Err(e) = RelayReportRenderer::save_json(&comp, "reports/phase4/relay_direct_comparison.json") {
+                            eprintln!("[WARN] Failed to auto-save comparison report: {}", e);
+                        } else if !cli.json {
+                            println!("[SAVED] Comparison saved to: reports/phase4/relay_direct_comparison.json");
+                        }
+                    }
+
+                    let rendered = if cli.json {
+                        serde_json::to_string_pretty(&comp).unwrap()
+                    } else {
+                        RelayReportRenderer::format_comparison_text(&comp)
+                    };
+
+                    if let Some(ref out_path) = output {
+                        if let Err(e) = std::fs::write(out_path, &rendered) {
+                            eprintln!("[ERROR] Failed to write comparison report to '{}': {}", out_path, e);
+                            exit(1);
+                        }
+                    }
+                    println!("{}", rendered);
+                }
+            }
+        }
     }
+}
+
+fn parse_host_port(s: &str, default_port: u16) -> (String, u16) {
+    if let Some(pos) = s.rfind(':') {
+        if let Ok(port) = s[pos + 1..].parse::<u16>() {
+            let host = s[..pos].trim_matches(|c| c == '[' || c == ']').to_string();
+            return (host, port);
+        }
+    }
+    (s.to_string(), default_port)
 }
