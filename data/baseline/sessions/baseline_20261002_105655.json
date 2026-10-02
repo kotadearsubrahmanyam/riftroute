@@ -1,0 +1,805 @@
+{
+  "session_id": "baseline_20261002_105655",
+  "timestamp": "2026-10-02T10:57:20.005615+00:00",
+  "tool_version": "rift-baseline 0.1.0",
+  "system_inventory": {
+    "os": "Microsoft Windows 11 (x64)",
+    "architecture": "x64",
+    "hostname": "JARVIS",
+    "active_interface": "Wi-Fi",
+    "interface_description": "Realtek RTL8852BE WiFi 6 802.11ax PCIe Adapter",
+    "ipv4_address": "192.168.1.14",
+    "default_gateway": "192.168.1.1",
+    "dns_servers": [
+      "fe80::1",
+      "fe80::1",
+      "192.168.1.1"
+    ],
+    "interface_metric": 35,
+    "private_network_range": "192.168.1.0/24",
+    "routing_table": [
+      {
+        "destination": "0.0.0.0",
+        "netmask": "0.0.0.0",
+        "gateway": "192.168.1.1",
+        "interface": "192.168.1.14",
+        "metric": 35
+      },
+      {
+        "destination": "127.0.0.0",
+        "netmask": "255.0.0.0",
+        "gateway": "On-link",
+        "interface": "127.0.0.1",
+        "metric": 331
+      },
+      {
+        "destination": "127.0.0.1",
+        "netmask": "255.255.255.255",
+        "gateway": "On-link",
+        "interface": "127.0.0.1",
+        "metric": 331
+      },
+      {
+        "destination": "127.255.255.255",
+        "netmask": "255.255.255.255",
+        "gateway": "On-link",
+        "interface": "127.0.0.1",
+        "metric": 331
+      },
+      {
+        "destination": "192.168.1.0",
+        "netmask": "255.255.255.0",
+        "gateway": "On-link",
+        "interface": "192.168.1.14",
+        "metric": 291
+      },
+      {
+        "destination": "192.168.1.14",
+        "netmask": "255.255.255.255",
+        "gateway": "On-link",
+        "interface": "192.168.1.14",
+        "metric": 291
+      },
+      {
+        "destination": "192.168.1.255",
+        "netmask": "255.255.255.255",
+        "gateway": "On-link",
+        "interface": "192.168.1.14",
+        "metric": 291
+      },
+      {
+        "destination": "224.0.0.0",
+        "netmask": "240.0.0.0",
+        "gateway": "On-link",
+        "interface": "127.0.0.1",
+        "metric": 331
+      },
+      {
+        "destination": "224.0.0.0",
+        "netmask": "240.0.0.0",
+        "gateway": "On-link",
+        "interface": "192.168.1.14",
+        "metric": 291
+      },
+      {
+        "destination": "255.255.255.255",
+        "netmask": "255.255.255.255",
+        "gateway": "On-link",
+        "interface": "127.0.0.1",
+        "metric": 331
+      },
+      {
+        "destination": "255.255.255.255",
+        "netmask": "255.255.255.255",
+        "gateway": "On-link",
+        "interface": "192.168.1.14",
+        "metric": 291
+      }
+    ],
+    "isp_info": {
+      "asn": "AS24560",
+      "organization": "AS24560 Bharti Airtel Ltd., Telemedia Services",
+      "city": "Hyderabad",
+      "region": "Telangana",
+      "country": "IN",
+      "source": "https://ipinfo.io/json",
+      "timestamp": "2026-10-02T10:56:58.221465600+00:00"
+    },
+    "timestamp": "2026-10-02T10:56:55.698615+00:00"
+  },
+  "connectivity_baselines": [
+    {
+      "destination": {
+        "name": "Cloudflare Anycast DNS",
+        "target": "1.1.1.1",
+        "purpose": "Public Anycast Internet benchmark (Cloudflare)",
+        "protocol": "ICMP",
+        "port": null
+      },
+      "timestamp": "2026-10-02T10:56:58.648208400+00:00",
+      "probes": [
+        {
+          "seq": 1,
+          "timestamp": "2026-10-02T10:56:58.648210700+00:00",
+          "rtt_ms": 10.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 2,
+          "timestamp": "2026-10-02T10:56:58.772173100+00:00",
+          "rtt_ms": 12.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 3,
+          "timestamp": "2026-10-02T10:56:58.896058100+00:00",
+          "rtt_ms": 13.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 4,
+          "timestamp": "2026-10-02T10:56:59.033914900+00:00",
+          "rtt_ms": 12.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 5,
+          "timestamp": "2026-10-02T10:56:59.156351300+00:00",
+          "rtt_ms": 10.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 6,
+          "timestamp": "2026-10-02T10:56:59.277825600+00:00",
+          "rtt_ms": 10.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 7,
+          "timestamp": "2026-10-02T10:56:59.399602800+00:00",
+          "rtt_ms": 13.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 8,
+          "timestamp": "2026-10-02T10:56:59.537753100+00:00",
+          "rtt_ms": 10.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 9,
+          "timestamp": "2026-10-02T10:56:59.658325400+00:00",
+          "rtt_ms": 13.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 10,
+          "timestamp": "2026-10-02T10:56:59.782700800+00:00",
+          "rtt_ms": 10.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 11,
+          "timestamp": "2026-10-02T10:56:59.902959+00:00",
+          "rtt_ms": 12.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 12,
+          "timestamp": "2026-10-02T10:57:00.025316400+00:00",
+          "rtt_ms": 13.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 13,
+          "timestamp": "2026-10-02T10:57:00.149760700+00:00",
+          "rtt_ms": 14.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 14,
+          "timestamp": "2026-10-02T10:57:00.274045500+00:00",
+          "rtt_ms": 11.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 15,
+          "timestamp": "2026-10-02T10:57:00.397397300+00:00",
+          "rtt_ms": 10.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 16,
+          "timestamp": "2026-10-02T10:57:00.517603600+00:00",
+          "rtt_ms": 13.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 17,
+          "timestamp": "2026-10-02T10:57:00.647452700+00:00",
+          "rtt_ms": 13.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 18,
+          "timestamp": "2026-10-02T10:57:00.770941+00:00",
+          "rtt_ms": 11.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 19,
+          "timestamp": "2026-10-02T10:57:00.892712900+00:00",
+          "rtt_ms": 10.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 20,
+          "timestamp": "2026-10-02T10:57:01.013477+00:00",
+          "rtt_ms": 12.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 21,
+          "timestamp": "2026-10-02T10:57:01.136170500+00:00",
+          "rtt_ms": 10.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 22,
+          "timestamp": "2026-10-02T10:57:01.256269700+00:00",
+          "rtt_ms": 12.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 23,
+          "timestamp": "2026-10-02T10:57:01.380001100+00:00",
+          "rtt_ms": 13.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 24,
+          "timestamp": "2026-10-02T10:57:01.504210800+00:00",
+          "rtt_ms": 12.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 25,
+          "timestamp": "2026-10-02T10:57:01.626720100+00:00",
+          "rtt_ms": 11.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 26,
+          "timestamp": "2026-10-02T10:57:01.759224+00:00",
+          "rtt_ms": 13.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 27,
+          "timestamp": "2026-10-02T10:57:01.883897700+00:00",
+          "rtt_ms": 13.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 28,
+          "timestamp": "2026-10-02T10:57:02.007000700+00:00",
+          "rtt_ms": 12.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 29,
+          "timestamp": "2026-10-02T10:57:02.129186300+00:00",
+          "rtt_ms": 12.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 30,
+          "timestamp": "2026-10-02T10:57:02.266077700+00:00",
+          "rtt_ms": 14.0,
+          "success": true,
+          "error_msg": null
+        }
+      ],
+      "stats": {
+        "total_probes": 30,
+        "successful_probes": 30,
+        "failed_probes": 0,
+        "packet_loss_pct": 0.0,
+        "min_ms": 10.0,
+        "max_ms": 14.0,
+        "mean_ms": 11.8,
+        "median_ms": 12.0,
+        "std_dev_ms": 1.3235271579877137,
+        "rfc3550_jitter_ms": 1.2017326819766467,
+        "mapdv_jitter_ms": 1.5862068965517242
+      }
+    },
+    {
+      "destination": {
+        "name": "Google Anycast DNS",
+        "target": "8.8.8.8",
+        "purpose": "Public Anycast Internet benchmark (Google)",
+        "protocol": "ICMP",
+        "port": null
+      },
+      "timestamp": "2026-10-02T10:57:02.290275300+00:00",
+      "probes": [
+        {
+          "seq": 1,
+          "timestamp": "2026-10-02T10:57:02.290277800+00:00",
+          "rtt_ms": 23.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 2,
+          "timestamp": "2026-10-02T10:57:02.426073300+00:00",
+          "rtt_ms": 24.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 3,
+          "timestamp": "2026-10-02T10:57:02.568304200+00:00",
+          "rtt_ms": 24.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 4,
+          "timestamp": "2026-10-02T10:57:02.702357500+00:00",
+          "rtt_ms": 24.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 5,
+          "timestamp": "2026-10-02T10:57:02.837388100+00:00",
+          "rtt_ms": 25.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 6,
+          "timestamp": "2026-10-02T10:57:02.974430+00:00",
+          "rtt_ms": 23.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 7,
+          "timestamp": "2026-10-02T10:57:03.109394300+00:00",
+          "rtt_ms": 22.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 8,
+          "timestamp": "2026-10-02T10:57:03.243682200+00:00",
+          "rtt_ms": 24.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 9,
+          "timestamp": "2026-10-02T10:57:03.378332200+00:00",
+          "rtt_ms": 24.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 10,
+          "timestamp": "2026-10-02T10:57:03.512639400+00:00",
+          "rtt_ms": 25.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 11,
+          "timestamp": "2026-10-02T10:57:03.648106600+00:00",
+          "rtt_ms": 26.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 12,
+          "timestamp": "2026-10-02T10:57:03.783839200+00:00",
+          "rtt_ms": 24.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 13,
+          "timestamp": "2026-10-02T10:57:03.918586300+00:00",
+          "rtt_ms": 24.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 14,
+          "timestamp": "2026-10-02T10:57:04.052743100+00:00",
+          "rtt_ms": 24.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 15,
+          "timestamp": "2026-10-02T10:57:04.186881500+00:00",
+          "rtt_ms": 23.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 16,
+          "timestamp": "2026-10-02T10:57:04.320154200+00:00",
+          "rtt_ms": 25.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 17,
+          "timestamp": "2026-10-02T10:57:04.455029700+00:00",
+          "rtt_ms": 22.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 18,
+          "timestamp": "2026-10-02T10:57:04.588678+00:00",
+          "rtt_ms": 25.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 19,
+          "timestamp": "2026-10-02T10:57:04.723955700+00:00",
+          "rtt_ms": 24.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 20,
+          "timestamp": "2026-10-02T10:57:04.857616900+00:00",
+          "rtt_ms": 25.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 21,
+          "timestamp": "2026-10-02T10:57:04.993579600+00:00",
+          "rtt_ms": 23.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 22,
+          "timestamp": "2026-10-02T10:57:05.127892800+00:00",
+          "rtt_ms": 24.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 23,
+          "timestamp": "2026-10-02T10:57:05.261818800+00:00",
+          "rtt_ms": 23.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 24,
+          "timestamp": "2026-10-02T10:57:05.396181400+00:00",
+          "rtt_ms": 25.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 25,
+          "timestamp": "2026-10-02T10:57:05.531165300+00:00",
+          "rtt_ms": 25.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 26,
+          "timestamp": "2026-10-02T10:57:05.668937900+00:00",
+          "rtt_ms": 24.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 27,
+          "timestamp": "2026-10-02T10:57:05.804625300+00:00",
+          "rtt_ms": 22.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 28,
+          "timestamp": "2026-10-02T10:57:05.937587900+00:00",
+          "rtt_ms": 24.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 29,
+          "timestamp": "2026-10-02T10:57:06.071970900+00:00",
+          "rtt_ms": 24.0,
+          "success": true,
+          "error_msg": null
+        },
+        {
+          "seq": 30,
+          "timestamp": "2026-10-02T10:57:06.207461400+00:00",
+          "rtt_ms": 23.0,
+          "success": true,
+          "error_msg": null
+        }
+      ],
+      "stats": {
+        "total_probes": 30,
+        "successful_probes": 30,
+        "failed_probes": 0,
+        "packet_loss_pct": 0.0,
+        "min_ms": 22.0,
+        "max_ms": 26.0,
+        "mean_ms": 23.9,
+        "median_ms": 24.0,
+        "std_dev_ms": 0.9948141396330239,
+        "rfc3550_jitter_ms": 1.0291543461342234,
+        "mapdv_jitter_ms": 1.1724137931034482
+      }
+    }
+  ],
+  "route_traces": [
+    {
+      "destination": "1.1.1.1",
+      "max_hops": 30,
+      "hops": [
+        {
+          "hop": 1,
+          "rtt1_ms": 1.0,
+          "rtt2_ms": 0.5,
+          "rtt3_ms": 1.0,
+          "min_rtt_ms": 0.5,
+          "ip_or_host": "192.168.1.1",
+          "is_timeout": false,
+          "latency_delta_ms": null,
+          "significance": "Observed",
+          "commentary": "Initial observable hop."
+        },
+        {
+          "hop": 2,
+          "rtt1_ms": 11.0,
+          "rtt2_ms": 14.0,
+          "rtt3_ms": 11.0,
+          "min_rtt_ms": 11.0,
+          "ip_or_host": "223.230.16.1",
+          "is_timeout": false,
+          "latency_delta_ms": 10.5,
+          "significance": "Observed",
+          "commentary": "Normal progression (+10.5 ms delta)."
+        },
+        {
+          "hop": 3,
+          "rtt1_ms": 13.0,
+          "rtt2_ms": 10.0,
+          "rtt3_ms": 11.0,
+          "min_rtt_ms": 10.0,
+          "ip_or_host": "59.144.94.157",
+          "is_timeout": false,
+          "latency_delta_ms": -1.0,
+          "significance": "Observed",
+          "commentary": "Normal progression (-1.0 ms delta)."
+        },
+        {
+          "hop": 4,
+          "rtt1_ms": 15.0,
+          "rtt2_ms": 16.0,
+          "rtt3_ms": 12.0,
+          "min_rtt_ms": 12.0,
+          "ip_or_host": "182.79.243.234",
+          "is_timeout": false,
+          "latency_delta_ms": 2.0,
+          "significance": "Observed",
+          "commentary": "Normal progression (+2.0 ms delta)."
+        },
+        {
+          "hop": 5,
+          "rtt1_ms": 13.0,
+          "rtt2_ms": 11.0,
+          "rtt3_ms": 15.0,
+          "min_rtt_ms": 11.0,
+          "ip_or_host": "182.79.223.41",
+          "is_timeout": false,
+          "latency_delta_ms": -1.0,
+          "significance": "Observed",
+          "commentary": "Normal progression (-1.0 ms delta)."
+        },
+        {
+          "hop": 6,
+          "rtt1_ms": 12.0,
+          "rtt2_ms": 10.0,
+          "rtt3_ms": 11.0,
+          "min_rtt_ms": 10.0,
+          "ip_or_host": "1.1.1.1",
+          "is_timeout": false,
+          "latency_delta_ms": -1.0,
+          "significance": "Observed",
+          "commentary": "Normal progression (-1.0 ms delta)."
+        }
+      ],
+      "route_fingerprint": "192.168.1.1 -> 223.230.16.1 -> 59.144.94.157 -> 182.79.243.234 -> 182.79.223.41 -> 1.1.1.1",
+      "analysis_summary": "Trace to 1.1.1.1 completed (6 hops). Route progression is stable without anomalous step-changes.",
+      "timestamp": "2026-10-02T10:57:06.239774500+00:00"
+    },
+    {
+      "destination": "8.8.8.8",
+      "max_hops": 30,
+      "hops": [
+        {
+          "hop": 1,
+          "rtt1_ms": 2.0,
+          "rtt2_ms": 0.5,
+          "rtt3_ms": 0.5,
+          "min_rtt_ms": 0.5,
+          "ip_or_host": "192.168.1.1",
+          "is_timeout": false,
+          "latency_delta_ms": null,
+          "significance": "Observed",
+          "commentary": "Initial observable hop."
+        },
+        {
+          "hop": 2,
+          "rtt1_ms": 15.0,
+          "rtt2_ms": 14.0,
+          "rtt3_ms": 14.0,
+          "min_rtt_ms": 14.0,
+          "ip_or_host": "223.230.16.1",
+          "is_timeout": false,
+          "latency_delta_ms": 13.5,
+          "significance": "Observed",
+          "commentary": "Normal progression (+13.5 ms delta)."
+        },
+        {
+          "hop": 3,
+          "rtt1_ms": 16.0,
+          "rtt2_ms": 13.0,
+          "rtt3_ms": 12.0,
+          "min_rtt_ms": 12.0,
+          "ip_or_host": "59.144.94.157",
+          "is_timeout": false,
+          "latency_delta_ms": -2.0,
+          "significance": "Observed",
+          "commentary": "Normal progression (-2.0 ms delta)."
+        },
+        {
+          "hop": 4,
+          "rtt1_ms": 24.0,
+          "rtt2_ms": 22.0,
+          "rtt3_ms": 23.0,
+          "min_rtt_ms": 22.0,
+          "ip_or_host": "116.119.161.149",
+          "is_timeout": false,
+          "latency_delta_ms": 10.0,
+          "significance": "Observed",
+          "commentary": "Normal progression (+10.0 ms delta)."
+        },
+        {
+          "hop": 5,
+          "rtt1_ms": 24.0,
+          "rtt2_ms": 23.0,
+          "rtt3_ms": 22.0,
+          "min_rtt_ms": 22.0,
+          "ip_or_host": "72.14.205.196",
+          "is_timeout": false,
+          "latency_delta_ms": 0.0,
+          "significance": "Observed",
+          "commentary": "Normal progression (+0.0 ms delta)."
+        },
+        {
+          "hop": 6,
+          "rtt1_ms": 26.0,
+          "rtt2_ms": 26.0,
+          "rtt3_ms": 26.0,
+          "min_rtt_ms": 26.0,
+          "ip_or_host": "142.251.227.211",
+          "is_timeout": false,
+          "latency_delta_ms": 4.0,
+          "significance": "Observed",
+          "commentary": "Normal progression (+4.0 ms delta)."
+        },
+        {
+          "hop": 7,
+          "rtt1_ms": 92.0,
+          "rtt2_ms": 23.0,
+          "rtt3_ms": 24.0,
+          "min_rtt_ms": 23.0,
+          "ip_or_host": "142.250.228.83",
+          "is_timeout": false,
+          "latency_delta_ms": -3.0,
+          "significance": "Observed",
+          "commentary": "Normal progression (-3.0 ms delta)."
+        },
+        {
+          "hop": 8,
+          "rtt1_ms": 23.0,
+          "rtt2_ms": 22.0,
+          "rtt3_ms": 25.0,
+          "min_rtt_ms": 22.0,
+          "ip_or_host": "8.8.8.8",
+          "is_timeout": false,
+          "latency_delta_ms": -1.0,
+          "significance": "Observed",
+          "commentary": "Normal progression (-1.0 ms delta)."
+        }
+      ],
+      "route_fingerprint": "192.168.1.1 -> 223.230.16.1 -> 59.144.94.157 -> 116.119.161.149 -> 72.14.205.196 -> 142.251.227.211 -> 142.250.228.83 -> 8.8.8.8",
+      "analysis_summary": "Trace to 8.8.8.8 completed (8 hops). Route progression is stable without anomalous step-changes.",
+      "timestamp": "2026-10-02T10:57:11.446607800+00:00"
+    }
+  ],
+  "process_inventory": {
+    "detected_games": [],
+    "total_active_connections": 160,
+    "timestamp": "2026-10-02T10:57:18.938597700+00:00"
+  },
+  "game_test_summary": {
+    "game_title": "PUBG PC",
+    "process_name": "TslGame.exe",
+    "pid": null,
+    "candidate_endpoints": [],
+    "candidate_baselines": [],
+    "candidate_traces": [],
+    "observed_latency_ms": null,
+    "user_reported_latency_ms": 200.0,
+    "commentary": "PUBG PC process (TslGame.exe) was not active at the time of sampling. Test procedure documented for user invocation."
+  },
+  "findings": [
+    "Local interface Wi-Fi is active with gateway 192.168.1.1 (subnet: 192.168.1.0/24).",
+    "ISP verified as AS24560 Bharti Airtel Ltd., Telemedia Services (AS24560) in Hyderabad, Telangana, IN.",
+    "Domestic baseline latency to Cloudflare Anycast DNS (1.1.1.1) is 12.0 ms median (min: 10.0 ms, max: 14.0 ms, jitter: 1.20 ms, packet loss: 0.0%).",
+    "Domestic baseline latency to Google Anycast DNS (8.8.8.8) is 24.0 ms median (min: 22.0 ms, max: 26.0 ms, jitter: 1.03 ms, packet loss: 0.0%).",
+    "Domestic first-mile and ISP gateway latency is low (10-15 ms to Indian edge destinations), confirming that the user's local fiber connection is operational and healthy."
+  ],
+  "hypotheses": [
+    "The user-reported ~200 ms latency in PUBG PC is not caused by first-mile Wi-Fi/local ISP gateway degradation (which operates at 10-12 ms), but likely originates from international transit routing, inter-continental submarine cable paths, or matchmaking to geographically distant server regions (e.g., Frankfurt/Europe ~140-160 ms, North America ~220-250 ms, or East Asia via sub-optimal peering).",
+    "PUBG PC's matchmaking coordinator may be assigning matches to Singapore (expected ~40-60 ms), Tokyo (~110-130 ms), Seoul (~120-140 ms), or Frankfurt (~150-180 ms). If Singapore is not available or matchmaking pools players globally, latency naturally escalates to 180-220 ms."
+  ],
+  "unknowns": [
+    "Specific PUBG PC server IP pool currently selected by the game client during active live gameplay cannot be confirmed until an active match session is sampled via `rift-baseline game-test` while playing.",
+    "Whether PUBG PC matchmaking uses AWS, Azure, Tencent Cloud, or custom dedicated server hosts for Indian subcontinent players in 2026."
+  ],
+  "recommendations": [
+    "Execute `rift-baseline game-test` during an active PUBG PC live match to capture the exact game server IP and port non-invasively.",
+    "Phase 1 should build the automated Network Measurement Engine to track real-time route health to candidate gaming regions (Singapore, Mumbai, Frankfurt, Tokyo, Seoul)."
+  ]
+}
