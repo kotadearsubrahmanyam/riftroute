@@ -9,6 +9,9 @@ use rift_baseline::connectivity::ConnectivityTester;
 use rift_baseline::endpoint_analyzer::report::ReportRenderer;
 use rift_baseline::endpoint_analyzer::EndpointAnalyzer;
 use rift_baseline::game_test::GameTester;
+use rift_baseline::monitoring::models::DegradationThresholds;
+use rift_baseline::monitoring::report::MonitoringReportRenderer;
+use rift_baseline::monitoring::MonitoringManager;
 use rift_baseline::process::ProcessManager;
 use rift_baseline::report::{BaselineSession, ReportGenerator};
 use rift_baseline::route::RouteAnalyzer;
@@ -106,6 +109,102 @@ enum CandidateSubcommands {
 
         #[arg(short, long, help = "Auto-save diversity report to reports/phase2/")]
         save: bool,
+    },
+}
+
+#[derive(Subcommand)]
+enum MonitorSubcommands {
+    #[command(about = "Execute a paced route performance monitoring session on a target")]
+    Run {
+        #[arg(help = "Monitoring target (IP address, hostname, candidate ID, or JSON file)")]
+        target: String,
+
+        #[arg(short = 'i', long, default_value_t = 30, help = "Interval between probe cycles in seconds")]
+        interval_seconds: u64,
+
+        #[arg(short = 'n', long, help = "Optional sample limit for bounded monitoring session (e.g. 10)")]
+        samples: Option<usize>,
+
+        #[arg(long, default_value_t = 5, help = "Minimum samples required to establish performance baseline")]
+        baseline_samples: usize,
+
+        #[arg(long, default_value_t = 30.0, help = "Relative latency degradation threshold percentage")]
+        latency_rel_pct: f64,
+
+        #[arg(long, default_value_t = 20.0, help = "Absolute latency degradation threshold in milliseconds")]
+        latency_abs_ms: f64,
+
+        #[arg(long, default_value_t = 100.0, help = "Relative jitter degradation threshold percentage")]
+        jitter_rel_pct: f64,
+
+        #[arg(long, default_value_t = 5.0, help = "Absolute jitter degradation threshold in milliseconds")]
+        jitter_abs_ms: f64,
+
+        #[arg(long, default_value_t = 3, help = "Consecutive samples required to confirm degradation")]
+        confirmation_samples: usize,
+
+        #[arg(long, default_value_t = 3, help = "Consecutive samples required to confirm recovery")]
+        recovery_samples: usize,
+
+        #[arg(short = 'm', long, default_value_t = 30, help = "Maximum hops to trace (1-64)")]
+        max_hops: u8,
+
+        #[arg(short = 'w', long, default_value_t = 2000, help = "Per-probe timeout in milliseconds")]
+        timeout_ms: u64,
+
+        #[arg(long, help = "Resolve IP addresses to hostnames")]
+        resolve: bool,
+
+        #[arg(short, long, help = "Auto-save session JSON to data/monitoring/sessions/")]
+        save: bool,
+
+        #[arg(short, long, help = "Optional path to save report output (text or JSON)")]
+        output: Option<String>,
+
+        #[arg(long, default_value_t = 120, help = "Process execution safety timeout in seconds")]
+        timeout_secs: u64,
+    },
+
+    #[command(about = "Single-shot deterministic offline analysis of pre-recorded snapshots or session")]
+    Analyze {
+        #[arg(help = "Path to snapshots JSON, directory of snapshots, or session JSON")]
+        input: String,
+
+        #[arg(long, help = "Optional target IP or name to associate with the analysis")]
+        target: Option<String>,
+
+        #[arg(long, default_value_t = 5, help = "Minimum samples required to establish performance baseline")]
+        baseline_samples: usize,
+
+        #[arg(long, default_value_t = 30.0, help = "Relative latency degradation threshold percentage")]
+        latency_rel_pct: f64,
+
+        #[arg(long, default_value_t = 20.0, help = "Absolute latency degradation threshold in milliseconds")]
+        latency_abs_ms: f64,
+
+        #[arg(long, default_value_t = 3, help = "Consecutive samples required to confirm degradation")]
+        confirmation_samples: usize,
+
+        #[arg(long, default_value_t = 3, help = "Consecutive samples required to confirm recovery")]
+        recovery_samples: usize,
+
+        #[arg(short, long, help = "Auto-save analyzed session to data/monitoring/sessions/")]
+        save: bool,
+
+        #[arg(short, long, help = "Optional path to save analysis output")]
+        output: Option<String>,
+    },
+
+    #[command(about = "Inspect or register a monitoring target definition")]
+    Target {
+        #[arg(help = "Target IP address, hostname, or candidate ID")]
+        target: String,
+
+        #[arg(short, long, help = "Auto-save target JSON to data/monitoring/targets/")]
+        save: bool,
+
+        #[arg(short, long, help = "Optional path to save target output")]
+        output: Option<String>,
     },
 }
 
@@ -208,6 +307,12 @@ enum Commands {
 
         #[arg(short, long, help = "Optional path to save report output")]
         output: Option<String>,
+    },
+
+    #[command(about = "Dynamic route performance monitoring and path degrade detection")]
+    Monitor {
+        #[command(subcommand)]
+        subcommand: MonitorSubcommands,
     },
 }
 
@@ -854,6 +959,261 @@ fn main() {
             }
 
             println!("{}", rendered);
+        }
+
+        Commands::Monitor { subcommand } => {
+            match subcommand {
+                MonitorSubcommands::Run {
+                    target,
+                    interval_seconds,
+                    samples,
+                    baseline_samples,
+                    latency_rel_pct,
+                    latency_abs_ms,
+                    jitter_rel_pct,
+                    jitter_abs_ms,
+                    confirmation_samples,
+                    recovery_samples,
+                    max_hops,
+                    timeout_ms,
+                    resolve,
+                    save,
+                    output,
+                    timeout_secs,
+                } => {
+                    let mon_target = MonitoringManager::resolve_target(&target)
+                        .unwrap_or_else(|e| {
+                            eprintln!("[ERROR] Failed to resolve monitoring target '{}': {}", target, e);
+                            exit(1);
+                        });
+
+                    let thresholds = DegradationThresholds {
+                        baseline_sample_count: baseline_samples,
+                        rolling_window_size: 20,
+                        latency_relative_pct: latency_rel_pct,
+                        latency_absolute_delta_ms: latency_abs_ms,
+                        p95_relative_pct: 40.0,
+                        jitter_relative_pct: jitter_rel_pct,
+                        jitter_absolute_delta_ms: jitter_abs_ms,
+                        detect_route_change: true,
+                        stability_transition_rate_threshold_pct: 50.0,
+                        confirmation_samples,
+                        recovery_samples,
+                        critical_latency_relative_pct: 100.0,
+                        critical_latency_absolute_delta_ms: 60.0,
+                    };
+
+                    if !cli.json {
+                        println!(
+                            "=== STARTING ROUTE MONITORING: {} (interval: {}s, limit: {:?}) ===",
+                            mon_target.destination, interval_seconds, samples
+                        );
+                    }
+
+                    let session = MonitoringManager::run_monitoring(
+                        mon_target,
+                        interval_seconds,
+                        samples,
+                        thresholds,
+                        max_hops,
+                        timeout_ms,
+                        resolve,
+                        timeout_secs,
+                        None,
+                    )
+                    .unwrap_or_else(|e| {
+                        eprintln!("[ERROR] Monitoring session failed: {}", e);
+                        exit(1);
+                    });
+
+                    if save {
+                        match MonitoringManager::save_session(&session, "data/monitoring/sessions") {
+                            Ok(p) => {
+                                if !cli.json {
+                                    println!("[SAVED] Monitoring session saved to: {}", p.display());
+                                }
+                            }
+                            Err(e) => eprintln!("[ERROR] Failed to save monitoring session: {}", e),
+                        }
+
+                        if !session.events.is_empty() {
+                            match MonitoringReportRenderer::save_events(
+                                &session.session_id,
+                                &session.events,
+                                "data/monitoring/events",
+                            ) {
+                                Ok(p) => {
+                                    if !cli.json {
+                                        println!("[SAVED] Degradation events saved to: {}", p.display());
+                                    }
+                                }
+                                Err(e) => eprintln!("[ERROR] Failed to save events: {}", e),
+                            }
+                        }
+                    }
+
+                    let rendered = if cli.json {
+                        match MonitoringReportRenderer::format_session_json(&session) {
+                            Ok(j) => j,
+                            Err(e) => {
+                                eprintln!("[ERROR] Failed to serialize session JSON: {}", e);
+                                exit(1);
+                            }
+                        }
+                    } else {
+                        MonitoringReportRenderer::format_session_text(&session)
+                    };
+
+                    if let Some(ref out_path) = output {
+                        if let Err(e) = std::fs::write(out_path, &rendered) {
+                            eprintln!("[ERROR] Failed to write report to '{}': {}", out_path, e);
+                            exit(1);
+                        }
+                        if !cli.json {
+                            println!("[SAVED] Output report saved to: {}", out_path);
+                        }
+                    }
+
+                    println!("{}", rendered);
+                }
+
+                MonitorSubcommands::Analyze {
+                    input,
+                    target,
+                    baseline_samples,
+                    latency_rel_pct,
+                    latency_abs_ms,
+                    confirmation_samples,
+                    recovery_samples,
+                    save,
+                    output,
+                } => {
+                    let target_str = target.as_deref().unwrap_or("20.205.179.128");
+                    let mon_target = MonitoringManager::resolve_target(target_str)
+                        .unwrap_or_else(|e| {
+                            eprintln!("[ERROR] Failed to resolve target: {}", e);
+                            exit(1);
+                        });
+
+                    let thresholds = DegradationThresholds {
+                        baseline_sample_count: baseline_samples,
+                        rolling_window_size: 20,
+                        latency_relative_pct: latency_rel_pct,
+                        latency_absolute_delta_ms: latency_abs_ms,
+                        p95_relative_pct: 40.0,
+                        jitter_relative_pct: 100.0,
+                        jitter_absolute_delta_ms: 5.0,
+                        detect_route_change: true,
+                        stability_transition_rate_threshold_pct: 50.0,
+                        confirmation_samples,
+                        recovery_samples,
+                        critical_latency_relative_pct: 100.0,
+                        critical_latency_absolute_delta_ms: 60.0,
+                    };
+
+                    let session = MonitoringManager::replay_snapshots_from_path(
+                        mon_target,
+                        &input,
+                        30,
+                        thresholds,
+                    )
+                    .unwrap_or_else(|e| {
+                        eprintln!("[ERROR] Offline analysis failed: {}", e);
+                        exit(1);
+                    });
+
+                    if save {
+                        match MonitoringManager::save_session(&session, "data/monitoring/sessions") {
+                            Ok(p) => {
+                                if !cli.json {
+                                    println!("[SAVED] Analyzed session saved to: {}", p.display());
+                                }
+                            }
+                            Err(e) => eprintln!("[ERROR] Failed to save session: {}", e),
+                        }
+
+                        if !session.events.is_empty() {
+                            match MonitoringReportRenderer::save_events(
+                                &session.session_id,
+                                &session.events,
+                                "data/monitoring/events",
+                            ) {
+                                Ok(p) => {
+                                    if !cli.json {
+                                        println!("[SAVED] Degradation events saved to: {}", p.display());
+                                    }
+                                }
+                                Err(e) => eprintln!("[ERROR] Failed to save events: {}", e),
+                            }
+                        }
+                    }
+
+                    let rendered = if cli.json {
+                        match MonitoringReportRenderer::format_session_json(&session) {
+                            Ok(j) => j,
+                            Err(e) => {
+                                eprintln!("[ERROR] Failed to serialize session JSON: {}", e);
+                                exit(1);
+                            }
+                        }
+                    } else {
+                        MonitoringReportRenderer::format_session_text(&session)
+                    };
+
+                    if let Some(ref out_path) = output {
+                        if let Err(e) = std::fs::write(out_path, &rendered) {
+                            eprintln!("[ERROR] Failed to write analysis report to '{}': {}", out_path, e);
+                            exit(1);
+                        }
+                        if !cli.json {
+                            println!("[SAVED] Output report saved to: {}", out_path);
+                        }
+                    }
+
+                    println!("{}", rendered);
+                }
+
+                MonitorSubcommands::Target {
+                    target,
+                    save,
+                    output,
+                } => {
+                    let mon_target = MonitoringManager::resolve_target(&target)
+                        .unwrap_or_else(|e| {
+                            eprintln!("[ERROR] Failed to resolve target: {}", e);
+                            exit(1);
+                        });
+
+                    if save {
+                        match MonitoringManager::save_target(&mon_target, "data/monitoring/targets") {
+                            Ok(p) => {
+                                if !cli.json {
+                                    println!("[SAVED] Monitoring target saved to: {}", p.display());
+                                }
+                            }
+                            Err(e) => eprintln!("[ERROR] Failed to save target: {}", e),
+                        }
+                    }
+
+                    let rendered = if cli.json {
+                        serde_json::to_string_pretty(&mon_target).unwrap()
+                    } else {
+                        format!(
+                            "Target ID:      {}\nDestination:    {}\nPort:           {:?}\nProtocol:       {}\nService:        {}\nEvidence:       {:?}\nNotes:          {}\n",
+                            mon_target.target_id, mon_target.destination, mon_target.target_port, mon_target.protocol, mon_target.service_name, mon_target.evidence_level, mon_target.notes
+                        )
+                    };
+
+                    if let Some(ref out_path) = output {
+                        if let Err(e) = std::fs::write(out_path, &rendered) {
+                            eprintln!("[ERROR] Failed to write target to '{}': {}", out_path, e);
+                            exit(1);
+                        }
+                    }
+
+                    println!("{}", rendered);
+                }
+            }
         }
     }
 }

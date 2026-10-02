@@ -1,0 +1,47 @@
+================================================================================
+                     RIFTROUTE ROUTE MONITORING REPORT                          
+================================================================================
+Session ID:              session_target_20_205_179_128_27528_20261002_132846
+Target ID:               target_20_205_179_128_27528
+Endpoint:                20.205.179.128:27528
+Service:                 Manual Target
+Evidence Level:          DirectlyObserved
+Sample Interval:         5s
+Total Samples:           5
+Session Window:          2026-10-02T13:28:46.700788900+00:00 -> 2026-10-02T13:31:45.951977800+00:00
+Current Health State:    Normal
+
+ESTABLISHED PERFORMANCE BASELINE:
+--------------------------------------------------------------------------------
+Baseline ID:             base_target_20_205_179_128_27528_20261002133145
+Method:                  RollingWindow(20)
+Samples in Baseline:     5
+Median Probe RTT:        60.00 ms
+p95 Probe RTT:           61.60 ms
+p99 Probe RTT:           61.92 ms
+Min / Max Probe RTT:     59.00 ms / 62.00 ms
+Std Deviation:           1.10 ms
+MAPDV Probe Jitter:      2.00 ms
+Dominant Fingerprint:    4AB544DACC7D8A11 (100.0%)
+Route Transition Rate:   0.0%
+Hop Count (Median):      15
+Contamination Shield:    ACTIVE (Rolling adaptation)
+
+LATEST OBSERVED METRICS:
+--------------------------------------------------------------------------------
+Timestamp:               2026-10-02T13:31:09.930985+00:00
+Final Hop Probe RTT:     59.00 ms
+Probe Jitter:            1.50 ms
+Route Fingerprint:       4AB544DACC7D8A11
+Hop Count:               15 (Responding: 7, Drop: 8)
+Deviation from Baseline: -1.00 ms (-1.7%)
+
+AUDITED DEGRADATION & LIFECYCLE EVENTS:
+--------------------------------------------------------------------------------
+  No degradation events triggered. Network path operating within baseline parameters.
+--------------------------------------------------------------------------------
+SUMMARY: Degradations Detected: 0 | Recoveries: 0 | Failures: 0
+
+SCIENTIFIC DISCLAIMER:
+Traceroute RTT reflects ICMP control-plane generation latency, not in-game UDP gameplay latency. Route degradation events indicate empirical path variation and do not modify network routing.
+================================================================================

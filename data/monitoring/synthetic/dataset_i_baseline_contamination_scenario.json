@@ -1,0 +1,3242 @@
+[
+  {
+    "measurement_id": "meas_synthetic_FP_A_0001",
+    "timestamp_utc": "2026-10-02T12:01:00Z",
+    "destination": "20.205.179.128",
+    "destination_ip": "20.205.179.128",
+    "destination_port": 27528,
+    "probe_method": "tracert",
+    "resolve_hostnames": false,
+    "active_interface": "Ethernet",
+    "source_ipv4": "192.168.1.50",
+    "default_gateway": "192.168.1.1",
+    "hop_count": 10,
+    "responding_hops": 10,
+    "timeout_hops": 0,
+    "hops": [
+      {
+        "hop_number": 1,
+        "addresses": [
+          "192.168.1.1"
+        ],
+        "primary_address": "192.168.1.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          1.0,
+          1.2,
+          1.1
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 1.0,
+          "median_ms": 1.1,
+          "mean_ms": 1.1,
+          "p95_ms": 1.2,
+          "p99_ms": 1.2,
+          "max_ms": 1.2,
+          "std_dev_ms": 0.1,
+          "jitter_ms": 0.1
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 2,
+        "addresses": [
+          "10.0.2.1"
+        ],
+        "primary_address": "10.0.2.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          24.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 3,
+        "addresses": [
+          "10.0.3.1"
+        ],
+        "primary_address": "10.0.3.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          26.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 4,
+        "addresses": [
+          "10.0.4.1"
+        ],
+        "primary_address": "10.0.4.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          28.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 5,
+        "addresses": [
+          "10.0.5.1"
+        ],
+        "primary_address": "10.0.5.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          30.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 6,
+        "addresses": [
+          "10.0.6.1"
+        ],
+        "primary_address": "10.0.6.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          32.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 7,
+        "addresses": [
+          "10.0.7.1"
+        ],
+        "primary_address": "10.0.7.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          34.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 8,
+        "addresses": [
+          "10.0.8.1"
+        ],
+        "primary_address": "10.0.8.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          36.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 9,
+        "addresses": [
+          "10.0.9.1"
+        ],
+        "primary_address": "10.0.9.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          38.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 10,
+        "addresses": [
+          "20.205.179.128"
+        ],
+        "primary_address": "20.205.179.128",
+        "hostname": null,
+        "rtt_samples_ms": [
+          59.0,
+          61.0,
+          60.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 59.0,
+          "median_ms": 60.0,
+          "mean_ms": 60.0,
+          "p95_ms": 61.0,
+          "p99_ms": 61.0,
+          "max_ms": 61.0,
+          "std_dev_ms": 1.0,
+          "jitter_ms": 1.0
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      }
+    ],
+    "fingerprint": "FP_A",
+    "fingerprint_sha256": "FP_A000000000000000000000000000000000000000000000000000000000000",
+    "canonical_path": "1:192.168.1.1->...->10:20.205.179.128",
+    "measurement_duration_ms": 450,
+    "scientific_disclaimer": "SYNTHETIC_TEST_DISCLAIMER"
+  },
+  {
+    "measurement_id": "meas_synthetic_FP_A_0002",
+    "timestamp_utc": "2026-10-02T12:02:00Z",
+    "destination": "20.205.179.128",
+    "destination_ip": "20.205.179.128",
+    "destination_port": 27528,
+    "probe_method": "tracert",
+    "resolve_hostnames": false,
+    "active_interface": "Ethernet",
+    "source_ipv4": "192.168.1.50",
+    "default_gateway": "192.168.1.1",
+    "hop_count": 10,
+    "responding_hops": 10,
+    "timeout_hops": 0,
+    "hops": [
+      {
+        "hop_number": 1,
+        "addresses": [
+          "192.168.1.1"
+        ],
+        "primary_address": "192.168.1.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          1.0,
+          1.2,
+          1.1
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 1.0,
+          "median_ms": 1.1,
+          "mean_ms": 1.1,
+          "p95_ms": 1.2,
+          "p99_ms": 1.2,
+          "max_ms": 1.2,
+          "std_dev_ms": 0.1,
+          "jitter_ms": 0.1
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 2,
+        "addresses": [
+          "10.0.2.1"
+        ],
+        "primary_address": "10.0.2.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          24.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 3,
+        "addresses": [
+          "10.0.3.1"
+        ],
+        "primary_address": "10.0.3.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          26.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 4,
+        "addresses": [
+          "10.0.4.1"
+        ],
+        "primary_address": "10.0.4.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          28.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 5,
+        "addresses": [
+          "10.0.5.1"
+        ],
+        "primary_address": "10.0.5.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          30.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 6,
+        "addresses": [
+          "10.0.6.1"
+        ],
+        "primary_address": "10.0.6.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          32.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 7,
+        "addresses": [
+          "10.0.7.1"
+        ],
+        "primary_address": "10.0.7.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          34.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 8,
+        "addresses": [
+          "10.0.8.1"
+        ],
+        "primary_address": "10.0.8.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          36.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 9,
+        "addresses": [
+          "10.0.9.1"
+        ],
+        "primary_address": "10.0.9.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          38.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 10,
+        "addresses": [
+          "20.205.179.128"
+        ],
+        "primary_address": "20.205.179.128",
+        "hostname": null,
+        "rtt_samples_ms": [
+          59.0,
+          61.0,
+          60.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 59.0,
+          "median_ms": 60.0,
+          "mean_ms": 60.0,
+          "p95_ms": 61.0,
+          "p99_ms": 61.0,
+          "max_ms": 61.0,
+          "std_dev_ms": 1.0,
+          "jitter_ms": 1.0
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      }
+    ],
+    "fingerprint": "FP_A",
+    "fingerprint_sha256": "FP_A000000000000000000000000000000000000000000000000000000000000",
+    "canonical_path": "1:192.168.1.1->...->10:20.205.179.128",
+    "measurement_duration_ms": 450,
+    "scientific_disclaimer": "SYNTHETIC_TEST_DISCLAIMER"
+  },
+  {
+    "measurement_id": "meas_synthetic_FP_A_0003",
+    "timestamp_utc": "2026-10-02T12:03:00Z",
+    "destination": "20.205.179.128",
+    "destination_ip": "20.205.179.128",
+    "destination_port": 27528,
+    "probe_method": "tracert",
+    "resolve_hostnames": false,
+    "active_interface": "Ethernet",
+    "source_ipv4": "192.168.1.50",
+    "default_gateway": "192.168.1.1",
+    "hop_count": 10,
+    "responding_hops": 10,
+    "timeout_hops": 0,
+    "hops": [
+      {
+        "hop_number": 1,
+        "addresses": [
+          "192.168.1.1"
+        ],
+        "primary_address": "192.168.1.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          1.0,
+          1.2,
+          1.1
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 1.0,
+          "median_ms": 1.1,
+          "mean_ms": 1.1,
+          "p95_ms": 1.2,
+          "p99_ms": 1.2,
+          "max_ms": 1.2,
+          "std_dev_ms": 0.1,
+          "jitter_ms": 0.1
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 2,
+        "addresses": [
+          "10.0.2.1"
+        ],
+        "primary_address": "10.0.2.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          24.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 3,
+        "addresses": [
+          "10.0.3.1"
+        ],
+        "primary_address": "10.0.3.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          26.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 4,
+        "addresses": [
+          "10.0.4.1"
+        ],
+        "primary_address": "10.0.4.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          28.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 5,
+        "addresses": [
+          "10.0.5.1"
+        ],
+        "primary_address": "10.0.5.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          30.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 6,
+        "addresses": [
+          "10.0.6.1"
+        ],
+        "primary_address": "10.0.6.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          32.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 7,
+        "addresses": [
+          "10.0.7.1"
+        ],
+        "primary_address": "10.0.7.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          34.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 8,
+        "addresses": [
+          "10.0.8.1"
+        ],
+        "primary_address": "10.0.8.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          36.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 9,
+        "addresses": [
+          "10.0.9.1"
+        ],
+        "primary_address": "10.0.9.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          38.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 10,
+        "addresses": [
+          "20.205.179.128"
+        ],
+        "primary_address": "20.205.179.128",
+        "hostname": null,
+        "rtt_samples_ms": [
+          59.0,
+          61.0,
+          60.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 59.0,
+          "median_ms": 60.0,
+          "mean_ms": 60.0,
+          "p95_ms": 61.0,
+          "p99_ms": 61.0,
+          "max_ms": 61.0,
+          "std_dev_ms": 1.0,
+          "jitter_ms": 1.0
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      }
+    ],
+    "fingerprint": "FP_A",
+    "fingerprint_sha256": "FP_A000000000000000000000000000000000000000000000000000000000000",
+    "canonical_path": "1:192.168.1.1->...->10:20.205.179.128",
+    "measurement_duration_ms": 450,
+    "scientific_disclaimer": "SYNTHETIC_TEST_DISCLAIMER"
+  },
+  {
+    "measurement_id": "meas_synthetic_FP_A_0004",
+    "timestamp_utc": "2026-10-02T12:04:00Z",
+    "destination": "20.205.179.128",
+    "destination_ip": "20.205.179.128",
+    "destination_port": 27528,
+    "probe_method": "tracert",
+    "resolve_hostnames": false,
+    "active_interface": "Ethernet",
+    "source_ipv4": "192.168.1.50",
+    "default_gateway": "192.168.1.1",
+    "hop_count": 10,
+    "responding_hops": 10,
+    "timeout_hops": 0,
+    "hops": [
+      {
+        "hop_number": 1,
+        "addresses": [
+          "192.168.1.1"
+        ],
+        "primary_address": "192.168.1.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          1.0,
+          1.2,
+          1.1
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 1.0,
+          "median_ms": 1.1,
+          "mean_ms": 1.1,
+          "p95_ms": 1.2,
+          "p99_ms": 1.2,
+          "max_ms": 1.2,
+          "std_dev_ms": 0.1,
+          "jitter_ms": 0.1
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 2,
+        "addresses": [
+          "10.0.2.1"
+        ],
+        "primary_address": "10.0.2.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          24.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 3,
+        "addresses": [
+          "10.0.3.1"
+        ],
+        "primary_address": "10.0.3.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          26.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 4,
+        "addresses": [
+          "10.0.4.1"
+        ],
+        "primary_address": "10.0.4.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          28.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 5,
+        "addresses": [
+          "10.0.5.1"
+        ],
+        "primary_address": "10.0.5.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          30.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 6,
+        "addresses": [
+          "10.0.6.1"
+        ],
+        "primary_address": "10.0.6.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          32.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 7,
+        "addresses": [
+          "10.0.7.1"
+        ],
+        "primary_address": "10.0.7.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          34.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 8,
+        "addresses": [
+          "10.0.8.1"
+        ],
+        "primary_address": "10.0.8.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          36.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 9,
+        "addresses": [
+          "10.0.9.1"
+        ],
+        "primary_address": "10.0.9.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          38.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 10,
+        "addresses": [
+          "20.205.179.128"
+        ],
+        "primary_address": "20.205.179.128",
+        "hostname": null,
+        "rtt_samples_ms": [
+          59.0,
+          61.0,
+          60.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 59.0,
+          "median_ms": 60.0,
+          "mean_ms": 60.0,
+          "p95_ms": 61.0,
+          "p99_ms": 61.0,
+          "max_ms": 61.0,
+          "std_dev_ms": 1.0,
+          "jitter_ms": 1.0
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      }
+    ],
+    "fingerprint": "FP_A",
+    "fingerprint_sha256": "FP_A000000000000000000000000000000000000000000000000000000000000",
+    "canonical_path": "1:192.168.1.1->...->10:20.205.179.128",
+    "measurement_duration_ms": 450,
+    "scientific_disclaimer": "SYNTHETIC_TEST_DISCLAIMER"
+  },
+  {
+    "measurement_id": "meas_synthetic_FP_A_0005",
+    "timestamp_utc": "2026-10-02T12:05:00Z",
+    "destination": "20.205.179.128",
+    "destination_ip": "20.205.179.128",
+    "destination_port": 27528,
+    "probe_method": "tracert",
+    "resolve_hostnames": false,
+    "active_interface": "Ethernet",
+    "source_ipv4": "192.168.1.50",
+    "default_gateway": "192.168.1.1",
+    "hop_count": 10,
+    "responding_hops": 10,
+    "timeout_hops": 0,
+    "hops": [
+      {
+        "hop_number": 1,
+        "addresses": [
+          "192.168.1.1"
+        ],
+        "primary_address": "192.168.1.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          1.0,
+          1.2,
+          1.1
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 1.0,
+          "median_ms": 1.1,
+          "mean_ms": 1.1,
+          "p95_ms": 1.2,
+          "p99_ms": 1.2,
+          "max_ms": 1.2,
+          "std_dev_ms": 0.1,
+          "jitter_ms": 0.1
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 2,
+        "addresses": [
+          "10.0.2.1"
+        ],
+        "primary_address": "10.0.2.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          24.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 3,
+        "addresses": [
+          "10.0.3.1"
+        ],
+        "primary_address": "10.0.3.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          26.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 4,
+        "addresses": [
+          "10.0.4.1"
+        ],
+        "primary_address": "10.0.4.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          28.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 5,
+        "addresses": [
+          "10.0.5.1"
+        ],
+        "primary_address": "10.0.5.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          30.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 6,
+        "addresses": [
+          "10.0.6.1"
+        ],
+        "primary_address": "10.0.6.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          32.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 7,
+        "addresses": [
+          "10.0.7.1"
+        ],
+        "primary_address": "10.0.7.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          34.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 8,
+        "addresses": [
+          "10.0.8.1"
+        ],
+        "primary_address": "10.0.8.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          36.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 9,
+        "addresses": [
+          "10.0.9.1"
+        ],
+        "primary_address": "10.0.9.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          38.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 10,
+        "addresses": [
+          "20.205.179.128"
+        ],
+        "primary_address": "20.205.179.128",
+        "hostname": null,
+        "rtt_samples_ms": [
+          59.0,
+          61.0,
+          60.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 59.0,
+          "median_ms": 60.0,
+          "mean_ms": 60.0,
+          "p95_ms": 61.0,
+          "p99_ms": 61.0,
+          "max_ms": 61.0,
+          "std_dev_ms": 1.0,
+          "jitter_ms": 1.0
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      }
+    ],
+    "fingerprint": "FP_A",
+    "fingerprint_sha256": "FP_A000000000000000000000000000000000000000000000000000000000000",
+    "canonical_path": "1:192.168.1.1->...->10:20.205.179.128",
+    "measurement_duration_ms": 450,
+    "scientific_disclaimer": "SYNTHETIC_TEST_DISCLAIMER"
+  },
+  {
+    "measurement_id": "meas_synthetic_FP_A_0006",
+    "timestamp_utc": "2026-10-02T12:06:00Z",
+    "destination": "20.205.179.128",
+    "destination_ip": "20.205.179.128",
+    "destination_port": 27528,
+    "probe_method": "tracert",
+    "resolve_hostnames": false,
+    "active_interface": "Ethernet",
+    "source_ipv4": "192.168.1.50",
+    "default_gateway": "192.168.1.1",
+    "hop_count": 10,
+    "responding_hops": 10,
+    "timeout_hops": 0,
+    "hops": [
+      {
+        "hop_number": 1,
+        "addresses": [
+          "192.168.1.1"
+        ],
+        "primary_address": "192.168.1.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          1.0,
+          1.2,
+          1.1
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 1.0,
+          "median_ms": 1.1,
+          "mean_ms": 1.1,
+          "p95_ms": 1.2,
+          "p99_ms": 1.2,
+          "max_ms": 1.2,
+          "std_dev_ms": 0.1,
+          "jitter_ms": 0.1
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 2,
+        "addresses": [
+          "10.0.2.1"
+        ],
+        "primary_address": "10.0.2.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          24.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 3,
+        "addresses": [
+          "10.0.3.1"
+        ],
+        "primary_address": "10.0.3.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          26.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 4,
+        "addresses": [
+          "10.0.4.1"
+        ],
+        "primary_address": "10.0.4.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          28.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 5,
+        "addresses": [
+          "10.0.5.1"
+        ],
+        "primary_address": "10.0.5.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          30.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 6,
+        "addresses": [
+          "10.0.6.1"
+        ],
+        "primary_address": "10.0.6.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          32.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 7,
+        "addresses": [
+          "10.0.7.1"
+        ],
+        "primary_address": "10.0.7.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          34.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 8,
+        "addresses": [
+          "10.0.8.1"
+        ],
+        "primary_address": "10.0.8.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          36.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 9,
+        "addresses": [
+          "10.0.9.1"
+        ],
+        "primary_address": "10.0.9.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          38.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 10,
+        "addresses": [
+          "20.205.179.128"
+        ],
+        "primary_address": "20.205.179.128",
+        "hostname": null,
+        "rtt_samples_ms": [
+          119.0,
+          121.0,
+          120.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 119.0,
+          "median_ms": 120.0,
+          "mean_ms": 120.0,
+          "p95_ms": 121.0,
+          "p99_ms": 121.0,
+          "max_ms": 121.0,
+          "std_dev_ms": 1.0,
+          "jitter_ms": 1.0
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      }
+    ],
+    "fingerprint": "FP_A",
+    "fingerprint_sha256": "FP_A000000000000000000000000000000000000000000000000000000000000",
+    "canonical_path": "1:192.168.1.1->...->10:20.205.179.128",
+    "measurement_duration_ms": 450,
+    "scientific_disclaimer": "SYNTHETIC_TEST_DISCLAIMER"
+  },
+  {
+    "measurement_id": "meas_synthetic_FP_A_0007",
+    "timestamp_utc": "2026-10-02T12:07:00Z",
+    "destination": "20.205.179.128",
+    "destination_ip": "20.205.179.128",
+    "destination_port": 27528,
+    "probe_method": "tracert",
+    "resolve_hostnames": false,
+    "active_interface": "Ethernet",
+    "source_ipv4": "192.168.1.50",
+    "default_gateway": "192.168.1.1",
+    "hop_count": 10,
+    "responding_hops": 10,
+    "timeout_hops": 0,
+    "hops": [
+      {
+        "hop_number": 1,
+        "addresses": [
+          "192.168.1.1"
+        ],
+        "primary_address": "192.168.1.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          1.0,
+          1.2,
+          1.1
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 1.0,
+          "median_ms": 1.1,
+          "mean_ms": 1.1,
+          "p95_ms": 1.2,
+          "p99_ms": 1.2,
+          "max_ms": 1.2,
+          "std_dev_ms": 0.1,
+          "jitter_ms": 0.1
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 2,
+        "addresses": [
+          "10.0.2.1"
+        ],
+        "primary_address": "10.0.2.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          24.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 3,
+        "addresses": [
+          "10.0.3.1"
+        ],
+        "primary_address": "10.0.3.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          26.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 4,
+        "addresses": [
+          "10.0.4.1"
+        ],
+        "primary_address": "10.0.4.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          28.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 5,
+        "addresses": [
+          "10.0.5.1"
+        ],
+        "primary_address": "10.0.5.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          30.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 6,
+        "addresses": [
+          "10.0.6.1"
+        ],
+        "primary_address": "10.0.6.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          32.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 7,
+        "addresses": [
+          "10.0.7.1"
+        ],
+        "primary_address": "10.0.7.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          34.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 8,
+        "addresses": [
+          "10.0.8.1"
+        ],
+        "primary_address": "10.0.8.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          36.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 9,
+        "addresses": [
+          "10.0.9.1"
+        ],
+        "primary_address": "10.0.9.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          38.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 10,
+        "addresses": [
+          "20.205.179.128"
+        ],
+        "primary_address": "20.205.179.128",
+        "hostname": null,
+        "rtt_samples_ms": [
+          119.0,
+          121.0,
+          120.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 119.0,
+          "median_ms": 120.0,
+          "mean_ms": 120.0,
+          "p95_ms": 121.0,
+          "p99_ms": 121.0,
+          "max_ms": 121.0,
+          "std_dev_ms": 1.0,
+          "jitter_ms": 1.0
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      }
+    ],
+    "fingerprint": "FP_A",
+    "fingerprint_sha256": "FP_A000000000000000000000000000000000000000000000000000000000000",
+    "canonical_path": "1:192.168.1.1->...->10:20.205.179.128",
+    "measurement_duration_ms": 450,
+    "scientific_disclaimer": "SYNTHETIC_TEST_DISCLAIMER"
+  },
+  {
+    "measurement_id": "meas_synthetic_FP_A_0008",
+    "timestamp_utc": "2026-10-02T12:08:00Z",
+    "destination": "20.205.179.128",
+    "destination_ip": "20.205.179.128",
+    "destination_port": 27528,
+    "probe_method": "tracert",
+    "resolve_hostnames": false,
+    "active_interface": "Ethernet",
+    "source_ipv4": "192.168.1.50",
+    "default_gateway": "192.168.1.1",
+    "hop_count": 10,
+    "responding_hops": 10,
+    "timeout_hops": 0,
+    "hops": [
+      {
+        "hop_number": 1,
+        "addresses": [
+          "192.168.1.1"
+        ],
+        "primary_address": "192.168.1.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          1.0,
+          1.2,
+          1.1
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 1.0,
+          "median_ms": 1.1,
+          "mean_ms": 1.1,
+          "p95_ms": 1.2,
+          "p99_ms": 1.2,
+          "max_ms": 1.2,
+          "std_dev_ms": 0.1,
+          "jitter_ms": 0.1
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 2,
+        "addresses": [
+          "10.0.2.1"
+        ],
+        "primary_address": "10.0.2.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          24.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 3,
+        "addresses": [
+          "10.0.3.1"
+        ],
+        "primary_address": "10.0.3.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          26.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 4,
+        "addresses": [
+          "10.0.4.1"
+        ],
+        "primary_address": "10.0.4.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          28.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 5,
+        "addresses": [
+          "10.0.5.1"
+        ],
+        "primary_address": "10.0.5.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          30.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 6,
+        "addresses": [
+          "10.0.6.1"
+        ],
+        "primary_address": "10.0.6.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          32.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 7,
+        "addresses": [
+          "10.0.7.1"
+        ],
+        "primary_address": "10.0.7.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          34.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 8,
+        "addresses": [
+          "10.0.8.1"
+        ],
+        "primary_address": "10.0.8.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          36.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 9,
+        "addresses": [
+          "10.0.9.1"
+        ],
+        "primary_address": "10.0.9.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          38.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 10,
+        "addresses": [
+          "20.205.179.128"
+        ],
+        "primary_address": "20.205.179.128",
+        "hostname": null,
+        "rtt_samples_ms": [
+          119.0,
+          121.0,
+          120.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 119.0,
+          "median_ms": 120.0,
+          "mean_ms": 120.0,
+          "p95_ms": 121.0,
+          "p99_ms": 121.0,
+          "max_ms": 121.0,
+          "std_dev_ms": 1.0,
+          "jitter_ms": 1.0
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      }
+    ],
+    "fingerprint": "FP_A",
+    "fingerprint_sha256": "FP_A000000000000000000000000000000000000000000000000000000000000",
+    "canonical_path": "1:192.168.1.1->...->10:20.205.179.128",
+    "measurement_duration_ms": 450,
+    "scientific_disclaimer": "SYNTHETIC_TEST_DISCLAIMER"
+  },
+  {
+    "measurement_id": "meas_synthetic_FP_A_0009",
+    "timestamp_utc": "2026-10-02T12:09:00Z",
+    "destination": "20.205.179.128",
+    "destination_ip": "20.205.179.128",
+    "destination_port": 27528,
+    "probe_method": "tracert",
+    "resolve_hostnames": false,
+    "active_interface": "Ethernet",
+    "source_ipv4": "192.168.1.50",
+    "default_gateway": "192.168.1.1",
+    "hop_count": 10,
+    "responding_hops": 10,
+    "timeout_hops": 0,
+    "hops": [
+      {
+        "hop_number": 1,
+        "addresses": [
+          "192.168.1.1"
+        ],
+        "primary_address": "192.168.1.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          1.0,
+          1.2,
+          1.1
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 1.0,
+          "median_ms": 1.1,
+          "mean_ms": 1.1,
+          "p95_ms": 1.2,
+          "p99_ms": 1.2,
+          "max_ms": 1.2,
+          "std_dev_ms": 0.1,
+          "jitter_ms": 0.1
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 2,
+        "addresses": [
+          "10.0.2.1"
+        ],
+        "primary_address": "10.0.2.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          24.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 3,
+        "addresses": [
+          "10.0.3.1"
+        ],
+        "primary_address": "10.0.3.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          26.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 4,
+        "addresses": [
+          "10.0.4.1"
+        ],
+        "primary_address": "10.0.4.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          28.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 5,
+        "addresses": [
+          "10.0.5.1"
+        ],
+        "primary_address": "10.0.5.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          30.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 6,
+        "addresses": [
+          "10.0.6.1"
+        ],
+        "primary_address": "10.0.6.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          32.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 7,
+        "addresses": [
+          "10.0.7.1"
+        ],
+        "primary_address": "10.0.7.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          34.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 8,
+        "addresses": [
+          "10.0.8.1"
+        ],
+        "primary_address": "10.0.8.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          36.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 9,
+        "addresses": [
+          "10.0.9.1"
+        ],
+        "primary_address": "10.0.9.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          38.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 10,
+        "addresses": [
+          "20.205.179.128"
+        ],
+        "primary_address": "20.205.179.128",
+        "hostname": null,
+        "rtt_samples_ms": [
+          119.0,
+          121.0,
+          120.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 119.0,
+          "median_ms": 120.0,
+          "mean_ms": 120.0,
+          "p95_ms": 121.0,
+          "p99_ms": 121.0,
+          "max_ms": 121.0,
+          "std_dev_ms": 1.0,
+          "jitter_ms": 1.0
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      }
+    ],
+    "fingerprint": "FP_A",
+    "fingerprint_sha256": "FP_A000000000000000000000000000000000000000000000000000000000000",
+    "canonical_path": "1:192.168.1.1->...->10:20.205.179.128",
+    "measurement_duration_ms": 450,
+    "scientific_disclaimer": "SYNTHETIC_TEST_DISCLAIMER"
+  },
+  {
+    "measurement_id": "meas_synthetic_FP_A_0010",
+    "timestamp_utc": "2026-10-02T12:10:00Z",
+    "destination": "20.205.179.128",
+    "destination_ip": "20.205.179.128",
+    "destination_port": 27528,
+    "probe_method": "tracert",
+    "resolve_hostnames": false,
+    "active_interface": "Ethernet",
+    "source_ipv4": "192.168.1.50",
+    "default_gateway": "192.168.1.1",
+    "hop_count": 10,
+    "responding_hops": 10,
+    "timeout_hops": 0,
+    "hops": [
+      {
+        "hop_number": 1,
+        "addresses": [
+          "192.168.1.1"
+        ],
+        "primary_address": "192.168.1.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          1.0,
+          1.2,
+          1.1
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 1.0,
+          "median_ms": 1.1,
+          "mean_ms": 1.1,
+          "p95_ms": 1.2,
+          "p99_ms": 1.2,
+          "max_ms": 1.2,
+          "std_dev_ms": 0.1,
+          "jitter_ms": 0.1
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 2,
+        "addresses": [
+          "10.0.2.1"
+        ],
+        "primary_address": "10.0.2.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          24.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 3,
+        "addresses": [
+          "10.0.3.1"
+        ],
+        "primary_address": "10.0.3.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          26.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 4,
+        "addresses": [
+          "10.0.4.1"
+        ],
+        "primary_address": "10.0.4.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          28.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 5,
+        "addresses": [
+          "10.0.5.1"
+        ],
+        "primary_address": "10.0.5.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          30.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 6,
+        "addresses": [
+          "10.0.6.1"
+        ],
+        "primary_address": "10.0.6.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          32.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 7,
+        "addresses": [
+          "10.0.7.1"
+        ],
+        "primary_address": "10.0.7.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          34.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 8,
+        "addresses": [
+          "10.0.8.1"
+        ],
+        "primary_address": "10.0.8.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          36.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 9,
+        "addresses": [
+          "10.0.9.1"
+        ],
+        "primary_address": "10.0.9.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          38.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 10,
+        "addresses": [
+          "20.205.179.128"
+        ],
+        "primary_address": "20.205.179.128",
+        "hostname": null,
+        "rtt_samples_ms": [
+          119.0,
+          121.0,
+          120.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 119.0,
+          "median_ms": 120.0,
+          "mean_ms": 120.0,
+          "p95_ms": 121.0,
+          "p99_ms": 121.0,
+          "max_ms": 121.0,
+          "std_dev_ms": 1.0,
+          "jitter_ms": 1.0
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      }
+    ],
+    "fingerprint": "FP_A",
+    "fingerprint_sha256": "FP_A000000000000000000000000000000000000000000000000000000000000",
+    "canonical_path": "1:192.168.1.1->...->10:20.205.179.128",
+    "measurement_duration_ms": 450,
+    "scientific_disclaimer": "SYNTHETIC_TEST_DISCLAIMER"
+  },
+  {
+    "measurement_id": "meas_synthetic_FP_A_0011",
+    "timestamp_utc": "2026-10-02T12:11:00Z",
+    "destination": "20.205.179.128",
+    "destination_ip": "20.205.179.128",
+    "destination_port": 27528,
+    "probe_method": "tracert",
+    "resolve_hostnames": false,
+    "active_interface": "Ethernet",
+    "source_ipv4": "192.168.1.50",
+    "default_gateway": "192.168.1.1",
+    "hop_count": 10,
+    "responding_hops": 10,
+    "timeout_hops": 0,
+    "hops": [
+      {
+        "hop_number": 1,
+        "addresses": [
+          "192.168.1.1"
+        ],
+        "primary_address": "192.168.1.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          1.0,
+          1.2,
+          1.1
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 1.0,
+          "median_ms": 1.1,
+          "mean_ms": 1.1,
+          "p95_ms": 1.2,
+          "p99_ms": 1.2,
+          "max_ms": 1.2,
+          "std_dev_ms": 0.1,
+          "jitter_ms": 0.1
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 2,
+        "addresses": [
+          "10.0.2.1"
+        ],
+        "primary_address": "10.0.2.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          24.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 3,
+        "addresses": [
+          "10.0.3.1"
+        ],
+        "primary_address": "10.0.3.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          26.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 4,
+        "addresses": [
+          "10.0.4.1"
+        ],
+        "primary_address": "10.0.4.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          28.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 5,
+        "addresses": [
+          "10.0.5.1"
+        ],
+        "primary_address": "10.0.5.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          30.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 6,
+        "addresses": [
+          "10.0.6.1"
+        ],
+        "primary_address": "10.0.6.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          32.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 7,
+        "addresses": [
+          "10.0.7.1"
+        ],
+        "primary_address": "10.0.7.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          34.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 8,
+        "addresses": [
+          "10.0.8.1"
+        ],
+        "primary_address": "10.0.8.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          36.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 9,
+        "addresses": [
+          "10.0.9.1"
+        ],
+        "primary_address": "10.0.9.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          38.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 10,
+        "addresses": [
+          "20.205.179.128"
+        ],
+        "primary_address": "20.205.179.128",
+        "hostname": null,
+        "rtt_samples_ms": [
+          119.0,
+          121.0,
+          120.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 119.0,
+          "median_ms": 120.0,
+          "mean_ms": 120.0,
+          "p95_ms": 121.0,
+          "p99_ms": 121.0,
+          "max_ms": 121.0,
+          "std_dev_ms": 1.0,
+          "jitter_ms": 1.0
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      }
+    ],
+    "fingerprint": "FP_A",
+    "fingerprint_sha256": "FP_A000000000000000000000000000000000000000000000000000000000000",
+    "canonical_path": "1:192.168.1.1->...->10:20.205.179.128",
+    "measurement_duration_ms": 450,
+    "scientific_disclaimer": "SYNTHETIC_TEST_DISCLAIMER"
+  },
+  {
+    "measurement_id": "meas_synthetic_FP_A_0012",
+    "timestamp_utc": "2026-10-02T12:12:00Z",
+    "destination": "20.205.179.128",
+    "destination_ip": "20.205.179.128",
+    "destination_port": 27528,
+    "probe_method": "tracert",
+    "resolve_hostnames": false,
+    "active_interface": "Ethernet",
+    "source_ipv4": "192.168.1.50",
+    "default_gateway": "192.168.1.1",
+    "hop_count": 10,
+    "responding_hops": 10,
+    "timeout_hops": 0,
+    "hops": [
+      {
+        "hop_number": 1,
+        "addresses": [
+          "192.168.1.1"
+        ],
+        "primary_address": "192.168.1.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          1.0,
+          1.2,
+          1.1
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 1.0,
+          "median_ms": 1.1,
+          "mean_ms": 1.1,
+          "p95_ms": 1.2,
+          "p99_ms": 1.2,
+          "max_ms": 1.2,
+          "std_dev_ms": 0.1,
+          "jitter_ms": 0.1
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 2,
+        "addresses": [
+          "10.0.2.1"
+        ],
+        "primary_address": "10.0.2.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          24.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 3,
+        "addresses": [
+          "10.0.3.1"
+        ],
+        "primary_address": "10.0.3.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          26.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 4,
+        "addresses": [
+          "10.0.4.1"
+        ],
+        "primary_address": "10.0.4.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          28.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 5,
+        "addresses": [
+          "10.0.5.1"
+        ],
+        "primary_address": "10.0.5.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          30.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 6,
+        "addresses": [
+          "10.0.6.1"
+        ],
+        "primary_address": "10.0.6.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          32.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 7,
+        "addresses": [
+          "10.0.7.1"
+        ],
+        "primary_address": "10.0.7.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          34.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 8,
+        "addresses": [
+          "10.0.8.1"
+        ],
+        "primary_address": "10.0.8.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          36.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 9,
+        "addresses": [
+          "10.0.9.1"
+        ],
+        "primary_address": "10.0.9.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          38.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 10,
+        "addresses": [
+          "20.205.179.128"
+        ],
+        "primary_address": "20.205.179.128",
+        "hostname": null,
+        "rtt_samples_ms": [
+          119.0,
+          121.0,
+          120.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 119.0,
+          "median_ms": 120.0,
+          "mean_ms": 120.0,
+          "p95_ms": 121.0,
+          "p99_ms": 121.0,
+          "max_ms": 121.0,
+          "std_dev_ms": 1.0,
+          "jitter_ms": 1.0
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      }
+    ],
+    "fingerprint": "FP_A",
+    "fingerprint_sha256": "FP_A000000000000000000000000000000000000000000000000000000000000",
+    "canonical_path": "1:192.168.1.1->...->10:20.205.179.128",
+    "measurement_duration_ms": 450,
+    "scientific_disclaimer": "SYNTHETIC_TEST_DISCLAIMER"
+  },
+  {
+    "measurement_id": "meas_synthetic_FP_A_0013",
+    "timestamp_utc": "2026-10-02T12:13:00Z",
+    "destination": "20.205.179.128",
+    "destination_ip": "20.205.179.128",
+    "destination_port": 27528,
+    "probe_method": "tracert",
+    "resolve_hostnames": false,
+    "active_interface": "Ethernet",
+    "source_ipv4": "192.168.1.50",
+    "default_gateway": "192.168.1.1",
+    "hop_count": 10,
+    "responding_hops": 10,
+    "timeout_hops": 0,
+    "hops": [
+      {
+        "hop_number": 1,
+        "addresses": [
+          "192.168.1.1"
+        ],
+        "primary_address": "192.168.1.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          1.0,
+          1.2,
+          1.1
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 1.0,
+          "median_ms": 1.1,
+          "mean_ms": 1.1,
+          "p95_ms": 1.2,
+          "p99_ms": 1.2,
+          "max_ms": 1.2,
+          "std_dev_ms": 0.1,
+          "jitter_ms": 0.1
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 2,
+        "addresses": [
+          "10.0.2.1"
+        ],
+        "primary_address": "10.0.2.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          24.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 3,
+        "addresses": [
+          "10.0.3.1"
+        ],
+        "primary_address": "10.0.3.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          26.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 4,
+        "addresses": [
+          "10.0.4.1"
+        ],
+        "primary_address": "10.0.4.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          28.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 5,
+        "addresses": [
+          "10.0.5.1"
+        ],
+        "primary_address": "10.0.5.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          30.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 6,
+        "addresses": [
+          "10.0.6.1"
+        ],
+        "primary_address": "10.0.6.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          32.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 7,
+        "addresses": [
+          "10.0.7.1"
+        ],
+        "primary_address": "10.0.7.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          34.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 8,
+        "addresses": [
+          "10.0.8.1"
+        ],
+        "primary_address": "10.0.8.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          36.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 9,
+        "addresses": [
+          "10.0.9.1"
+        ],
+        "primary_address": "10.0.9.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          38.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 10,
+        "addresses": [
+          "20.205.179.128"
+        ],
+        "primary_address": "20.205.179.128",
+        "hostname": null,
+        "rtt_samples_ms": [
+          119.0,
+          121.0,
+          120.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 119.0,
+          "median_ms": 120.0,
+          "mean_ms": 120.0,
+          "p95_ms": 121.0,
+          "p99_ms": 121.0,
+          "max_ms": 121.0,
+          "std_dev_ms": 1.0,
+          "jitter_ms": 1.0
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      }
+    ],
+    "fingerprint": "FP_A",
+    "fingerprint_sha256": "FP_A000000000000000000000000000000000000000000000000000000000000",
+    "canonical_path": "1:192.168.1.1->...->10:20.205.179.128",
+    "measurement_duration_ms": 450,
+    "scientific_disclaimer": "SYNTHETIC_TEST_DISCLAIMER"
+  },
+  {
+    "measurement_id": "meas_synthetic_FP_A_0014",
+    "timestamp_utc": "2026-10-02T12:14:00Z",
+    "destination": "20.205.179.128",
+    "destination_ip": "20.205.179.128",
+    "destination_port": 27528,
+    "probe_method": "tracert",
+    "resolve_hostnames": false,
+    "active_interface": "Ethernet",
+    "source_ipv4": "192.168.1.50",
+    "default_gateway": "192.168.1.1",
+    "hop_count": 10,
+    "responding_hops": 10,
+    "timeout_hops": 0,
+    "hops": [
+      {
+        "hop_number": 1,
+        "addresses": [
+          "192.168.1.1"
+        ],
+        "primary_address": "192.168.1.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          1.0,
+          1.2,
+          1.1
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 1.0,
+          "median_ms": 1.1,
+          "mean_ms": 1.1,
+          "p95_ms": 1.2,
+          "p99_ms": 1.2,
+          "max_ms": 1.2,
+          "std_dev_ms": 0.1,
+          "jitter_ms": 0.1
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 2,
+        "addresses": [
+          "10.0.2.1"
+        ],
+        "primary_address": "10.0.2.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          24.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 3,
+        "addresses": [
+          "10.0.3.1"
+        ],
+        "primary_address": "10.0.3.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          26.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 4,
+        "addresses": [
+          "10.0.4.1"
+        ],
+        "primary_address": "10.0.4.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          28.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 5,
+        "addresses": [
+          "10.0.5.1"
+        ],
+        "primary_address": "10.0.5.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          30.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 6,
+        "addresses": [
+          "10.0.6.1"
+        ],
+        "primary_address": "10.0.6.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          32.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 7,
+        "addresses": [
+          "10.0.7.1"
+        ],
+        "primary_address": "10.0.7.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          34.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 8,
+        "addresses": [
+          "10.0.8.1"
+        ],
+        "primary_address": "10.0.8.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          36.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 9,
+        "addresses": [
+          "10.0.9.1"
+        ],
+        "primary_address": "10.0.9.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          38.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 10,
+        "addresses": [
+          "20.205.179.128"
+        ],
+        "primary_address": "20.205.179.128",
+        "hostname": null,
+        "rtt_samples_ms": [
+          119.0,
+          121.0,
+          120.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 119.0,
+          "median_ms": 120.0,
+          "mean_ms": 120.0,
+          "p95_ms": 121.0,
+          "p99_ms": 121.0,
+          "max_ms": 121.0,
+          "std_dev_ms": 1.0,
+          "jitter_ms": 1.0
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      }
+    ],
+    "fingerprint": "FP_A",
+    "fingerprint_sha256": "FP_A000000000000000000000000000000000000000000000000000000000000",
+    "canonical_path": "1:192.168.1.1->...->10:20.205.179.128",
+    "measurement_duration_ms": 450,
+    "scientific_disclaimer": "SYNTHETIC_TEST_DISCLAIMER"
+  },
+  {
+    "measurement_id": "meas_synthetic_FP_A_0015",
+    "timestamp_utc": "2026-10-02T12:15:00Z",
+    "destination": "20.205.179.128",
+    "destination_ip": "20.205.179.128",
+    "destination_port": 27528,
+    "probe_method": "tracert",
+    "resolve_hostnames": false,
+    "active_interface": "Ethernet",
+    "source_ipv4": "192.168.1.50",
+    "default_gateway": "192.168.1.1",
+    "hop_count": 10,
+    "responding_hops": 10,
+    "timeout_hops": 0,
+    "hops": [
+      {
+        "hop_number": 1,
+        "addresses": [
+          "192.168.1.1"
+        ],
+        "primary_address": "192.168.1.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          1.0,
+          1.2,
+          1.1
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 1.0,
+          "median_ms": 1.1,
+          "mean_ms": 1.1,
+          "p95_ms": 1.2,
+          "p99_ms": 1.2,
+          "max_ms": 1.2,
+          "std_dev_ms": 0.1,
+          "jitter_ms": 0.1
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 2,
+        "addresses": [
+          "10.0.2.1"
+        ],
+        "primary_address": "10.0.2.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          24.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 3,
+        "addresses": [
+          "10.0.3.1"
+        ],
+        "primary_address": "10.0.3.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          26.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 4,
+        "addresses": [
+          "10.0.4.1"
+        ],
+        "primary_address": "10.0.4.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          28.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 5,
+        "addresses": [
+          "10.0.5.1"
+        ],
+        "primary_address": "10.0.5.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          30.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 6,
+        "addresses": [
+          "10.0.6.1"
+        ],
+        "primary_address": "10.0.6.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          32.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 7,
+        "addresses": [
+          "10.0.7.1"
+        ],
+        "primary_address": "10.0.7.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          34.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 8,
+        "addresses": [
+          "10.0.8.1"
+        ],
+        "primary_address": "10.0.8.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          36.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 9,
+        "addresses": [
+          "10.0.9.1"
+        ],
+        "primary_address": "10.0.9.1",
+        "hostname": null,
+        "rtt_samples_ms": [
+          38.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": null,
+        "is_timeout": false,
+        "raw_line": ""
+      },
+      {
+        "hop_number": 10,
+        "addresses": [
+          "20.205.179.128"
+        ],
+        "primary_address": "20.205.179.128",
+        "hostname": null,
+        "rtt_samples_ms": [
+          119.0,
+          121.0,
+          120.0
+        ],
+        "responded": true,
+        "timeout_count": 0,
+        "probe_count": 3,
+        "rtt_stats": {
+          "sample_count": 3,
+          "min_ms": 119.0,
+          "median_ms": 120.0,
+          "mean_ms": 120.0,
+          "p95_ms": 121.0,
+          "p99_ms": 121.0,
+          "max_ms": 121.0,
+          "std_dev_ms": 1.0,
+          "jitter_ms": 1.0
+        },
+        "is_timeout": false,
+        "raw_line": ""
+      }
+    ],
+    "fingerprint": "FP_A",
+    "fingerprint_sha256": "FP_A000000000000000000000000000000000000000000000000000000000000",
+    "canonical_path": "1:192.168.1.1->...->10:20.205.179.128",
+    "measurement_duration_ms": 450,
+    "scientific_disclaimer": "SYNTHETIC_TEST_DISCLAIMER"
+  }
+]

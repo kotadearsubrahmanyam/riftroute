@@ -1,0 +1,13 @@
+{
+  "target_id": "target_20_205_179_128_27528",
+  "candidate_id": null,
+  "destination": "20.205.179.128",
+  "destination_ip": "20.205.179.128",
+  "target_port": 27528,
+  "protocol": "ICMP/IP",
+  "service_name": "Manual Target",
+  "evidence_level": "DirectlyObserved",
+  "enabled": true,
+  "created_at_utc": "2026-10-02T13:28:10.403701+00:00",
+  "notes": "Explicitly specified target for route monitoring"
+}

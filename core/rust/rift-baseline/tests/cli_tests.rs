@@ -785,4 +785,116 @@ fn test_cli_route_candidates_compare_and_analyze() {
     assert_eq!(val_ana.get("structural_variation_count").unwrap().as_u64().unwrap(), 1);
 }
 
+#[test]
+fn test_cli_monitor_help() {
+    let output = Command::new(env!("CARGO_BIN_EXE_rift-baseline"))
+        .args(["monitor", "--help"])
+        .output()
+        .expect("execute monitor --help");
+
+    assert!(output.status.success());
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    assert!(stdout.contains("run"));
+    assert!(stdout.contains("analyze"));
+    assert!(stdout.contains("target"));
+}
+
+#[test]
+fn test_cli_monitor_target_command() {
+    let output = Command::new(env!("CARGO_BIN_EXE_rift-baseline"))
+        .args(["--json", "monitor", "target", "20.205.179.128:27528"])
+        .output()
+        .expect("execute monitor target");
+
+    assert!(output.status.success(), "Stderr: {}", String::from_utf8_lossy(&output.stderr));
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    let val: serde_json::Value = serde_json::from_str(&stdout).expect("valid target JSON");
+    assert_eq!(val.get("destination").unwrap().as_str().unwrap(), "20.205.179.128");
+    assert_eq!(val.get("target_port").unwrap().as_u64().unwrap(), 27528);
+    assert_eq!(val.get("evidence_level").unwrap().as_str().unwrap(), "DirectlyObserved");
+}
+
+#[test]
+fn test_cli_monitor_analyze_snapshots() {
+    let temp_dir = tempfile::tempdir().expect("create temp dir");
+    let snaps_path = temp_dir.path().join("snapshots.json");
+
+    let mut snapshots = Vec::new();
+    for i in 1..=6 {
+        let rtt = if i <= 5 { 60.0 } else { 95.0 }; // sample 6 is anomalous
+        snapshots.push(serde_json::json!({
+            "measurement_id": format!("meas_{}", i),
+            "timestamp_utc": format!("2026-10-02T10:0{}:00Z", i),
+            "destination": "20.205.179.128",
+            "destination_ip": "20.205.179.128",
+            "destination_port": 27528,
+            "probe_method": "Windows Tracert",
+            "resolve_hostnames": false,
+            "active_interface": "Wi-Fi",
+            "source_ipv4": "192.168.1.14",
+            "default_gateway": "192.168.1.1",
+            "hop_count": 2,
+            "responding_hops": 2,
+            "timeout_hops": 0,
+            "hops": [
+                {
+                    "hop_number": 1,
+                    "addresses": ["192.168.1.1"],
+                    "primary_address": "192.168.1.1",
+                    "hostname": null,
+                    "rtt_samples_ms": [1.0],
+                    "responded": true,
+                    "timeout_count": 0,
+                    "probe_count": 1,
+                    "rtt_stats": null,
+                    "is_timeout": false,
+                    "raw_line": ""
+                },
+                {
+                    "hop_number": 2,
+                    "addresses": ["20.205.179.128"],
+                    "primary_address": "20.205.179.128",
+                    "hostname": null,
+                    "rtt_samples_ms": [rtt],
+                    "responded": true,
+                    "timeout_count": 0,
+                    "probe_count": 1,
+                    "rtt_stats": null,
+                    "is_timeout": false,
+                    "raw_line": ""
+                }
+            ],
+            "fingerprint": "FP_TEST",
+            "fingerprint_sha256": "FP_TEST",
+            "canonical_path": "1:192.168.1.1->2:20.205.179.128",
+            "measurement_duration_ms": 500,
+            "scientific_disclaimer": ""
+        }));
+    }
+
+    std::fs::write(&snaps_path, serde_json::to_string(&snapshots).unwrap()).expect("write snaps");
+
+    let output = Command::new(env!("CARGO_BIN_EXE_rift-baseline"))
+        .args([
+            "--json",
+            "monitor",
+            "analyze",
+            snaps_path.to_str().unwrap(),
+            "--baseline-samples",
+            "5",
+        ])
+        .output()
+        .expect("execute monitor analyze");
+
+    assert!(output.status.success(), "Stderr: {}", String::from_utf8_lossy(&output.stderr));
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    let val: serde_json::Value = serde_json::from_str(&stdout).expect("valid session JSON");
+    assert_eq!(val.get("total_samples_collected").unwrap().as_u64().unwrap(), 6);
+    assert!(val.get("baseline").is_some());
+    let baseline = val.get("baseline").unwrap();
+    assert_eq!(baseline.get("median_rtt_ms").unwrap().as_f64().unwrap(), 60.0);
+    // Sample 6 exceeded threshold once, so state is Suspected
+    assert_eq!(val.get("current_state").unwrap().as_str().unwrap(), "Suspected");
+}
+
 
