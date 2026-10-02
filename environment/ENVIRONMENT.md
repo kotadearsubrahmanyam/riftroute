@@ -13,7 +13,9 @@
 - **Cargo:** 1.99.0 (5f94df478 2026-08-27)
 - **Rust Target:** `x86_64-pc-windows-msvc` (installed & active)
 - **Rust Components:** `rustfmt 1.10.0-stable`, `clippy 0.1.99`
-- **MSVC C++ Build Tools:** BLOCKED (Installer downloaded to `%LOCALAPPDATA%\Temp\WinGet\Microsoft.VisualStudio.2022.BuildTools.17.14.41\vs_BuildTools.exe`. Requires elevated execution by administrator to install compiler and `link.exe`).
+- **MSVC Compiler (`cl.exe`):** Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35229 for x64 (`C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\Hostx64\x64\cl.exe`)
+- **MSVC Linker (`link.exe`):** Microsoft (R) Incremental Linker Version 14.44.35229.0 (`C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.44.35207\bin\Hostx64\x64\link.exe`)
+- **Visual Studio Build Tools:** 2022 v17.14.41 (`C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools`)
 - **Windows SDK:** 10.0.22621.0, 10.0.26100.0 (Found in registry `HKLM:\SOFTWARE\Microsoft\Windows Kits\Installed Roots`)
 - **Python:** 3.10.11 (`C:\Users\kdear\AppData\Local\Programs\Python\Python310\python.exe`)
 - **pip:** 26.2.1 (`C:\Users\kdear\AppData\Local\Programs\Python\Python310\Scripts\pip.exe`)
@@ -40,21 +42,22 @@
 
 ## Installation Sources
 - **Rust / rustup:** Official distribution downloaded from `https://win.rustup.rs/x86_64` (SHA256 verified against `static.rust-lang.org`: `6F4BEF66261261FCB43131BE8720BAB817D403A09EDEC7455C371974B90BDB7E`).
+- **MSVC Build Tools 2022:** Official Microsoft installer package (`Microsoft.VisualStudio.2022.BuildTools` v17.14.41) providing the C++ workload (`cl.exe` 19.44.35229, `link.exe` 14.44.35229.0).
 - **iPerf3:** Official Windows build via `winget` package `ar51an.iPerf3` version 3.21.
 - **Wireshark:** Official Wireshark Foundation MSI installer via `winget` package `WiresharkFoundation.Wireshark` version 4.6.8.
 - **Tauri CLI:** Official package `@tauri-apps/cli` version 2.12.1 via `npm install -g @tauri-apps/cli`.
-- **VS Build Tools (Pending):** Official Microsoft bootstrapper downloaded via `winget` from Microsoft CDN (`37bb0fb429d163ecebd272a865d11a37b906d152bef960da2ddb29c2e2fd6eeb`).
 
 ## Verification
 - Git, Python, pip, Node, npm: Present and operational.
 - Rust toolchain: Installed and functional (`rustup`, `rustc`, `cargo`, `rustfmt`, `clippy`).
-- Tauri tooling: `tauri --version` and `tauri info` functional and responsive.
+- MSVC C++ Build Tools: Installed and functional (`cl.exe` 19.44.35229, `link.exe` 14.44.35229.0).
+- Compiler verification: Rust source -> Cargo -> MSVC linker -> Windows executable compiled and executed successfully with exit code 0.
+- Tauri tooling: `tauri --version` and `tauri info` fully passing with all green checks.
 - Wireshark & tshark: Binary paths confirmed, `tshark --version` executed successfully.
 - iperf3: Binary path confirmed, `iperf3 --version` executed successfully.
 - Network tools: Standard Windows networking utilities confirmed operational.
 - External connectivity: DNS resolution and HTTPS TCP 443 connectivity to GitHub verified.
 
 ## Warnings
-- **MSVC Build Tools Blocker:** Rust compilation for the target `x86_64-pc-windows-msvc` requires `link.exe` from Visual Studio Build Tools. The installer was downloaded and verified, but requires administrative privileges to execute the system installation.
-- **Wireshark Npcap:** Wireshark installed without Npcap driver; live capture on packet interfaces will require Npcap driver when Phase 0 capture tests begin.
-- **Environment PATH in Current Process:** Newly installed User PATH entries (`.cargo\bin` and WinGet package path) are active in scripts by prepending, but standard terminals must be reopened to inherit the new registry PATH.
+- **Wireshark Npcap:** Wireshark installed without Npcap driver; live packet capture will require Npcap driver when Phase 0 capture tests begin.
+- **Terminal PATH Inheritance:** User PATH additions (`.cargo\bin` and WinGet package path) are active in current scripts via explicit process path handling, but external terminal windows will need to be reopened to inherit the new registry PATH.
