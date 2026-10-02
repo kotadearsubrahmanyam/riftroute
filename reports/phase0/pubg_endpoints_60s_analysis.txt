@@ -1,0 +1,149 @@
+================================================================================
+                     RiftRoute Passive Endpoint Analysis                        
+================================================================================
+
+Capture File:             d:\network optimiser\data\baseline\raw\pubg_endpoints_60s.txt
+Total Lines Read:         9003
+Valid Packets Parsed:     9003
+Malformed Records:        0
+Capture Duration:         59.8707 seconds (0.000s - 59.871s)
+Total Frame Bytes:        797737 bytes (779.04 KB)
+Endpoints Discovered:     2
+
+--------------------------------------------------------------------------------
+Endpoint #1: Highest Traffic Endpoint (UDP)
+--------------------------------------------------------------------------------
+Local Socket:             192.168.1.14:50837
+Remote Socket:            20.205.179.128:27528
+Protocol:                 UDP
+Active Duration:          59.8707 s (first: 0.000s, last: 59.871s)
+
+Packets:
+  TX (Outbound):          4718 (61.44%)
+  RX (Inbound):           2961 (38.56%)
+  Total:                  7679
+
+Bytes:
+  TX (Outbound):          317553 bytes (46.62%)
+  RX (Inbound):           363624 bytes (53.38%)
+  Total:                  681177 bytes
+
+Packet Rates:
+  Overall Rate:           128.26 packets/sec
+  TX Rate:                78.80 packets/sec
+  RX Rate:                49.46 packets/sec
+
+Packet Size Statistics (bytes):
+  TX:  Min=64 | Median=64 | Mean=67.3 | Max=469 | StdDev=10.5 | p95=88 | p99=94
+  RX:  Min=64 | Median=93 | Mean=122.8 | Max=1241 | StdDev=82.9 | p95=234 | p99=391
+  All: Min=64 | Median=67 | Mean=88.7 | Max=1241 | StdDev=58.7 | p95=189 | p99=269
+
+Inter-Arrival Statistics (gap between consecutive packets in flow):
+  Min Gap:                0.00 ms
+  Mean Gap:               7.80 ms
+  Median Gap:             4.17 ms
+  p95 Gap:                27.50 ms
+  p99 Gap:                54.68 ms
+  Max Gap:                103.56 ms
+  StdDev:                 10.47 ms
+
+Inactivity Gap Distribution:
+  Gaps > 10 ms:           1507
+  Gaps > 25 ms:           550
+  Gaps > 50 ms:           87
+  Gaps > 100 ms:          1
+  Gaps > 250 ms:          0
+  Gaps > 500 ms:          0
+
+Burst Statistics:
+  Rule:                   Consecutive packets with gap <= 10.0 ms
+  Total Bursts:           1508
+  Avg Packets / Burst:    5.09
+  Max Packets in Burst:   13
+  Avg Burst Duration:     14.87 ms
+  Max Burst Duration:     55.28 ms
+
+Endpoint Stability:
+  Continuously Active:    YES
+  Active Duration Ratio:  100.00%
+  Longest Inactivity Gap: 103.56 ms
+  Gaps > 100 ms:          1
+  Gaps > 500 ms:          0
+  Gaps > 1.0 s:           0
+  Assessment:             Continuously active stream (longest gap: 103.6 ms <= 1000 ms threshold; active duration ratio: 100.0%)
+
+RTT:                      NOT MEASURED
+  Note:                   NOT MEASURED (Passive UDP capture lacks protocol-level request/response correlation)
+Packet Loss:              NOT MEASURED
+  Note:                   NOT MEASURED (UDP transport layer has no native sequence numbers)
+
+--------------------------------------------------------------------------------
+Endpoint #2: Secondary Endpoint (UDP)
+--------------------------------------------------------------------------------
+Local Socket:             192.168.1.14:25628
+Remote Socket:            85.236.96.163:25138
+Protocol:                 UDP
+Active Duration:          59.8000 s (first: 0.058s, last: 59.858s)
+
+Packets:
+  TX (Outbound):          1205 (91.01%)
+  RX (Inbound):           119 (8.99%)
+  Total:                  1324
+
+Bytes:
+  TX (Outbound):          98554 bytes (84.55%)
+  RX (Inbound):           18006 bytes (15.45%)
+  Total:                  116560 bytes
+
+Packet Rates:
+  Overall Rate:           22.14 packets/sec
+  TX Rate:                20.15 packets/sec
+  RX Rate:                1.99 packets/sec
+
+Packet Size Statistics (bytes):
+  TX:  Min=70 | Median=86 | Mean=81.8 | Max=86 | StdDev=5.8 | p95=86 | p99=86
+  RX:  Min=70 | Median=174 | Mean=151.3 | Max=270 | StdDev=50.6 | p95=186 | p99=269
+  All: Min=70 | Median=86 | Mean=88.0 | Max=270 | StdDev=25.6 | p95=174 | p99=183
+
+Inter-Arrival Statistics (gap between consecutive packets in flow):
+  Min Gap:                0.00 ms
+  Mean Gap:               45.20 ms
+  Median Gap:             20.78 ms
+  p95 Gap:                80.73 ms
+  p99 Gap:                100.14 ms
+  Max Gap:                260.13 ms
+  StdDev:                 32.38 ms
+
+Inactivity Gap Distribution:
+  Gaps > 10 ms:           1248
+  Gaps > 25 ms:           581
+  Gaps > 50 ms:           565
+  Gaps > 100 ms:          17
+  Gaps > 250 ms:          1
+  Gaps > 500 ms:          0
+
+Burst Statistics:
+  Rule:                   Consecutive packets with gap <= 10.0 ms
+  Total Bursts:           1249
+  Avg Packets / Burst:    1.06
+  Max Packets in Burst:   4
+  Avg Burst Duration:     0.33 ms
+  Max Burst Duration:     28.97 ms
+
+Endpoint Stability:
+  Continuously Active:    YES
+  Active Duration Ratio:  99.88%
+  Longest Inactivity Gap: 260.13 ms
+  Gaps > 100 ms:          17
+  Gaps > 500 ms:          0
+  Gaps > 1.0 s:           0
+  Assessment:             Continuously active stream (longest gap: 260.1 ms <= 1000 ms threshold; active duration ratio: 99.9%)
+
+RTT:                      NOT MEASURED
+  Note:                   NOT MEASURED (Passive UDP capture lacks protocol-level request/response correlation)
+Packet Loss:              NOT MEASURED
+  Note:                   NOT MEASURED (UDP transport layer has no native sequence numbers)
+
+================================================================================
+Analysis completed in passive, read-only mode. No packets injected or altered.
+================================================================================

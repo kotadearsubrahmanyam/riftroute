@@ -1,0 +1,200 @@
+{
+  "capture": {
+    "file_path": "d:\\network optimiser\\data\\baseline\\raw\\pubg_endpoints_60s.txt",
+    "total_lines_read": 9003,
+    "valid_packets": 9003,
+    "malformed_lines": 0,
+    "capture_duration_seconds": 59.8707088,
+    "first_timestamp": 0.0,
+    "last_timestamp": 59.8707088,
+    "total_bytes": 797737,
+    "distinct_endpoints_count": 2
+  },
+  "endpoints": [
+    {
+      "rank": 1,
+      "classification": "Highest Traffic Endpoint",
+      "local_ip": "192.168.1.14",
+      "local_port": 50837,
+      "remote_ip": "20.205.179.128",
+      "remote_port": 27528,
+      "protocol": "UDP",
+      "first_packet_ts": 0.0,
+      "last_packet_ts": 59.8707088,
+      "flow_duration_seconds": 59.8707088,
+      "total_packets": 7679,
+      "tx_packets": 4718,
+      "rx_packets": 2961,
+      "total_bytes": 681177,
+      "tx_bytes": 317553,
+      "rx_bytes": 363624,
+      "packet_rate_total": 128.25971420602255,
+      "packet_rate_tx": 78.80314254772945,
+      "packet_rate_rx": 49.45657165829311,
+      "tx_packet_size": {
+        "min_bytes": 64,
+        "max_bytes": 469,
+        "mean_bytes": 67.30669775328529,
+        "median_bytes": 64.0,
+        "std_dev_bytes": 10.472949987452687,
+        "p95_bytes": 88.0,
+        "p99_bytes": 93.82999999999993
+      },
+      "rx_packet_size": {
+        "min_bytes": 64,
+        "max_bytes": 1241,
+        "mean_bytes": 122.80445795339412,
+        "median_bytes": 93.0,
+        "std_dev_bytes": 82.9146658797935,
+        "p95_bytes": 234.0,
+        "p99_bytes": 391.2000000000003
+      },
+      "overall_packet_size": {
+        "min_bytes": 64,
+        "max_bytes": 1241,
+        "mean_bytes": 88.70647219690063,
+        "median_bytes": 67.0,
+        "std_dev_bytes": 58.71572965683169,
+        "p95_bytes": 189.0,
+        "p99_bytes": 269.0
+      },
+      "inter_arrival": {
+        "min_gap_ms": 0.0,
+        "mean_gap_ms": 7.797695858296421,
+        "median_gap_ms": 4.172849999999784,
+        "p95_gap_ms": 27.504004999999584,
+        "p99_gap_ms": 54.684068000001176,
+        "max_gap_ms": 103.56159999999903,
+        "std_dev_ms": 10.466114210274153
+      },
+      "gaps": {
+        "gaps_over_10ms": 1507,
+        "gaps_over_25ms": 550,
+        "gaps_over_50ms": 87,
+        "gaps_over_100ms": 1,
+        "gaps_over_250ms": 0,
+        "gaps_over_500ms": 0
+      },
+      "bursts": {
+        "burst_count": 1508,
+        "avg_packets_per_burst": 5.092175066312997,
+        "max_packets_in_burst": 13,
+        "avg_burst_duration_ms": 14.872551856763875,
+        "max_burst_duration_ms": 55.277300000000196,
+        "burst_rule": "Consecutive packets with gap <= 10.0 ms"
+      },
+      "direction_ratio": {
+        "tx_packet_pct": 61.44029170464904,
+        "rx_packet_pct": 38.55970829535096,
+        "tx_byte_pct": 46.61827983035246,
+        "rx_byte_pct": 53.38172016964754
+      },
+      "stability": {
+        "is_continuously_active": true,
+        "active_duration_ratio": 1.0,
+        "longest_inactivity_gap_ms": 103.56159999999903,
+        "gaps_over_100ms_count": 1,
+        "gaps_over_500ms_count": 0,
+        "gaps_over_1s_count": 0,
+        "criteria_commentary": "Continuously active stream (longest gap: 103.6 ms <= 1000 ms threshold; active duration ratio: 100.0%)"
+      },
+      "rtt": null,
+      "rtt_note": "NOT MEASURED (Passive UDP capture lacks protocol-level request/response correlation)",
+      "packet_loss": null,
+      "packet_loss_note": "NOT MEASURED (UDP transport layer has no native sequence numbers)"
+    },
+    {
+      "rank": 2,
+      "classification": "Secondary Endpoint",
+      "local_ip": "192.168.1.14",
+      "local_port": 25628,
+      "remote_ip": "85.236.96.163",
+      "remote_port": 25138,
+      "protocol": "UDP",
+      "first_packet_ts": 0.057724,
+      "last_packet_ts": 59.8577262,
+      "flow_duration_seconds": 59.8000022,
+      "total_packets": 1324,
+      "tx_packets": 1205,
+      "rx_packets": 119,
+      "total_bytes": 116560,
+      "tx_bytes": 98554,
+      "rx_bytes": 18006,
+      "packet_rate_total": 22.1404674128925,
+      "packet_rate_tx": 20.150500930918025,
+      "packet_rate_rx": 1.9899664819744771,
+      "tx_packet_size": {
+        "min_bytes": 70,
+        "max_bytes": 86,
+        "mean_bytes": 81.78755186721992,
+        "median_bytes": 86.0,
+        "std_dev_bytes": 5.826506996968249,
+        "p95_bytes": 86.0,
+        "p99_bytes": 86.0
+      },
+      "rx_packet_size": {
+        "min_bytes": 70,
+        "max_bytes": 270,
+        "mean_bytes": 151.3109243697479,
+        "median_bytes": 174.0,
+        "std_dev_bytes": 50.64963531569474,
+        "p95_bytes": 186.0,
+        "p99_bytes": 269.28
+      },
+      "overall_packet_size": {
+        "min_bytes": 70,
+        "max_bytes": 270,
+        "mean_bytes": 88.03625377643505,
+        "median_bytes": 86.0,
+        "std_dev_bytes": 25.600545921680585,
+        "p95_bytes": 174.0,
+        "p99_bytes": 183.23999999999978
+      },
+      "inter_arrival": {
+        "min_gap_ms": 0.0004999999987376214,
+        "mean_gap_ms": 45.20030400604684,
+        "median_gap_ms": 20.781800000001738,
+        "p95_gap_ms": 80.73317999999982,
+        "p99_gap_ms": 100.1412239999982,
+        "max_gap_ms": 260.1310000000012,
+        "std_dev_ms": 32.37676177677324
+      },
+      "gaps": {
+        "gaps_over_10ms": 1248,
+        "gaps_over_25ms": 581,
+        "gaps_over_50ms": 565,
+        "gaps_over_100ms": 17,
+        "gaps_over_250ms": 1,
+        "gaps_over_500ms": 0
+      },
+      "bursts": {
+        "burst_count": 1249,
+        "avg_packets_per_burst": 1.0600480384307447,
+        "max_packets_in_burst": 4,
+        "avg_burst_duration_ms": 0.330742113690954,
+        "max_burst_duration_ms": 28.967500000000257,
+        "burst_rule": "Consecutive packets with gap <= 10.0 ms"
+      },
+      "direction_ratio": {
+        "tx_packet_pct": 91.01208459214502,
+        "rx_packet_pct": 8.987915407854985,
+        "tx_byte_pct": 84.55216197666438,
+        "rx_byte_pct": 15.447838023335622
+      },
+      "stability": {
+        "is_continuously_active": true,
+        "active_duration_ratio": 0.9988190118103295,
+        "longest_inactivity_gap_ms": 260.1310000000012,
+        "gaps_over_100ms_count": 17,
+        "gaps_over_500ms_count": 0,
+        "gaps_over_1s_count": 0,
+        "criteria_commentary": "Continuously active stream (longest gap: 260.1 ms <= 1000 ms threshold; active duration ratio: 99.9%)"
+      },
+      "rtt": null,
+      "rtt_note": "NOT MEASURED (Passive UDP capture lacks protocol-level request/response correlation)",
+      "packet_loss": null,
+      "packet_loss_note": "NOT MEASURED (UDP transport layer has no native sequence numbers)"
+    }
+  ],
+  "analysis_timestamp": "2026-10-02T12:12:50.180723100+00:00"
+}

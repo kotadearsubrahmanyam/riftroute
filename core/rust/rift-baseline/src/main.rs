@@ -4,6 +4,8 @@ use std::process::exit;
 
 use rift_baseline::config::BaselineConfig;
 use rift_baseline::connectivity::ConnectivityTester;
+use rift_baseline::endpoint_analyzer::report::ReportRenderer;
+use rift_baseline::endpoint_analyzer::EndpointAnalyzer;
 use rift_baseline::game_test::GameTester;
 use rift_baseline::process::ProcessManager;
 use rift_baseline::report::{BaselineSession, ReportGenerator};
@@ -60,6 +62,15 @@ enum Commands {
         data_dir: String,
         #[arg(short, long, default_value = "reports/phase0", help = "Directory to store Markdown reports")]
         reports_dir: String,
+    },
+
+    #[command(about = "Analyze passive TShark UDP packet capture metadata file")]
+    AnalyzeEndpoints {
+        #[arg(help = "Path to TShark packet metadata export file (supports UTF-8 and UTF-16)")]
+        file: String,
+
+        #[arg(short, long, help = "Optional path to save report output")]
+        output: Option<String>,
     },
 }
 
@@ -276,6 +287,40 @@ fn main() {
             }
 
             println!("\nBaseline diagnostic audit complete.");
+        }
+
+        Commands::AnalyzeEndpoints { file, output } => {
+            let report = match EndpointAnalyzer::analyze_file(&file) {
+                Ok(r) => r,
+                Err(e) => {
+                    eprintln!("[ERROR] Failed to analyze capture file '{}': {}", file, e);
+                    exit(1);
+                }
+            };
+
+            let rendered = if cli.json {
+                match ReportRenderer::render_json(&report) {
+                    Ok(j) => j,
+                    Err(e) => {
+                        eprintln!("[ERROR] Failed to generate JSON: {}", e);
+                        exit(1);
+                    }
+                }
+            } else {
+                ReportRenderer::render_human_readable(&report)
+            };
+
+            if let Some(ref out_path) = output {
+                if let Err(e) = std::fs::write(out_path, &rendered) {
+                    eprintln!("[ERROR] Failed to write report to '{}': {}", out_path, e);
+                    exit(1);
+                }
+                if !cli.json {
+                    println!("[SAVED] Endpoint analysis report saved to: {}", out_path);
+                }
+            }
+
+            println!("{}", rendered);
         }
     }
 }

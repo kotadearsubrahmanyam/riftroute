@@ -14,6 +14,7 @@ The primary motivating real-world observation is a player located in Andhra Prad
 - **Route Progression Analysis (`rift-baseline route <destination>`):** Performs multi-hop traceroute with hop-by-hop latency classification (`Observed`, `PotentiallySignificant`, `Inconclusive`). Distinguishes intermediate router ICMP deprioritization from forwarding delays.
 - **Active Connection & Game Discovery (`rift-baseline game`):** Non-invasively inventories active sockets and identifies processes associated with competitive FPS games (`TslGame.exe`, `cs2.exe`, `VALORANT.exe`, `Discovery.exe`).
 - **User-Driven PUBG Baseline Test (`rift-baseline game-test`):** Controlled procedure to capture observable game server endpoints during live gameplay.
+- **Passive Game Endpoint Analyzer (`rift-baseline analyze-endpoints`):** Parses TShark/Wireshark UDP packet metadata captures, characterizes bidirectional flows, traffic distributions, and micro-bursting without active network probing.
 - **Full Consolidated Baseline Report (`rift-baseline report`):** Generates structured machine-readable JSON in `data/baseline/sessions/` and human-readable Markdown reports in `reports/phase0/`.
 
 ## Usage
@@ -37,6 +38,10 @@ cargo run --release --bin rift-baseline -- game
 
 # Interactive PUBG test
 cargo run --release --bin rift-baseline -- game-test
+
+# Passive game endpoint analysis
+cargo run --release --bin rift-baseline -- analyze-endpoints data/baseline/raw/pubg_endpoints_60s.txt
+cargo run --release --bin rift-baseline -- --json analyze-endpoints data/baseline/raw/pubg_endpoints_60s.txt -o reports/phase0/pubg_endpoints_60s_analysis.json
 
 # Complete baseline diagnostic audit
 cargo run --release --bin rift-baseline -- report
