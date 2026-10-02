@@ -1,0 +1,93 @@
+{
+  "previous_id": "route_20261002_122818_064DEE4B",
+  "previous_timestamp": "2026-10-02T12:28:08.942156300+00:00",
+  "previous_fingerprint": "064DEE4B85A3144A",
+  "current_id": "route_20261002_122845_76455440",
+  "current_timestamp": "2026-10-02T12:28:33.791603100+00:00",
+  "current_fingerprint": "76455440DB0C1BD1",
+  "destination": "8.8.8.8",
+  "fingerprint_identical": false,
+  "hop_count_delta": 2,
+  "hop_differences": [
+    {
+      "hop_number": 4,
+      "diff_type": "AddressChanged",
+      "previous_address": "182.79.243.234",
+      "current_address": "116.119.161.149",
+      "description": "Hop 4 IP changed from 182.79.243.234 to 116.119.161.149"
+    },
+    {
+      "hop_number": 5,
+      "diff_type": "AddressChanged",
+      "previous_address": "182.79.223.41",
+      "current_address": "72.14.205.196",
+      "description": "Hop 5 IP changed from 182.79.223.41 to 72.14.205.196"
+    },
+    {
+      "hop_number": 6,
+      "diff_type": "AddressChanged",
+      "previous_address": "1.1.1.1",
+      "current_address": "142.251.227.211",
+      "description": "Hop 6 IP changed from 1.1.1.1 to 142.251.227.211"
+    },
+    {
+      "hop_number": 7,
+      "diff_type": "HopAdded",
+      "previous_address": null,
+      "current_address": "142.250.228.83",
+      "description": "Hop 7 added in current route (142.250.228.83)"
+    },
+    {
+      "hop_number": 8,
+      "diff_type": "HopAdded",
+      "previous_address": null,
+      "current_address": "8.8.8.8",
+      "description": "Hop 8 added in current route (8.8.8.8)"
+    }
+  ],
+  "rtt_changes": [
+    {
+      "hop_number": 1,
+      "address": "192.168.1.1",
+      "previous_median_ms": 1.0,
+      "current_median_ms": 2.0,
+      "delta_median_ms": 1.0
+    },
+    {
+      "hop_number": 2,
+      "address": "223.230.16.1",
+      "previous_median_ms": 11.0,
+      "current_median_ms": 15.0,
+      "delta_median_ms": 4.0
+    },
+    {
+      "hop_number": 3,
+      "address": "59.144.94.157",
+      "previous_median_ms": 11.0,
+      "current_median_ms": 14.0,
+      "delta_median_ms": 3.0
+    },
+    {
+      "hop_number": 4,
+      "address": "116.119.161.149",
+      "previous_median_ms": 11.0,
+      "current_median_ms": 22.0,
+      "delta_median_ms": 11.0
+    },
+    {
+      "hop_number": 5,
+      "address": "72.14.205.196",
+      "previous_median_ms": 13.0,
+      "current_median_ms": 22.0,
+      "delta_median_ms": 9.0
+    },
+    {
+      "hop_number": 6,
+      "address": "142.251.227.211",
+      "previous_median_ms": 11.0,
+      "current_median_ms": 27.0,
+      "delta_median_ms": 16.0
+    }
+  ],
+  "summary": "Route changed: previous fingerprint 064DEE4B85A3144A -> current fingerprint 76455440DB0C1BD1. Detected 5 hop-level structural difference(s)."
+}

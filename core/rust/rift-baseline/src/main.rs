@@ -10,14 +10,16 @@ use rift_baseline::game_test::GameTester;
 use rift_baseline::process::ProcessManager;
 use rift_baseline::report::{BaselineSession, ReportGenerator};
 use rift_baseline::route::RouteAnalyzer;
+use rift_baseline::route_intelligence::report::RouteReportRenderer;
+use rift_baseline::route_intelligence::RouteIntelligence;
 use rift_baseline::system::SystemInventory;
 
 #[derive(Parser)]
 #[command(
     name = "rift-baseline",
     version = "0.1.0",
-    about = "RiftRoute Phase 0: Foundation & Baseline Network Intelligence Diagnostic Tool",
-    long_about = "Non-invasive network diagnostic CLI for characterizing local network conditions, ISP identity, baseline Internet latency, jitter, route progression, and game endpoints."
+    about = "RiftRoute: Gaming Network Intelligence & Diagnostic Tool",
+    long_about = "Non-invasive network diagnostic CLI for characterizing local network conditions, ISP identity, baseline latency, jitter, advanced route intelligence, and game endpoints."
 )]
 struct Cli {
     #[arg(short, long, help = "Output machine-readable JSON to stdout")]
@@ -25,6 +27,57 @@ struct Cli {
 
     #[command(subcommand)]
     command: Commands,
+}
+
+#[derive(Subcommand)]
+enum RouteSubcommands {
+    #[command(about = "Measure and record network path toward a target destination")]
+    Measure {
+        #[arg(help = "Target IP address or hostname")]
+        destination: String,
+
+        #[arg(short = 'm', long, default_value_t = 30, help = "Maximum hops to trace (1-64)")]
+        max_hops: u8,
+
+        #[arg(short = 'w', long, default_value_t = 1000, help = "Per-probe timeout in milliseconds")]
+        timeout_ms: u64,
+
+        #[arg(long, help = "Resolve IP addresses to hostnames (default is numeric IP -d)")]
+        resolve: bool,
+
+        #[arg(short, long, help = "Auto-save snapshot JSON to data/route/snapshots/")]
+        save: bool,
+
+        #[arg(short, long, help = "Optional path to save output report (text or JSON)")]
+        output: Option<String>,
+
+        #[arg(long, default_value_t = 90, help = "Total process execution safety timeout in seconds")]
+        timeout_secs: u64,
+    },
+
+    #[command(about = "Compare two route snapshots and identify structural and RTT changes")]
+    Compare {
+        #[arg(help = "Path to previous route snapshot JSON")]
+        previous: String,
+
+        #[arg(help = "Path to current route snapshot JSON")]
+        current: String,
+
+        #[arg(short, long, help = "Optional path to save comparison report")]
+        output: Option<String>,
+    },
+
+    #[command(about = "Analyze route stability across multiple route snapshots")]
+    Stability {
+        #[arg(help = "Path to directory containing snapshot JSONs or list of snapshot files", required = true)]
+        inputs: Vec<String>,
+
+        #[arg(short, long, help = "Optional path to save stability report")]
+        output: Option<String>,
+    },
+
+    #[command(external_subcommand)]
+    Legacy(Vec<String>),
 }
 
 #[derive(Subcommand)]
@@ -42,12 +95,10 @@ enum Commands {
         interval: u64,
     },
 
-    #[command(about = "Perform non-invasive route trace and scientific latency step-change analysis")]
+    #[command(about = "Network path intelligence: measure, compare, and analyze route stability")]
     Route {
-        #[arg(help = "Target IP address or hostname to trace")]
-        destination: String,
-        #[arg(short, long, default_value_t = 30, help = "Maximum hops to trace (1-64)")]
-        max_hops: u8,
+        #[command(subcommand)]
+        subcommand: Option<RouteSubcommands>,
     },
 
     #[command(about = "Inventory active network sockets and detect running competitive FPS game processes")]
@@ -139,25 +190,178 @@ fn main() {
             }
         }
 
-        Commands::Route { destination, max_hops } => {
-            if !cli.json {
-                println!("=== TRACING ROUTE TO {} (max {} hops) ===", destination, max_hops);
-            }
-            let trace = RouteAnalyzer::trace(&destination, max_hops);
+        Commands::Route { subcommand } => {
+            match subcommand {
+                Some(RouteSubcommands::Measure {
+                    destination,
+                    max_hops,
+                    timeout_ms,
+                    resolve,
+                    save,
+                    output,
+                    timeout_secs,
+                }) => {
+                    let snapshot = match RouteIntelligence::measure(
+                        &destination,
+                        max_hops,
+                        timeout_ms,
+                        resolve,
+                        std::time::Duration::from_secs(timeout_secs),
+                    ) {
+                        Ok(s) => s,
+                        Err(e) => {
+                            eprintln!("[ERROR] Route measurement failed: {}", e);
+                            exit(1);
+                        }
+                    };
 
-            if cli.json {
-                println!("{}", serde_json::to_string_pretty(&trace).unwrap());
-            } else {
-                println!("Fingerprint: {}", trace.route_fingerprint);
-                println!("Summary:     {}", trace.analysis_summary);
-                println!();
-                println!("{:<4} {:<10} {:<30} {:<12} {:<22} {}", "Hop", "Min RTT", "Endpoint", "Delta", "Significance", "Commentary");
-                println!("{:-<110}", "");
-                for h in &trace.hops {
-                    let rtt_str = h.min_rtt_ms.map(|v| format!("{:.1}ms", v)).unwrap_or_else(|| "*".to_string());
-                    let delta_str = h.latency_delta_ms.map(|v| format!("{:+.1}ms", v)).unwrap_or_else(|| "-".to_string());
-                    let sig_str = format!("{:?}", h.significance);
-                    println!("{:<4} {:<10} {:<30} {:<12} {:<22} {}", h.hop, rtt_str, h.ip_or_host, delta_str, sig_str, h.commentary);
+                    if save {
+                        match RouteReportRenderer::save_snapshot_json(&snapshot, "data/route") {
+                            Ok(path) => {
+                                if !cli.json {
+                                    println!("[SAVED] Snapshot saved to: {}", path.display());
+                                }
+                            }
+                            Err(e) => eprintln!("[WARN] Failed to auto-save snapshot: {}", e),
+                        }
+                    }
+
+                    let rendered = if cli.json {
+                        match RouteReportRenderer::render_snapshot_json(&snapshot) {
+                            Ok(j) => j,
+                            Err(e) => {
+                                eprintln!("[ERROR] Failed to serialize JSON: {}", e);
+                                exit(1);
+                            }
+                        }
+                    } else {
+                        RouteReportRenderer::render_snapshot_text(&snapshot)
+                    };
+
+                    if let Some(ref out_path) = output {
+                        if let Err(e) = std::fs::write(out_path, &rendered) {
+                            eprintln!("[ERROR] Failed to write report to '{}': {}", out_path, e);
+                            exit(1);
+                        }
+                        if !cli.json {
+                            println!("[SAVED] Report written to: {}", out_path);
+                        }
+                    }
+
+                    println!("{}", rendered);
+                }
+
+                Some(RouteSubcommands::Compare {
+                    previous,
+                    current,
+                    output,
+                }) => {
+                    let comparison = match RouteIntelligence::compare_files(&previous, &current) {
+                        Ok(c) => c,
+                        Err(e) => {
+                            eprintln!("[ERROR] Route comparison failed: {}", e);
+                            exit(1);
+                        }
+                    };
+
+                    let rendered = if cli.json {
+                        match RouteReportRenderer::render_comparison_json(&comparison) {
+                            Ok(j) => j,
+                            Err(e) => {
+                                eprintln!("[ERROR] Failed to serialize comparison JSON: {}", e);
+                                exit(1);
+                            }
+                        }
+                    } else {
+                        RouteReportRenderer::render_comparison_text(&comparison)
+                    };
+
+                    if let Some(ref out_path) = output {
+                        if let Err(e) = std::fs::write(out_path, &rendered) {
+                            eprintln!("[ERROR] Failed to write comparison to '{}': {}", out_path, e);
+                            exit(1);
+                        }
+                        if !cli.json {
+                            println!("[SAVED] Comparison saved to: {}", out_path);
+                        }
+                    }
+
+                    println!("{}", rendered);
+                }
+
+                Some(RouteSubcommands::Stability { inputs, output }) => {
+                    let paths: Vec<std::path::PathBuf> = inputs.iter().map(std::path::PathBuf::from).collect();
+                    let stability = match RouteIntelligence::analyze_stability_from_paths(&paths) {
+                        Ok(s) => s,
+                        Err(e) => {
+                            eprintln!("[ERROR] Stability analysis failed: {}", e);
+                            exit(1);
+                        }
+                    };
+
+                    let rendered = if cli.json {
+                        match RouteReportRenderer::render_stability_json(&stability) {
+                            Ok(j) => j,
+                            Err(e) => {
+                                eprintln!("[ERROR] Failed to serialize stability JSON: {}", e);
+                                exit(1);
+                            }
+                        }
+                    } else {
+                        RouteReportRenderer::render_stability_text(&stability)
+                    };
+
+                    if let Some(ref out_path) = output {
+                        if let Err(e) = std::fs::write(out_path, &rendered) {
+                            eprintln!("[ERROR] Failed to write stability report to '{}': {}", out_path, e);
+                            exit(1);
+                        }
+                        if !cli.json {
+                            println!("[SAVED] Stability report saved to: {}", out_path);
+                        }
+                    }
+
+                    println!("{}", rendered);
+                }
+
+                Some(RouteSubcommands::Legacy(args)) => {
+                    if args.is_empty() {
+                        eprintln!("Usage: rift-baseline route <COMMAND>\n\nCommands:\n  measure    Measure and record network path toward a target destination\n  compare    Compare two route snapshots and identify structural and RTT changes\n  stability  Analyze route stability across multiple route snapshots\n\nFor more information, try '--help'.");
+                        exit(1);
+                    }
+                    let destination = &args[0];
+                    let mut max_hops = 30;
+                    if args.len() >= 3 && args[1] == "--max-hops" {
+                        if let Ok(mh) = args[2].parse::<u8>() {
+                            max_hops = mh;
+                        }
+                    }
+
+                    if !cli.json {
+                        println!("=== TRACING ROUTE TO {} (max {} hops) ===", destination, max_hops);
+                    }
+                    let trace = RouteAnalyzer::trace(destination, max_hops);
+
+                    if cli.json {
+                        println!("{}", serde_json::to_string_pretty(&trace).unwrap());
+                    } else {
+                        println!("Fingerprint: {}", trace.route_fingerprint);
+                        println!("Summary:     {}", trace.analysis_summary);
+                        println!();
+                        println!("{:<4} {:<10} {:<30} {:<12} {:<22} {}", "Hop", "Min RTT", "Endpoint", "Delta", "Significance", "Commentary");
+                        println!("{:-<110}", "");
+                        for h in &trace.hops {
+                            let rtt_str = h.min_rtt_ms.map(|v| format!("{:.1}ms", v)).unwrap_or_else(|| "*".to_string());
+                            let delta_str = h.latency_delta_ms.map(|v| format!("{:+.1}ms", v)).unwrap_or_else(|| "-".to_string());
+                            let sig_str = format!("{:?}", h.significance);
+                            println!("{:<4} {:<10} {:<30} {:<12} {:<22} {}", h.hop, rtt_str, h.ip_or_host, delta_str, sig_str, h.commentary);
+                        }
+                    }
+                }
+
+                None => {
+                    eprintln!("Usage: rift-baseline route <COMMAND>\n\nCommands:\n  measure    Measure and record network path toward a target destination\n  compare    Compare two route snapshots and identify structural and RTT changes\n  stability  Analyze route stability across multiple route snapshots\n\nFor more information, try '--help'.");
+                    exit(1);
                 }
             }
         }

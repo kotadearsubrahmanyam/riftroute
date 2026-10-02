@@ -1,0 +1,194 @@
+{
+  "measurement_id": "route_20261002_123035_064DEE4B",
+  "timestamp_utc": "2026-10-02T12:30:24.778836700+00:00",
+  "destination": "1.1.1.1",
+  "destination_ip": "1.1.1.1",
+  "destination_port": null,
+  "probe_method": "Windows Tracert (ICMP Echo / Time Exceeded)",
+  "resolve_hostnames": false,
+  "active_interface": "Wi-Fi",
+  "source_ipv4": "192.168.1.14",
+  "default_gateway": "192.168.1.1",
+  "hop_count": 6,
+  "responding_hops": 6,
+  "timeout_hops": 0,
+  "hops": [
+    {
+      "hop_number": 1,
+      "addresses": [
+        "192.168.1.1"
+      ],
+      "primary_address": "192.168.1.1",
+      "hostname": null,
+      "rtt_samples_ms": [
+        13.0,
+        1.0,
+        1.0
+      ],
+      "responded": true,
+      "timeout_count": 0,
+      "probe_count": 3,
+      "rtt_stats": {
+        "sample_count": 3,
+        "min_ms": 1.0,
+        "median_ms": 1.0,
+        "mean_ms": 5.0,
+        "p95_ms": 11.799999999999999,
+        "p99_ms": 12.76,
+        "max_ms": 13.0,
+        "std_dev_ms": 6.928203230275509,
+        "jitter_ms": 6.0
+      },
+      "is_timeout": false,
+      "raw_line": "  1    13 ms     1 ms     1 ms  192.168.1.1 "
+    },
+    {
+      "hop_number": 2,
+      "addresses": [
+        "223.230.16.1"
+      ],
+      "primary_address": "223.230.16.1",
+      "hostname": null,
+      "rtt_samples_ms": [
+        12.0,
+        11.0,
+        11.0
+      ],
+      "responded": true,
+      "timeout_count": 0,
+      "probe_count": 3,
+      "rtt_stats": {
+        "sample_count": 3,
+        "min_ms": 11.0,
+        "median_ms": 11.0,
+        "mean_ms": 11.333333333333334,
+        "p95_ms": 11.9,
+        "p99_ms": 11.98,
+        "max_ms": 12.0,
+        "std_dev_ms": 0.5773502691896257,
+        "jitter_ms": 0.5
+      },
+      "is_timeout": false,
+      "raw_line": "  2    12 ms    11 ms    11 ms  223.230.16.1 "
+    },
+    {
+      "hop_number": 3,
+      "addresses": [
+        "59.144.94.157"
+      ],
+      "primary_address": "59.144.94.157",
+      "hostname": null,
+      "rtt_samples_ms": [
+        11.0,
+        11.0,
+        14.0
+      ],
+      "responded": true,
+      "timeout_count": 0,
+      "probe_count": 3,
+      "rtt_stats": {
+        "sample_count": 3,
+        "min_ms": 11.0,
+        "median_ms": 11.0,
+        "mean_ms": 12.0,
+        "p95_ms": 13.7,
+        "p99_ms": 13.94,
+        "max_ms": 14.0,
+        "std_dev_ms": 1.7320508075688772,
+        "jitter_ms": 1.5
+      },
+      "is_timeout": false,
+      "raw_line": "  3    11 ms    11 ms    14 ms  59.144.94.157 "
+    },
+    {
+      "hop_number": 4,
+      "addresses": [
+        "182.79.243.234"
+      ],
+      "primary_address": "182.79.243.234",
+      "hostname": null,
+      "rtt_samples_ms": [
+        48.0,
+        14.0,
+        10.0
+      ],
+      "responded": true,
+      "timeout_count": 0,
+      "probe_count": 3,
+      "rtt_stats": {
+        "sample_count": 3,
+        "min_ms": 10.0,
+        "median_ms": 14.0,
+        "mean_ms": 24.0,
+        "p95_ms": 44.599999999999994,
+        "p99_ms": 47.32,
+        "max_ms": 48.0,
+        "std_dev_ms": 20.8806130178211,
+        "jitter_ms": 19.0
+      },
+      "is_timeout": false,
+      "raw_line": "  4    48 ms    14 ms    10 ms  182.79.243.234 "
+    },
+    {
+      "hop_number": 5,
+      "addresses": [
+        "182.79.223.41"
+      ],
+      "primary_address": "182.79.223.41",
+      "hostname": null,
+      "rtt_samples_ms": [
+        18.0
+      ],
+      "responded": true,
+      "timeout_count": 2,
+      "probe_count": 3,
+      "rtt_stats": {
+        "sample_count": 1,
+        "min_ms": 18.0,
+        "median_ms": 18.0,
+        "mean_ms": 18.0,
+        "p95_ms": 18.0,
+        "p99_ms": 18.0,
+        "max_ms": 18.0,
+        "std_dev_ms": 0.0,
+        "jitter_ms": null
+      },
+      "is_timeout": false,
+      "raw_line": "  5    18 ms     *        *     182.79.223.41 "
+    },
+    {
+      "hop_number": 6,
+      "addresses": [
+        "1.1.1.1"
+      ],
+      "primary_address": "1.1.1.1",
+      "hostname": null,
+      "rtt_samples_ms": [
+        11.0,
+        11.0,
+        11.0
+      ],
+      "responded": true,
+      "timeout_count": 0,
+      "probe_count": 3,
+      "rtt_stats": {
+        "sample_count": 3,
+        "min_ms": 11.0,
+        "median_ms": 11.0,
+        "mean_ms": 11.0,
+        "p95_ms": 11.0,
+        "p99_ms": 11.0,
+        "max_ms": 11.0,
+        "std_dev_ms": 0.0,
+        "jitter_ms": 0.0
+      },
+      "is_timeout": false,
+      "raw_line": "  6    11 ms    11 ms    11 ms  1.1.1.1 "
+    }
+  ],
+  "fingerprint": "064DEE4B85A3144A",
+  "fingerprint_sha256": "064dee4b85a3144a572dbd2c5fce7c5a459f4e865556ad08d4d430b33a19d63a",
+  "canonical_path": "1:192.168.1.1|2:223.230.16.1|3:59.144.94.157|4:182.79.243.234|5:182.79.223.41|6:1.1.1.1",
+  "measurement_duration_ms": 6277,
+  "scientific_disclaimer": "Traceroute probe RTT reflects ICMP Time Exceeded generation latency from router control planes, NOT actual game client-server application latency. Router timeouts ('*') indicate ICMP rate-limiting or filtering, NOT packet loss."
+}

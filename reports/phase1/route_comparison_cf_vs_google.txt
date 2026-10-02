@@ -1,0 +1,36 @@
+================================================================================
+                 RiftRoute Network Path Comparison Report                       
+================================================================================
+
+Destination:           8.8.8.8
+Previous Snapshot:     route_20261002_122818_064DEE4B (2026-10-02T12:28:08.942156300+00:00)
+Current Snapshot:      route_20261002_122845_76455440 (2026-10-02T12:28:33.791603100+00:00)
+Previous Fingerprint:  064DEE4B85A3144A
+Current Fingerprint:   76455440DB0C1BD1
+Fingerprint Changed:   YES (Path altered)
+Hop Count Delta:       +2
+
+--------------------------------------------------------------------------------
+Hop-Level Structural Differences:
+--------------------------------------------------------------------------------
+  [Hop  4] Hop 4 IP changed from 182.79.243.234 to 116.119.161.149
+  [Hop  5] Hop 5 IP changed from 182.79.223.41 to 72.14.205.196
+  [Hop  6] Hop 6 IP changed from 1.1.1.1 to 142.251.227.211
+  [Hop  7] Hop 7 added in current route (142.250.228.83)
+  [Hop  8] Hop 8 added in current route (8.8.8.8)
+
+--------------------------------------------------------------------------------
+Hop Latency (Median RTT) Variations:
+--------------------------------------------------------------------------------
+Hop   Address                       Prev Median   Curr Median   RTT Delta
+----  ----------------------------  ------------  ------------  ---------
+1     192.168.1.1                         1.0 ms        2.0 ms    +1.0 ms
+2     223.230.16.1                       11.0 ms       15.0 ms    +4.0 ms
+3     59.144.94.157                      11.0 ms       14.0 ms    +3.0 ms
+4     116.119.161.149                    11.0 ms       22.0 ms   +11.0 ms
+5     72.14.205.196                      13.0 ms       22.0 ms    +9.0 ms
+6     142.251.227.211                    11.0 ms       27.0 ms   +16.0 ms
+
+================================================================================
+SUMMARY: Route changed: previous fingerprint 064DEE4B85A3144A -> current fingerprint 76455440DB0C1BD1. Detected 5 hop-level structural difference(s).
+================================================================================

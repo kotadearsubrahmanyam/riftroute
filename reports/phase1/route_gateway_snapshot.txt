@@ -1,0 +1,36 @@
+================================================================================
+                 RiftRoute Network Path Snapshot Report                         
+================================================================================
+
+Measurement ID:        route_20261002_122756_29776D29
+Timestamp (UTC):       2026-10-02T12:27:51.898476400+00:00
+Target Destination:    192.168.1.1
+Resolved Target IP:    192.168.1.1
+Diagnostic Method:     Windows Tracert (ICMP Echo / Time Exceeded)
+Active Interface:      Wi-Fi
+Source IPv4:           192.168.1.14
+Default Gateway:       192.168.1.1
+Execution Duration:    0.11 s
+Route Fingerprint:     29776D29CF693ADE
+Fingerprint SHA-256:   29776d29cf693ade241c507e691f4a78dfe149e2f52fc755ceed5cf2a9b81bba
+Canonical Path:        1:192.168.1.1
+
+--------------------------------------------------------------------------------
+Observed Route Hop Progression
+--------------------------------------------------------------------------------
+Hop   Address / Status              Min RTT   Median   Mean RTT   Max RTT   Jitter
+----  ----------------------------  --------  -------  ---------  --------  ------
+1     192.168.1.1                     0.5 ms    0.5 ms     2.7 ms    7.0 ms  3.2 ms
+
+--------------------------------------------------------------------------------
+Path Metrics Summary:
+  Total Hops Observed:    1
+  Responding Hops:        1
+  Timeout Hops:           0
+================================================================================
+SCIENTIFIC INTEGRITY DISCLAIMER:
+1. Traceroute probe RTT reflects ICMP Time Exceeded generation latency from router
+   control planes, NOT actual game client-server application latency.
+2. Router timeouts ('*') indicate ICMP rate-limiting or filtering, NOT packet loss.
+3. This measurement observes network topology; it does not alter routing behavior.
+================================================================================

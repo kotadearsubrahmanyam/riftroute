@@ -1,0 +1,51 @@
+{
+  "measurement_id": "route_20261002_123009_29776D29",
+  "timestamp_utc": "2026-10-02T12:30:04.238692300+00:00",
+  "destination": "192.168.1.1",
+  "destination_ip": "192.168.1.1",
+  "destination_port": null,
+  "probe_method": "Windows Tracert (ICMP Echo / Time Exceeded)",
+  "resolve_hostnames": false,
+  "active_interface": "Wi-Fi",
+  "source_ipv4": "192.168.1.14",
+  "default_gateway": "192.168.1.1",
+  "hop_count": 1,
+  "responding_hops": 1,
+  "timeout_hops": 0,
+  "hops": [
+    {
+      "hop_number": 1,
+      "addresses": [
+        "192.168.1.1"
+      ],
+      "primary_address": "192.168.1.1",
+      "hostname": null,
+      "rtt_samples_ms": [
+        17.0,
+        0.5,
+        0.5
+      ],
+      "responded": true,
+      "timeout_count": 0,
+      "probe_count": 3,
+      "rtt_stats": {
+        "sample_count": 3,
+        "min_ms": 0.5,
+        "median_ms": 0.5,
+        "mean_ms": 6.0,
+        "p95_ms": 15.349999999999998,
+        "p99_ms": 16.669999999999998,
+        "max_ms": 17.0,
+        "std_dev_ms": 9.526279441628825,
+        "jitter_ms": 8.25
+      },
+      "is_timeout": false,
+      "raw_line": "  1    17 ms    <1 ms    <1 ms  192.168.1.1 "
+    }
+  ],
+  "fingerprint": "29776D29CF693ADE",
+  "fingerprint_sha256": "29776d29cf693ade241c507e691f4a78dfe149e2f52fc755ceed5cf2a9b81bba",
+  "canonical_path": "1:192.168.1.1",
+  "measurement_duration_ms": 109,
+  "scientific_disclaimer": "Traceroute probe RTT reflects ICMP Time Exceeded generation latency from router control planes, NOT actual game client-server application latency. Router timeouts ('*') indicate ICMP rate-limiting or filtering, NOT packet loss."
+}

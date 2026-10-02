@@ -1,0 +1,55 @@
+================================================================================
+                 RiftRoute Network Path Snapshot Report                         
+================================================================================
+
+Measurement ID:        route_20261002_122943_9718DCB2
+Timestamp (UTC):       2026-10-02T12:28:53.370753700+00:00
+Target Destination:    20.205.179.128
+Resolved Target IP:    20.205.179.128
+Diagnostic Method:     Windows Tracert (ICMP Echo / Time Exceeded)
+Active Interface:      Wi-Fi
+Source IPv4:           192.168.1.14
+Default Gateway:       192.168.1.1
+Execution Duration:    46.25 s
+Route Fingerprint:     9718DCB2AE6A739E
+Fingerprint SHA-256:   9718dcb2ae6a739e8939c1d529fbc4f3bc2493a164e08e66dc85c503121e20ad
+Canonical Path:        1:192.168.1.1|2:223.230.16.1|3:182.71.238.101|4:104.44.56.135|5:51.10.36.182|6:51.10.42.121|7:TIMEOUT|8:TIMEOUT|9:TIMEOUT|10:51.10.4.226|11:TIMEOUT|12:TIMEOUT|13:TIMEOUT|14:TIMEOUT|15:TIMEOUT|16:TIMEOUT|17:TIMEOUT|18:TIMEOUT|19:TIMEOUT|20:TIMEOUT
+
+--------------------------------------------------------------------------------
+Observed Route Hop Progression
+--------------------------------------------------------------------------------
+Hop   Address / Status              Min RTT   Median   Mean RTT   Max RTT   Jitter
+----  ----------------------------  --------  -------  ---------  --------  ------
+1     192.168.1.1                     1.0 ms    1.0 ms     5.3 ms   14.0 ms  6.5 ms
+2     223.230.16.1                   11.0 ms   11.0 ms    11.3 ms   12.0 ms  0.5 ms
+3     182.71.238.101                 11.0 ms   13.0 ms    20.7 ms   38.0 ms  13.5 ms
+4     104.44.56.135                  11.0 ms   13.0 ms    12.7 ms   14.0 ms  2.0 ms
+5     51.10.36.182                   11.0 ms   11.0 ms    11.3 ms   12.0 ms  0.5 ms
+6     51.10.42.121                   58.0 ms   66.0 ms    72.7 ms   94.0 ms  18.0 ms
+7     * (Timeout - 3/3 probes)            -        -          -         -       -
+8     * (Timeout - 3/3 probes)            -        -          -         -       -
+9     * (Timeout - 3/3 probes)            -        -          -         -       -
+10    51.10.4.226                    60.0 ms   62.0 ms    61.3 ms   62.0 ms  2.0 ms
+11    * (Timeout - 3/3 probes)            -        -          -         -       -
+12    * (Timeout - 3/3 probes)            -        -          -         -       -
+13    * (Timeout - 3/3 probes)            -        -          -         -       -
+14    * (Timeout - 3/3 probes)            -        -          -         -       -
+15    * (Timeout - 3/3 probes)            -        -          -         -       -
+16    * (Timeout - 3/3 probes)            -        -          -         -       -
+17    * (Timeout - 3/3 probes)            -        -          -         -       -
+18    * (Timeout - 3/3 probes)            -        -          -         -       -
+19    * (Timeout - 3/3 probes)            -        -          -         -       -
+20    * (Timeout - 3/3 probes)            -        -          -         -       -
+
+--------------------------------------------------------------------------------
+Path Metrics Summary:
+  Total Hops Observed:    20
+  Responding Hops:        7
+  Timeout Hops:           13
+================================================================================
+SCIENTIFIC INTEGRITY DISCLAIMER:
+1. Traceroute probe RTT reflects ICMP Time Exceeded generation latency from router
+   control planes, NOT actual game client-server application latency.
+2. Router timeouts ('*') indicate ICMP rate-limiting or filtering, NOT packet loss.
+3. This measurement observes network topology; it does not alter routing behavior.
+================================================================================

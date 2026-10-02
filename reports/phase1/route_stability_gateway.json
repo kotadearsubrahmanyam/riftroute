@@ -1,0 +1,31 @@
+{
+  "destination": "192.168.1.1",
+  "analysis_window_start": "2026-10-02T12:27:51.898476400+00:00",
+  "analysis_window_end": "2026-10-02T12:30:09.567575100+00:00",
+  "total_snapshots": 5,
+  "unique_fingerprints_count": 1,
+  "fingerprint_frequencies": [
+    {
+      "fingerprint": "29776D29CF693ADE",
+      "count": 5,
+      "percentage": 100.0,
+      "sample_snapshot_id": "route_20261002_122756_29776D29"
+    }
+  ],
+  "dominant_fingerprint": "29776D29CF693ADE",
+  "dominant_fingerprint_pct": 100.0,
+  "route_change_count": 0,
+  "route_change_rate_pct": 0.0,
+  "hop_variability": [
+    {
+      "hop_number": 1,
+      "unique_addresses": [
+        "192.168.1.1"
+      ],
+      "timeout_count": 0,
+      "timeout_frequency_pct": 0.0,
+      "is_stable": true
+    }
+  ],
+  "stability_summary": "Route is perfectly stable across 5 snapshot(s). Dominant path (29776D29CF693ADE) observed 100.0% of the time with 0 route changes."
+}

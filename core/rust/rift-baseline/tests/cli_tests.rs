@@ -188,3 +188,306 @@ fn test_cli_analyze_endpoints_with_real_capture_text() {
     assert!(stdout.contains("NOT MEASURED (UDP transport layer has no native sequence numbers)"));
 }
 
+#[test]
+fn test_cli_route_help() {
+    let output = Command::new(env!("CARGO_BIN_EXE_rift-baseline"))
+        .args(["route", "--help"])
+        .output()
+        .expect("Failed to execute rift-baseline route --help");
+
+    assert!(output.status.success());
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    assert!(stdout.contains("measure"));
+    assert!(stdout.contains("compare"));
+    assert!(stdout.contains("stability"));
+}
+
+#[test]
+fn test_cli_route_measure_help() {
+    let output = Command::new(env!("CARGO_BIN_EXE_rift-baseline"))
+        .args(["route", "measure", "--help"])
+        .output()
+        .expect("Failed to execute rift-baseline route measure --help");
+
+    assert!(output.status.success());
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    assert!(stdout.contains("<DESTINATION>"));
+    assert!(stdout.contains("--max-hops"));
+    assert!(stdout.contains("--timeout-ms"));
+    assert!(stdout.contains("--resolve"));
+    assert!(stdout.contains("--save"));
+}
+
+#[test]
+fn test_cli_route_compare_help() {
+    let output = Command::new(env!("CARGO_BIN_EXE_rift-baseline"))
+        .args(["route", "compare", "--help"])
+        .output()
+        .expect("Failed to execute rift-baseline route compare --help");
+
+    assert!(output.status.success());
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    assert!(stdout.contains("<PREVIOUS>"));
+    assert!(stdout.contains("<CURRENT>"));
+}
+
+#[test]
+fn test_cli_route_stability_help() {
+    let output = Command::new(env!("CARGO_BIN_EXE_rift-baseline"))
+        .args(["route", "stability", "--help"])
+        .output()
+        .expect("Failed to execute rift-baseline route stability --help");
+
+    assert!(output.status.success());
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    assert!(stdout.contains("<INPUTS>"));
+}
+
+#[test]
+fn test_cli_route_measure_invalid_destination() {
+    let output = Command::new(env!("CARGO_BIN_EXE_rift-baseline"))
+        .args(["route", "measure", "1.1.1.1; echo evil"])
+        .output()
+        .expect("Failed to execute rift-baseline route measure with injection attempt");
+
+    assert!(!output.status.success());
+    let stderr = String::from_utf8_lossy(&output.stderr);
+    assert!(stderr.contains("Destination contains illegal character") || stderr.contains("Route measurement failed"));
+}
+
+#[test]
+fn test_cli_route_compare_snapshots() {
+    let temp_dir = tempfile::tempdir().expect("Failed to create tempdir");
+    let snap1_path = temp_dir.path().join("snap1.json");
+    let snap2_path = temp_dir.path().join("snap2.json");
+
+    let snap1_json = r#"{
+      "measurement_id": "route_20261002_000001_AAAA",
+      "timestamp_utc": "2026-10-02T10:00:00Z",
+      "destination": "1.1.1.1",
+      "destination_ip": "1.1.1.1",
+      "destination_port": null,
+      "probe_method": "Windows Tracert",
+      "resolve_hostnames": false,
+      "active_interface": "Wi-Fi",
+      "source_ipv4": "192.168.1.14",
+      "default_gateway": "192.168.1.1",
+      "hop_count": 2,
+      "responding_hops": 2,
+      "timeout_hops": 0,
+      "hops": [
+        {
+          "hop_number": 1,
+          "addresses": ["192.168.1.1"],
+          "primary_address": "192.168.1.1",
+          "hostname": null,
+          "rtt_samples_ms": [1.0, 1.0, 1.0],
+          "responded": true,
+          "timeout_count": 0,
+          "probe_count": 3,
+          "rtt_stats": {
+            "sample_count": 3,
+            "min_ms": 1.0,
+            "median_ms": 1.0,
+            "mean_ms": 1.0,
+            "p95_ms": 1.0,
+            "p99_ms": 1.0,
+            "max_ms": 1.0,
+            "std_dev_ms": 0.0,
+            "jitter_ms": 0.0
+          },
+          "is_timeout": false,
+          "raw_line": ""
+        },
+        {
+          "hop_number": 2,
+          "addresses": ["1.1.1.1"],
+          "primary_address": "1.1.1.1",
+          "hostname": null,
+          "rtt_samples_ms": [10.0, 11.0, 10.0],
+          "responded": true,
+          "timeout_count": 0,
+          "probe_count": 3,
+          "rtt_stats": {
+            "sample_count": 3,
+            "min_ms": 10.0,
+            "median_ms": 10.0,
+            "mean_ms": 10.3,
+            "p95_ms": 10.9,
+            "p99_ms": 11.0,
+            "max_ms": 11.0,
+            "std_dev_ms": 0.58,
+            "jitter_ms": 0.5
+          },
+          "is_timeout": false,
+          "raw_line": ""
+        }
+      ],
+      "fingerprint": "1111222233334444",
+      "fingerprint_sha256": "1111222233334444555566667777888899990000aaaabbbbccccddddeeeeffff",
+      "canonical_path": "1:192.168.1.1|2:1.1.1.1",
+      "measurement_duration_ms": 500,
+      "scientific_disclaimer": "probe RTT is not game RTT"
+    }"#;
+
+    let snap2_json = r#"{
+      "measurement_id": "route_20261002_000002_BBBB",
+      "timestamp_utc": "2026-10-02T10:05:00Z",
+      "destination": "1.1.1.1",
+      "destination_ip": "1.1.1.1",
+      "destination_port": null,
+      "probe_method": "Windows Tracert",
+      "resolve_hostnames": false,
+      "active_interface": "Wi-Fi",
+      "source_ipv4": "192.168.1.14",
+      "default_gateway": "192.168.1.1",
+      "hop_count": 2,
+      "responding_hops": 2,
+      "timeout_hops": 0,
+      "hops": [
+        {
+          "hop_number": 1,
+          "addresses": ["192.168.1.1"],
+          "primary_address": "192.168.1.1",
+          "hostname": null,
+          "rtt_samples_ms": [1.0, 1.0, 1.0],
+          "responded": true,
+          "timeout_count": 0,
+          "probe_count": 3,
+          "rtt_stats": {
+            "sample_count": 3,
+            "min_ms": 1.0,
+            "median_ms": 1.0,
+            "mean_ms": 1.0,
+            "p95_ms": 1.0,
+            "p99_ms": 1.0,
+            "max_ms": 1.0,
+            "std_dev_ms": 0.0,
+            "jitter_ms": 0.0
+          },
+          "is_timeout": false,
+          "raw_line": ""
+        },
+        {
+          "hop_number": 2,
+          "addresses": ["1.0.0.1"],
+          "primary_address": "1.0.0.1",
+          "hostname": null,
+          "rtt_samples_ms": [12.0, 12.0, 12.0],
+          "responded": true,
+          "timeout_count": 0,
+          "probe_count": 3,
+          "rtt_stats": {
+            "sample_count": 3,
+            "min_ms": 12.0,
+            "median_ms": 12.0,
+            "mean_ms": 12.0,
+            "p95_ms": 12.0,
+            "p99_ms": 12.0,
+            "max_ms": 12.0,
+            "std_dev_ms": 0.0,
+            "jitter_ms": 0.0
+          },
+          "is_timeout": false,
+          "raw_line": ""
+        }
+      ],
+      "fingerprint": "5555666677778888",
+      "fingerprint_sha256": "555566667777888899990000aaaabbbbccccddddeeeeffff1111222233334444",
+      "canonical_path": "1:192.168.1.1|2:1.0.0.1",
+      "measurement_duration_ms": 520,
+      "scientific_disclaimer": "probe RTT is not game RTT"
+    }"#;
+
+    std::fs::write(&snap1_path, snap1_json).expect("write snap1");
+    std::fs::write(&snap2_path, snap2_json).expect("write snap2");
+
+    let output = Command::new(env!("CARGO_BIN_EXE_rift-baseline"))
+        .args([
+            "--json",
+            "route",
+            "compare",
+            snap1_path.to_str().unwrap(),
+            snap2_path.to_str().unwrap(),
+        ])
+        .output()
+        .expect("execute route compare");
+
+    assert!(output.status.success(), "Stderr: {}", String::from_utf8_lossy(&output.stderr));
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    let val: serde_json::Value = serde_json::from_str(&stdout).expect("valid JSON");
+
+    assert_eq!(val.get("fingerprint_identical").unwrap().as_bool().unwrap(), false);
+    assert_eq!(val.get("hop_differences").unwrap().as_array().unwrap().len(), 1);
+    assert_eq!(
+        val["hop_differences"][0]["diff_type"].as_str().unwrap(),
+        "AddressChanged"
+    );
+}
+
+#[test]
+fn test_cli_route_stability_snapshots() {
+    let temp_dir = tempfile::tempdir().expect("Failed to create tempdir");
+    let snap1_path = temp_dir.path().join("snap1.json");
+    let snap2_path = temp_dir.path().join("snap2.json");
+
+    let snap_base = r#"{
+      "measurement_id": "route_20261002_000001_AAAA",
+      "timestamp_utc": "2026-10-02T10:00:00Z",
+      "destination": "1.1.1.1",
+      "destination_ip": "1.1.1.1",
+      "destination_port": null,
+      "probe_method": "Windows Tracert",
+      "resolve_hostnames": false,
+      "active_interface": "Wi-Fi",
+      "source_ipv4": "192.168.1.14",
+      "default_gateway": "192.168.1.1",
+      "hop_count": 1,
+      "responding_hops": 1,
+      "timeout_hops": 0,
+      "hops": [
+        {
+          "hop_number": 1,
+          "addresses": ["192.168.1.1"],
+          "primary_address": "192.168.1.1",
+          "hostname": null,
+          "rtt_samples_ms": [1.0],
+          "responded": true,
+          "timeout_count": 0,
+          "probe_count": 3,
+          "rtt_stats": null,
+          "is_timeout": false,
+          "raw_line": ""
+        }
+      ],
+      "fingerprint": "1111222233334444",
+      "fingerprint_sha256": "1111222233334444",
+      "canonical_path": "1:192.168.1.1",
+      "measurement_duration_ms": 300,
+      "scientific_disclaimer": ""
+    }"#;
+
+    std::fs::write(&snap1_path, snap_base).expect("write snap1");
+    std::fs::write(&snap2_path, snap_base).expect("write snap2");
+
+    let output = Command::new(env!("CARGO_BIN_EXE_rift-baseline"))
+        .args([
+            "--json",
+            "route",
+            "stability",
+            temp_dir.path().to_str().unwrap(),
+        ])
+        .output()
+        .expect("execute route stability");
+
+    assert!(output.status.success(), "Stderr: {}", String::from_utf8_lossy(&output.stderr));
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    let val: serde_json::Value = serde_json::from_str(&stdout).expect("valid JSON");
+
+    assert_eq!(val.get("total_snapshots").unwrap().as_u64().unwrap(), 2);
+    assert_eq!(val.get("unique_fingerprints_count").unwrap().as_u64().unwrap(), 1);
+    assert_eq!(val.get("dominant_fingerprint").unwrap().as_str().unwrap(), "1111222233334444");
+    assert_eq!(val.get("dominant_fingerprint_pct").unwrap().as_f64().unwrap(), 100.0);
+}
+
+

@@ -7,3 +7,4 @@ pub mod process;
 pub mod game_test;
 pub mod report;
 pub mod endpoint_analyzer;
+pub mod route_intelligence;
