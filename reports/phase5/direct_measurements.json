@@ -1,0 +1,23 @@
+{
+  "destination": "1.1.1.1",
+  "sample_count": 10,
+  "probe_type": "ICMP",
+  "statistics": {
+    "min_ms": 12.0,
+    "max_ms": 15.0,
+    "mean_ms": 13.5,
+    "median_ms": 13.5,
+    "p95_ms": 15.0,
+    "p99_ms": 15.0,
+    "std_dev_ms": 1.0801,
+    "jitter_ms": 1.5556,
+    "confidence_interval_95": {
+      "lower_bound_ms": 12.7274,
+      "upper_bound_ms": 14.2726,
+      "margin_of_error_ms": 0.7726
+    }
+  },
+  "route_fingerprint": "064DEE4B85A3144A",
+  "hop_count": 6,
+  "samples": [15.0, 13.0, 14.0, 12.0, 13.0, 14.0, 14.0, 12.0, 15.0, 13.0]
+}

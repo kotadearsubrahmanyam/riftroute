@@ -1,0 +1,10 @@
+{
+  "relay_id": "relay_local_01",
+  "initial_status": "Offline",
+  "failure_detected": true,
+  "failure_mode_observed": "RelayOffline",
+  "failure_detection_latency_ms": 505.8887,
+  "recovery_detected": false,
+  "recovery_detection_latency_ms": 505.8887,
+  "timestamp_utc": "2026-10-02T14:32:50.692817600+00:00"
+}

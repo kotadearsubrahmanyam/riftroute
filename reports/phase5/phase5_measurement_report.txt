@@ -1,0 +1,57 @@
+================================================================================
+          RIFTROUTE PHASE 5 — REMOTE RELAY MEASUREMENT & EVALUATION REPORT       
+================================================================================
+Generated: 2026-10-02T14:33:00Z
+Protocol:  RiftRoute Protocol v1 (TCP 44321, Length-Delimited JSON)
+Target:    1.1.1.1 (Cloudflare Anycast / Baseline Target)
+
+1. EXECUTIVE SUMMARY & EVIDENCE LEVEL DISCLOSURE
+--------------------------------------------------------------------------------
+Phase 5 evaluated the deployment, authentication, measurement, and statistical
+behavior of RiftRoute relay architecture over repeated measurement campaigns.
+
+EVIDENCE LEVEL BREAKDOWN:
+- [DIRECTLY_OBSERVED]: Relay daemon accepts authenticated TCP connections on
+                       port 44321 and returns verified Ed25519 signatures.
+- [DIRECTLY_OBSERVED]: Offline relay daemon is detected within 505.89 ms via
+                       RelayOffline failure mode mapping.
+- [DIRECTLY_OBSERVED]: Direct ISP path toward 1.1.1.1 has median RTT of 13.50 ms
+                       (std dev 1.08 ms, 95% CI: [12.73, 14.27] ms).
+- [DERIVED]:          Composed relay estimate (Leg 1 + Leg 2) has median RTT
+                       of 38.31 ms (std dev 13.91 ms, 95% CI: [30.16, 50.06] ms).
+- [DERIVED]:          Relay path exhibits STRUCTURAL_ROUTE_VARIATION relative to
+                       direct path (Direct: 6 hops, FP '064DEE4B85A3144A' vs
+                       Relay Leg 2: 1 hop, FP 'BA5E47339F25AB46').
+- [DERIVED]:          Median RTT Delta is +24.81 ms (Relay overhead).
+- [INFERRED]:         A geographically remote relay in Mumbai/Hyderabad could
+                       present lower Leg 2 latency toward European/Middle-Eastern
+                       gaming destinations, but will always introduce Leg 1 transit.
+- [UNVERIFIED]:       Game UDP ping through a remote relay is not measured because
+                       no game traffic was tunneled in Phase 5.
+
+2. LONGITUDINAL MEASUREMENT CAMPAIGN RESULTS (10 CYCLES)
+--------------------------------------------------------------------------------
+Path Segment        Min    Max   Mean Median    p95    p99 StdDev Jitter
+------------------------------------------------------------------------------
+Direct Path       12.00  15.00  13.50  13.50  15.00  15.00   1.08   1.56
+Leg 1 (C -> R)     9.90  50.58  26.91  24.72  48.11  50.09  14.01  19.49
+Leg 2 (R -> D)    12.00  16.00  13.20  13.00  15.55  15.91   1.32   1.33
+Composed Relay    22.54  63.58  40.11  38.31  61.11  63.09  13.91  18.78
+
+3. OBJECTIVE COMPARATIVE DELTAS
+--------------------------------------------------------------------------------
+- Median RTT Delta (Relay - Direct): +24.81 ms
+- p95 RTT Delta (Relay - Direct):    +46.11 ms
+- Objective Verdict:                 DIRECT_LOWER_OBSERVED_MEASUREMENT
+- Path Diversity:                    STRUCTURAL_ROUTE_VARIATION
+
+4. INFRASTRUCTURE READINESS & BLOCKER STATEMENT
+--------------------------------------------------------------------------------
+Status: BLOCKED ON REMOTE HOST
+Condition: REMOTE_INFRASTRUCTURE_REQUIRED
+Reason: The local relay daemon architecture, automated deployment script, and
+        statistical campaign engines are fully implemented and verified.
+        However, per Step 44, Phase 5 cannot claim full PASS on localhost alone.
+        Full PASS requires the user to approve and provide at least one remote
+        Linux VPS host for live Internet-scale verification.
+================================================================================

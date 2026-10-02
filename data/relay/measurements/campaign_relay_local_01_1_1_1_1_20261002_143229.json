@@ -1,0 +1,218 @@
+{
+  "campaign_id": "campaign_relay_local_01_1_1_1_1_20261002_143031",
+  "relay_id": "relay_local_01",
+  "destination": "1.1.1.1",
+  "sample_count": 10,
+  "availability_pct": 100.0,
+  "auth_success_rate_pct": 100.0,
+  "measurement_success_rate_pct": 100.0,
+  "direct_stats": {
+    "sample_count": 10,
+    "min_ms": 12.0,
+    "max_ms": 15.0,
+    "mean_ms": 13.5,
+    "median_ms": 13.5,
+    "p95_ms": 15.0,
+    "p99_ms": 15.0,
+    "std_dev_ms": 1.0801234497346435,
+    "jitter_ms": 1.5555555555555556,
+    "confidence_interval_95": {
+      "confidence_level_pct": 95.0,
+      "lower_bound_ms": 12.727379912246647,
+      "upper_bound_ms": 14.272620087753353,
+      "margin_of_error_ms": 0.7726200877533538
+    }
+  },
+  "client_relay_stats": {
+    "sample_count": 10,
+    "min_ms": 9.903,
+    "max_ms": 50.5836,
+    "mean_ms": 26.910560000000004,
+    "median_ms": 24.71885,
+    "p95_ms": 48.10553999999999,
+    "p99_ms": 50.087987999999996,
+    "std_dev_ms": 14.01155244291097,
+    "jitter_ms": 19.48911111111111,
+    "confidence_interval_95": {
+      "confidence_level_pct": 95.0,
+      "lower_bound_ms": 16.887995560109225,
+      "upper_bound_ms": 36.93312443989078,
+      "margin_of_error_ms": 10.022564439890777
+    }
+  },
+  "relay_dest_stats": {
+    "sample_count": 10,
+    "min_ms": 12.0,
+    "max_ms": 16.0,
+    "mean_ms": 13.2,
+    "median_ms": 13.0,
+    "p95_ms": 15.549999999999999,
+    "p99_ms": 15.91,
+    "std_dev_ms": 1.3165611772087666,
+    "jitter_ms": 1.3333333333333333,
+    "confidence_interval_95": {
+      "confidence_level_pct": 95.0,
+      "lower_bound_ms": 12.258254301841522,
+      "upper_bound_ms": 14.141745698158477,
+      "margin_of_error_ms": 0.9417456981584784
+    }
+  },
+  "composed_stats": {
+    "sample_count": 10,
+    "min_ms": 22.5437,
+    "max_ms": 63.5836,
+    "mean_ms": 40.11056,
+    "median_ms": 38.3112,
+    "p95_ms": 61.10553999999999,
+    "p99_ms": 63.087987999999996,
+    "std_dev_ms": 13.905355390176517,
+    "jitter_ms": 18.77962222222222,
+    "confidence_interval_95": {
+      "confidence_level_pct": 95.0,
+      "lower_bound_ms": 30.16395907726367,
+      "upper_bound_ms": 50.05716092273633,
+      "margin_of_error_ms": 9.946600922736328
+    }
+  },
+  "delta_median_ms": 24.8112,
+  "delta_p95_ms": 46.10553999999999,
+  "path_diversity": {
+    "diversity_type": "StructuralRouteVariation",
+    "direct_fingerprint": "064DEE4B85A3144A",
+    "leg1_fingerprint": "C2R_LEG",
+    "leg2_fingerprint": "F663959F8992B241",
+    "direct_hop_count": 6,
+    "relay_hop_count": 1,
+    "shared_hops_count": 0,
+    "distinct_hops_count": 7,
+    "rationale": "Structural route variation: Direct (6 hops, fp '064DEE4B85A3144A') vs Relay (1 hops, fp 'F663959F8992B241')"
+  },
+  "classification": "DirectLowerObservedMeasurement",
+  "dominant_direct_fingerprint": "064DEE4B85A3144A",
+  "dominant_relay_fingerprint": "F663959F8992B241",
+  "route_transition_rate_pct": 0.0,
+  "raw_samples": [
+    {
+      "cycle_index": 1,
+      "timestamp_utc": "2026-10-02T14:30:31.227996900+00:00",
+      "direct_rtt_ms": 15.0,
+      "client_to_relay_rtt_ms": 20.5839,
+      "relay_to_destination_rtt_ms": 12.0,
+      "composed_estimate_ms": 32.5839,
+      "direct_fingerprint": "064DEE4B85A3144A",
+      "relay_fingerprint": "F663959F8992B241",
+      "success": true,
+      "error_message": null
+    },
+    {
+      "cycle_index": 2,
+      "timestamp_utc": "2026-10-02T14:30:43.527745300+00:00",
+      "direct_rtt_ms": 13.0,
+      "client_to_relay_rtt_ms": 17.063200000000002,
+      "relay_to_destination_rtt_ms": 15.0,
+      "composed_estimate_ms": 32.0632,
+      "direct_fingerprint": "423EB35D7E4E0D3F",
+      "relay_fingerprint": "CC8884C766369DFE",
+      "success": true,
+      "error_message": null
+    },
+    {
+      "cycle_index": 3,
+      "timestamp_utc": "2026-10-02T14:30:55.501498200+00:00",
+      "direct_rtt_ms": 14.0,
+      "client_to_relay_rtt_ms": 50.5836,
+      "relay_to_destination_rtt_ms": 13.0,
+      "composed_estimate_ms": 63.5836,
+      "direct_fingerprint": "423EB35D7E4E0D3F",
+      "relay_fingerprint": "D86182AA4E0A47BB",
+      "success": true,
+      "error_message": null
+    },
+    {
+      "cycle_index": 4,
+      "timestamp_utc": "2026-10-02T14:31:07.601403400+00:00",
+      "direct_rtt_ms": 12.0,
+      "client_to_relay_rtt_ms": 37.8752,
+      "relay_to_destination_rtt_ms": 13.0,
+      "composed_estimate_ms": 50.8752,
+      "direct_fingerprint": "064DEE4B85A3144A",
+      "relay_fingerprint": "D86182AA4E0A47BB",
+      "success": true,
+      "error_message": null
+    },
+    {
+      "cycle_index": 5,
+      "timestamp_utc": "2026-10-02T14:31:18.543175400+00:00",
+      "direct_rtt_ms": 13.0,
+      "client_to_relay_rtt_ms": 10.5437,
+      "relay_to_destination_rtt_ms": 12.0,
+      "composed_estimate_ms": 22.5437,
+      "direct_fingerprint": "064DEE4B85A3144A",
+      "relay_fingerprint": "F663959F8992B241",
+      "success": true,
+      "error_message": null
+    },
+    {
+      "cycle_index": 6,
+      "timestamp_utc": "2026-10-02T14:31:32.405885500+00:00",
+      "direct_rtt_ms": 14.0,
+      "client_to_relay_rtt_ms": 28.8538,
+      "relay_to_destination_rtt_ms": 13.0,
+      "composed_estimate_ms": 41.8538,
+      "direct_fingerprint": "064DEE4B85A3144A",
+      "relay_fingerprint": "D86182AA4E0A47BB",
+      "success": true,
+      "error_message": null
+    },
+    {
+      "cycle_index": 7,
+      "timestamp_utc": "2026-10-02T14:31:44.604788900+00:00",
+      "direct_rtt_ms": 14.0,
+      "client_to_relay_rtt_ms": 29.046499999999998,
+      "relay_to_destination_rtt_ms": 12.0,
+      "composed_estimate_ms": 41.046499999999995,
+      "direct_fingerprint": "064DEE4B85A3144A",
+      "relay_fingerprint": "F663959F8992B241",
+      "success": true,
+      "error_message": null
+    },
+    {
+      "cycle_index": 8,
+      "timestamp_utc": "2026-10-02T14:31:55.543056600+00:00",
+      "direct_rtt_ms": 12.0,
+      "client_to_relay_rtt_ms": 9.903,
+      "relay_to_destination_rtt_ms": 13.0,
+      "composed_estimate_ms": 22.903,
+      "direct_fingerprint": "064DEE4B85A3144A",
+      "relay_fingerprint": "D86182AA4E0A47BB",
+      "success": true,
+      "error_message": null
+    },
+    {
+      "cycle_index": 9,
+      "timestamp_utc": "2026-10-02T14:32:06.533147100+00:00",
+      "direct_rtt_ms": 15.0,
+      "client_to_relay_rtt_ms": 45.0768,
+      "relay_to_destination_rtt_ms": 13.0,
+      "composed_estimate_ms": 58.0768,
+      "direct_fingerprint": "064DEE4B85A3144A",
+      "relay_fingerprint": "D86182AA4E0A47BB",
+      "success": true,
+      "error_message": null
+    },
+    {
+      "cycle_index": 10,
+      "timestamp_utc": "2026-10-02T14:32:18.632142+00:00",
+      "direct_rtt_ms": 13.0,
+      "client_to_relay_rtt_ms": 19.5759,
+      "relay_to_destination_rtt_ms": 16.0,
+      "composed_estimate_ms": 35.575900000000004,
+      "direct_fingerprint": "064DEE4B85A3144A",
+      "relay_fingerprint": "411A3987841C9CE6",
+      "success": true,
+      "error_message": null
+    }
+  ],
+  "timestamp_utc": "2026-10-02T14:32:29.566280100+00:00",
+  "scientific_disclaimer": "Campaign measurements represent ICMP/TCP diagnostic probe latency differences. Composed relay latency is leg 1 + leg 2 arithmetic estimate and does not represent live UDP gaming traffic."
+}

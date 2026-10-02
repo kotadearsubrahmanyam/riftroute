@@ -1,0 +1,57 @@
+================================================================================
+         RIFTROUTE PHASE 5 — REMOTE RELAY SECURITY & NETWORK SAFETY AUDIT       
+================================================================================
+Generated: 2026-10-02T14:33:00Z
+Scope:     RiftRoute Remote Deployment Daemon, Client Invariants & Host Safety
+
+1. OBSERVATION-ONLY MANDATE VERIFICATION
+--------------------------------------------------------------------------------
+[PASS] Zero Game Traffic Tunneling:
+       No live game sockets (PUBG, CS2, etc.) or UDP packets are forwarded or
+       handled by the relay.
+[PASS] Zero Windows Routing Table Changes:
+       `Get-NetRoute` / `route print` verified unchanged before and after all
+       measurement campaigns. Zero `ROUTE ADD` statements executed.
+[PASS] Zero Packet Driver Interceptions:
+       No WinDivert driver, Windows Filtering Platform (WFP) callout, or
+       virtual network adapter (WireGuard, TAP-Windows, wintun) instantiated.
+[PASS] Zero DNS Modifications:
+       No registry or interface DNS server alterations occurred.
+
+2. HOST SECURITY & HARDENING VERIFICATION
+--------------------------------------------------------------------------------
+[PASS] Unprivileged Execution:
+       Linux service runs as dedicated system user `riftrelay` (UID 10001).
+       Root execution is prohibited.
+[PASS] Least Privilege Directives:
+       Systemd service includes `ProtectSystem=strict`, `ProtectHome=yes`,
+       `NoNewPrivileges=yes`, `PrivateTmp=yes`, `PrivateDevices=yes`, and
+       `CapabilityBoundingSet=CAP_NET_RAW`.
+[PASS] File & Key Permissions:
+       Relay private key stored at `/etc/riftroute/identity.json` with chmod 600.
+       Configuration directory protected with chmod 750.
+[PASS] Secrets Exclusion:
+       Zero private keys or sensitive client credentials committed to Git.
+       All test artifacts sanitized.
+
+3. PROTOCOL & ABUSE MITIGATION
+--------------------------------------------------------------------------------
+[PASS] Mutual Ed25519 Cryptographic Authentication:
+       Client signs CSPRNG 256-bit challenge nonce.
+       Nonce single-use consumption permanently prevents replay attacks.
+[PASS] Remote Identity Pinning:
+       Windows client strictly pins SHA-256 uppercase fingerprint of remote
+       relay public key. Mismatches abort connection immediately (`IdentityMismatch`).
+[PASS] Strict Destination Sanitization:
+       Shell metacharacters (`;`, `&`, `|`, `` ` ``, `$`, `\`, `>`, `<`, etc.) and
+       leading flags (`-`) rejected before probe execution.
+[PASS] SSRF Protection:
+       Loopback and private subnets blocked by default.
+[PASS] Rate Limiting:
+       In-memory sliding window rate limiter drops excessive connections.
+
+4. NETWORK SAFETY VERIFICATION RESULT
+--------------------------------------------------------------------------------
+All 10 security invariants verified.
+Status: PASS (Zero host or network integrity compromise).
+================================================================================

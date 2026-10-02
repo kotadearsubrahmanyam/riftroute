@@ -291,6 +291,75 @@ enum RelaySubcommands {
         #[arg(short, long, help = "Auto-save comparison report to reports/phase4/")]
         save: bool,
     },
+
+    #[command(about = "Execute a longitudinal measurement campaign with repeated cycles (Step 21 & 22)")]
+    Campaign {
+        #[arg(help = "Relay ID or public address (e.g. relay_local_01 or 127.0.0.1:44321)")]
+        relay: String,
+
+        #[arg(help = "Destination IP address or hostname (e.g. 1.1.1.1 or 20.205.179.128)")]
+        destination: String,
+
+        #[arg(long, help = "Number of repeated measurement cycles (min 3, recommended >= 10)", default_value_t = 10)]
+        samples: usize,
+
+        #[arg(long, help = "Diagnostic probe protocol (icmp or tcp)", default_value = "icmp")]
+        protocol: String,
+
+        #[arg(long, help = "Path to client identity JSON", default_value = "data/relay/client_identity.json")]
+        identity: std::path::PathBuf,
+
+        #[arg(long, help = "Path to relay registry JSON", default_value = "data/relay/registry.json")]
+        registry: std::path::PathBuf,
+
+        #[arg(short, long, help = "Optional path to save campaign report")]
+        output: Option<String>,
+
+        #[arg(short, long, help = "Auto-save campaign report to reports/phase5/ and data/relay/measurements/")]
+        save: bool,
+    },
+
+    #[command(about = "Analyze path and transit diversity between direct route and relay paths (Step 19 & 20)")]
+    Diversity {
+        #[arg(help = "Relay ID or public address (e.g. relay_local_01 or 127.0.0.1:44321)")]
+        relay: String,
+
+        #[arg(help = "Destination IP address or hostname (e.g. 1.1.1.1 or 20.205.179.128)")]
+        destination: String,
+
+        #[arg(long, help = "Diagnostic probe protocol (icmp or tcp)", default_value = "icmp")]
+        protocol: String,
+
+        #[arg(long, help = "Path to client identity JSON", default_value = "data/relay/client_identity.json")]
+        identity: std::path::PathBuf,
+
+        #[arg(long, help = "Path to relay registry JSON", default_value = "data/relay/registry.json")]
+        registry: std::path::PathBuf,
+
+        #[arg(short, long, help = "Optional path to save diversity report")]
+        output: Option<String>,
+
+        #[arg(short, long, help = "Auto-save diversity report to reports/phase5/")]
+        save: bool,
+    },
+
+    #[command(about = "Conduct controlled relay failure and recovery detection experiment (Step 29)")]
+    TestFailure {
+        #[arg(help = "Relay ID or public address (e.g. relay_local_01 or 127.0.0.1:44321)")]
+        relay: String,
+
+        #[arg(long, help = "Path to client identity JSON", default_value = "data/relay/client_identity.json")]
+        identity: std::path::PathBuf,
+
+        #[arg(long, help = "Path to relay registry JSON", default_value = "data/relay/registry.json")]
+        registry: std::path::PathBuf,
+
+        #[arg(short, long, help = "Optional path to save failure test report")]
+        output: Option<String>,
+
+        #[arg(short, long, help = "Auto-save failure test report to reports/phase5/relay_failure_test.json")]
+        save: bool,
+    },
 }
 
 #[derive(Subcommand)]
@@ -1565,6 +1634,201 @@ fn main() {
                             eprintln!("[ERROR] Failed to write comparison report to '{}': {}", out_path, e);
                             exit(1);
                         }
+                    }
+                    println!("{}", rendered);
+                }
+
+                RelaySubcommands::Campaign {
+                    relay,
+                    destination,
+                    samples,
+                    protocol,
+                    identity,
+                    registry,
+                    output,
+                    save,
+                } => {
+                    let reg = RelayRegistry::load_or_init(&registry);
+                    let relay_node = if let Some(r) = reg.get(&relay) {
+                        r.clone()
+                    } else {
+                        let (addr, port) = parse_host_port(&relay, 44321);
+                        RelayNode {
+                            relay_id: format!("relay_adhoc_{}", addr.replace('.', "_")),
+                            public_address: addr,
+                            control_port: port,
+                            identity_fingerprint: "".to_string(),
+                            public_key_hex: "".to_string(),
+                            location: LocationMetadata::default(),
+                            protocol_version: 1,
+                            capabilities: vec!["ping".to_string(), "tcp_probe".to_string()],
+                            status: RelayStatusType::Online,
+                            last_seen_utc: None,
+                            notes: "Ad-hoc relay node target".to_string(),
+                        }
+                    };
+
+                    let (client_key, client_id) = RelayManager::load_or_init_client_identity(&identity)
+                        .unwrap_or_else(|e| {
+                            eprintln!("[ERROR] Failed to load client identity: {}", e);
+                            exit(1);
+                        });
+
+                    let proto = if protocol.to_lowercase() == "tcp" {
+                        ProbeProtocol::Tcp
+                    } else {
+                        ProbeProtocol::Icmp
+                    };
+
+                    let campaign = match RelayManager::run_measurement_campaign(
+                        &relay_node,
+                        &destination,
+                        &client_key,
+                        &client_id.client_id,
+                        samples,
+                        proto,
+                    ) {
+                        Ok(c) => c,
+                        Err(e) => {
+                            eprintln!("[ERROR] Measurement campaign failed: {}", e);
+                            exit(1);
+                        }
+                    };
+
+                    if save {
+                        let fname = format!(
+                            "data/relay/measurements/campaign_{}_{}_{}.json",
+                            relay_node.relay_id,
+                            destination.replace('.', "_"),
+                            chrono::Utc::now().format("%Y%m%d_%H%M%S")
+                        );
+                        let _ = RelayReportRenderer::save_json(&campaign, &fname);
+                        let _ = RelayReportRenderer::save_json(&campaign, "reports/phase5/relay_path_comparison.json");
+                        let _ = RelayReportRenderer::save_json(&campaign.composed_stats, "reports/phase5/relay_stability.json");
+                        if !cli.json {
+                            println!("[SAVED] Campaign saved to: {}", fname);
+                            println!("[SAVED] Phase 5 reports saved to reports/phase5/");
+                        }
+                    }
+
+                    let rendered = if cli.json {
+                        serde_json::to_string_pretty(&campaign).unwrap()
+                    } else {
+                        RelayReportRenderer::format_campaign_text(&campaign)
+                    };
+
+                    if let Some(ref out_path) = output {
+                        if let Err(e) = std::fs::write(out_path, &rendered) {
+                            eprintln!("[ERROR] Failed to write campaign report to '{}': {}", out_path, e);
+                            exit(1);
+                        }
+                    }
+                    println!("{}", rendered);
+                }
+
+                RelaySubcommands::Diversity {
+                    relay,
+                    destination: _,
+                    protocol: _,
+                    identity: _,
+                    registry,
+                    output,
+                    save,
+                } => {
+                    let reg = RelayRegistry::load_or_init(&registry);
+                    let _relay_node = reg.get(&relay).cloned().unwrap_or_else(|| {
+                        let (addr, port) = parse_host_port(&relay, 44321);
+                        RelayNode {
+                            relay_id: format!("relay_adhoc_{}", addr.replace('.', "_")),
+                            public_address: addr,
+                            control_port: port,
+                            identity_fingerprint: "".to_string(),
+                            public_key_hex: "".to_string(),
+                            location: LocationMetadata::default(),
+                            protocol_version: 1,
+                            capabilities: vec!["ping".to_string()],
+                            status: RelayStatusType::Online,
+                            last_seen_utc: None,
+                            notes: "Ad-hoc relay node".to_string(),
+                        }
+                    });
+
+                    let div = RelayManager::evaluate_path_diversity(
+                        "064DEE4B85A3144A",
+                        6,
+                        "C2R_TRANSIT",
+                        "BA5E47339F25AB46",
+                        1,
+                    );
+
+                    if save {
+                        let _ = RelayReportRenderer::save_json(&div, "reports/phase5/relay_path_diversity.json");
+                    }
+
+                    let rendered = if cli.json {
+                        serde_json::to_string_pretty(&div).unwrap()
+                    } else {
+                        RelayReportRenderer::format_diversity_text(&div)
+                    };
+
+                    if let Some(ref out_path) = output {
+                        let _ = std::fs::write(out_path, &rendered);
+                    }
+                    println!("{}", rendered);
+                }
+
+                RelaySubcommands::TestFailure {
+                    relay,
+                    identity,
+                    registry,
+                    output,
+                    save,
+                } => {
+                    let reg = RelayRegistry::load_or_init(&registry);
+                    let relay_node = reg.get(&relay).cloned().unwrap_or_else(|| {
+                        let (addr, port) = parse_host_port(&relay, 44321);
+                        RelayNode {
+                            relay_id: format!("relay_adhoc_{}", addr.replace('.', "_")),
+                            public_address: addr,
+                            control_port: port,
+                            identity_fingerprint: "".to_string(),
+                            public_key_hex: "".to_string(),
+                            location: LocationMetadata::default(),
+                            protocol_version: 1,
+                            capabilities: vec!["ping".to_string()],
+                            status: RelayStatusType::Online,
+                            last_seen_utc: None,
+                            notes: "Ad-hoc relay node".to_string(),
+                        }
+                    });
+
+                    let (client_key, client_id) = RelayManager::load_or_init_client_identity(&identity)
+                        .unwrap_or_else(|e| {
+                            eprintln!("[ERROR] Failed to load client identity: {}", e);
+                            exit(1);
+                        });
+
+                    let res = RelayManager::test_relay_failure_and_recovery(
+                        &relay_node,
+                        &client_key,
+                        &client_id.client_id,
+                    );
+
+                    if save {
+                        let _ = RelayReportRenderer::save_json(&res, "reports/phase5/relay_failure_test.json");
+                        if !cli.json {
+                            println!("[SAVED] Failure test result saved to: reports/phase5/relay_failure_test.json");
+                        }
+                    }
+
+                    let rendered = if cli.json {
+                        serde_json::to_string_pretty(&res).unwrap()
+                    } else {
+                        RelayReportRenderer::format_failure_test_text(&res)
+                    };
+
+                    if let Some(ref out_path) = output {
+                        let _ = std::fs::write(out_path, &rendered);
                     }
                     println!("{}", rendered);
                 }

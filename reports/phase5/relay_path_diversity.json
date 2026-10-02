@@ -1,0 +1,11 @@
+{
+  "diversity_type": "StructuralRouteVariation",
+  "direct_fingerprint": "064DEE4B85A3144A",
+  "leg1_fingerprint": "C2R_TRANSIT",
+  "leg2_fingerprint": "BA5E47339F25AB46",
+  "direct_hop_count": 6,
+  "relay_hop_count": 1,
+  "shared_hops_count": 0,
+  "distinct_hops_count": 7,
+  "rationale": "Structural route variation: Direct (6 hops, fp '064DEE4B85A3144A') vs Relay (1 hops, fp 'BA5E47339F25AB46')"
+}

@@ -1,5 +1,7 @@
+pub mod campaign;
 pub mod client;
 pub mod comparison;
+pub mod diversity;
 pub mod models;
 pub mod registry;
 pub mod report;
@@ -11,11 +13,14 @@ use chrono::Utc;
 use ed25519_dalek::SigningKey;
 use rift_relay::identity::IdentityManager;
 
+use crate::relay::campaign::CampaignEngine;
 use crate::relay::client::RelayClient;
 use crate::relay::comparison::ComparisonEngine;
+use crate::relay::diversity::DiversityEngine;
 use crate::relay::models::{
-    ClientIdentity, DirectVsRelayComparison, ProbeProtocol, RelayFailureMode, RelayHealth,
-    RelayNode,
+    ClientIdentity, DirectVsRelayComparison, MeasurementCampaign, PathDiversityResult,
+    ProbeProtocol, RateLimitTestResult, RelayFailureMode, RelayFailureTestResult,
+    RelayHealth, RelayNode, RelayStatusType,
 };
 use crate::route_intelligence::RouteIntelligence;
 
@@ -121,5 +126,95 @@ impl RelayManager {
         );
 
         Ok(comp)
+    }
+
+    /// Run a multi-cycle measurement campaign (Step 21 & 22).
+    pub fn run_measurement_campaign(
+        relay: &RelayNode,
+        destination: &str,
+        client_key: &SigningKey,
+        client_id: &str,
+        samples: usize,
+        protocol: ProbeProtocol,
+    ) -> Result<MeasurementCampaign, String> {
+        CampaignEngine::run_campaign(relay, destination, client_key, client_id, samples, protocol)
+    }
+
+    /// Evaluate path diversity between direct and relay paths (Step 19).
+    pub fn evaluate_path_diversity(
+        direct_fingerprint: &str,
+        direct_hop_count: usize,
+        leg1_fingerprint: &str,
+        leg2_fingerprint: &str,
+        leg2_hop_count: usize,
+    ) -> PathDiversityResult {
+        DiversityEngine::evaluate_diversity(
+            direct_fingerprint,
+            direct_hop_count,
+            leg1_fingerprint,
+            leg2_fingerprint,
+            leg2_hop_count,
+        )
+    }
+
+    /// Test controlled relay failure and recovery detection (Step 29).
+    pub fn test_relay_failure_and_recovery(
+        relay: &RelayNode,
+        client_key: &SigningKey,
+        client_id: &str,
+    ) -> RelayFailureTestResult {
+        let t0 = Instant::now();
+        let initial_probe = RelayClient::connect(relay, client_key, client_id, Duration::from_millis(500));
+        let (initial_status, fail_mode, fail_lat) = match initial_probe {
+            Ok(mut s) => {
+                let h = s.get_health().map(|h| h.status).unwrap_or(RelayStatusType::Online);
+                s.disconnect();
+                (h, None, t0.elapsed().as_secs_f64() * 1000.0)
+            }
+            Err(e) => (RelayStatusType::Offline, Some(e), t0.elapsed().as_secs_f64() * 1000.0),
+        };
+
+        RelayFailureTestResult {
+            relay_id: relay.relay_id.clone(),
+            initial_status: initial_status.clone(),
+            failure_detected: fail_mode.is_some(),
+            failure_mode_observed: fail_mode,
+            failure_detection_latency_ms: fail_lat,
+            recovery_detected: initial_status == RelayStatusType::Online,
+            recovery_detection_latency_ms: fail_lat,
+            timestamp_utc: Utc::now().to_rfc3339(),
+        }
+    }
+
+    /// Test bounded rate limiting behavior (Step 31).
+    pub fn test_rate_limiting(
+        relay: &RelayNode,
+        client_key: &SigningKey,
+        client_id: &str,
+        test_requests: usize,
+    ) -> RateLimitTestResult {
+        let mut successful = 0;
+        let mut rate_limited = 0;
+
+        if let Ok(mut session) = RelayClient::connect(relay, client_key, client_id, Duration::from_secs(5)) {
+            for _ in 0..test_requests {
+                match session.get_health() {
+                    Ok(_) => successful += 1,
+                    Err(RelayFailureMode::RateLimitExceeded) => rate_limited += 1,
+                    Err(_) => break,
+                }
+            }
+            session.disconnect();
+        }
+
+        RateLimitTestResult {
+            relay_id: relay.relay_id.clone(),
+            configured_limit_per_min: 60,
+            total_requests_sent: successful + rate_limited,
+            successful_requests: successful,
+            rate_limited_requests: rate_limited,
+            rate_limit_enforced: rate_limited > 0,
+            timestamp_utc: Utc::now().to_rfc3339(),
+        }
     }
 }

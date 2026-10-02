@@ -1,0 +1,90 @@
+{
+  "inventory_timestamp_utc": "2026-10-02T14:33:00Z",
+  "active_remote_relays_count": 0,
+  "local_relays_count": 1,
+  "candidate_relays_count": 4,
+  "user_approval_status": "WAITING_FOR_USER_PROVISIONING",
+  "paid_infrastructure_cost": 0.0,
+  "relays": [
+    {
+      "relay_id": "relay_local_01",
+      "endpoint": "127.0.0.1:44321",
+      "role": "Local Development & End-to-End Functional Verification",
+      "status": "Online",
+      "provider": "Local Dedicated Test Host",
+      "location": {
+        "city": "Vijayawada",
+        "region": "AP",
+        "country": "IN",
+        "provenance": "OperatorDeclared"
+      },
+      "public_key_hex": "73c12ead2c4fdc5d0c0edfe23abee7ed602f47ead0ac110eeaef0317a7ce00be",
+      "identity_fingerprint": "8E3412F65923AA58",
+      "infrastructure_approval": "ApprovedLocal"
+    },
+    {
+      "relay_id": "relay_in_hyd_01",
+      "endpoint": "UNPROVISIONED:44321",
+      "role": "Planned India-First Low-Latency Candidate (Telangana / AP)",
+      "status": "Offline",
+      "provider": "Candidate Cloud Node",
+      "location": {
+        "city": "Hyderabad",
+        "region": "TS",
+        "country": "IN",
+        "provenance": "Unverified"
+      },
+      "public_key_hex": "",
+      "identity_fingerprint": "UNPROVISIONED",
+      "infrastructure_approval": "PendingUserProvisioning"
+    },
+    {
+      "relay_id": "relay_in_mum_01",
+      "endpoint": "13.232.0.1:44321",
+      "role": "Planned Western India Candidate (AWS ap-south-1)",
+      "status": "Offline",
+      "provider": "Candidate Cloud Node",
+      "location": {
+        "city": "Mumbai",
+        "region": "MH",
+        "country": "IN",
+        "provenance": "Unverified"
+      },
+      "public_key_hex": "",
+      "identity_fingerprint": "UNPROVISIONED",
+      "infrastructure_approval": "PendingUserProvisioning"
+    },
+    {
+      "relay_id": "relay_in_maa_01",
+      "endpoint": "14.139.160.1:44321",
+      "role": "Planned Southern India Subsea Cable Landing Candidate",
+      "status": "Offline",
+      "provider": "Candidate Cloud Node",
+      "location": {
+        "city": "Chennai",
+        "region": "TN",
+        "country": "IN",
+        "provenance": "Unverified"
+      },
+      "public_key_hex": "",
+      "identity_fingerprint": "UNPROVISIONED",
+      "infrastructure_approval": "PendingUserProvisioning"
+    },
+    {
+      "relay_id": "relay_sg_sin_01",
+      "endpoint": "20.205.179.1:44321",
+      "role": "Planned International SEA Candidate (Azure Singapore)",
+      "status": "Offline",
+      "provider": "Candidate Cloud Node",
+      "location": {
+        "city": "Singapore",
+        "region": "SG",
+        "country": "SG",
+        "provenance": "Unverified"
+      },
+      "public_key_hex": "",
+      "identity_fingerprint": "UNPROVISIONED",
+      "infrastructure_approval": "PendingUserProvisioning"
+    }
+  ]
+}

@@ -89,6 +89,109 @@ impl RelayReportRenderer {
         out
     }
 
+    pub fn format_campaign_text(campaign: &crate::relay::models::MeasurementCampaign) -> String {
+        let mut out = String::new();
+        out.push_str("================================================================================\n");
+        out.push_str("             RIFTROUTE REPEATED MEASUREMENT CAMPAIGN REPORT                     \n");
+        out.push_str("================================================================================\n");
+        out.push_str(&format!("Campaign ID:             {}\n", campaign.campaign_id));
+        out.push_str(&format!("Target Destination:      {}\n", campaign.destination));
+        out.push_str(&format!("Relay ID:                {}\n", campaign.relay_id));
+        out.push_str(&format!("Total Cycles Conducted:  {}\n", campaign.sample_count));
+        out.push_str(&format!("Availability Rate:       {:.1}%\n", campaign.availability_pct));
+        out.push_str(&format!("Measurement Success:     {:.1}%\n", campaign.measurement_success_rate_pct));
+        out.push_str(&format!("Timestamp (UTC):         {}\n", campaign.timestamp_utc));
+        out.push_str("--------------------------------------------------------------------------------\n");
+        out.push_str("DESCRIPTIVE PATH CLASSIFICATION (Step 25 & 26):\n");
+        out.push_str(&format!("Outcome:                 {}\n", campaign.classification));
+        out.push_str(&format!("Path Diversity:          {}\n", campaign.path_diversity.diversity_type));
+        out.push_str(&format!("Diversity Rationale:     {}\n", campaign.path_diversity.rationale));
+        out.push_str("--------------------------------------------------------------------------------\n");
+        out.push_str("STATISTICAL SERIES COMPARISON (RTT in ms):\n");
+        out.push_str(&format!(
+            "{:<16} {:>6} {:>6} {:>6} {:>6} {:>6} {:>6} {:>6} {:>6}\n",
+            "Path Segment", "Min", "Max", "Mean", "Median", "p95", "p99", "StdDev", "Jitter"
+        ));
+        out.push_str(&"-".repeat(78));
+        out.push('\n');
+
+        let d = &campaign.direct_stats;
+        out.push_str(&format!(
+            "{:<16} {:>6.2} {:>6.2} {:>6.2} {:>6.2} {:>6.2} {:>6.2} {:>6.2} {:>6.2}\n",
+            "Direct Path", d.min_ms, d.max_ms, d.mean_ms, d.median_ms, d.p95_ms, d.p99_ms, d.std_dev_ms, d.jitter_ms
+        ));
+        let c2r = &campaign.client_relay_stats;
+        out.push_str(&format!(
+            "{:<16} {:>6.2} {:>6.2} {:>6.2} {:>6.2} {:>6.2} {:>6.2} {:>6.2} {:>6.2}\n",
+            "Leg 1 (C -> R)", c2r.min_ms, c2r.max_ms, c2r.mean_ms, c2r.median_ms, c2r.p95_ms, c2r.p99_ms, c2r.std_dev_ms, c2r.jitter_ms
+        ));
+        let r2d = &campaign.relay_dest_stats;
+        out.push_str(&format!(
+            "{:<16} {:>6.2} {:>6.2} {:>6.2} {:>6.2} {:>6.2} {:>6.2} {:>6.2} {:>6.2}\n",
+            "Leg 2 (R -> D)", r2d.min_ms, r2d.max_ms, r2d.mean_ms, r2d.median_ms, r2d.p95_ms, r2d.p99_ms, r2d.std_dev_ms, r2d.jitter_ms
+        ));
+        let comp = &campaign.composed_stats;
+        out.push_str(&format!(
+            "{:<16} {:>6.2} {:>6.2} {:>6.2} {:>6.2} {:>6.2} {:>6.2} {:>6.2} {:>6.2}\n",
+            "Composed Relay", comp.min_ms, comp.max_ms, comp.mean_ms, comp.median_ms, comp.p95_ms, comp.p99_ms, comp.std_dev_ms, comp.jitter_ms
+        ));
+        out.push_str("--------------------------------------------------------------------------------\n");
+        out.push_str("OBJECTIVE DELTAS & CONFIDENCE INTERVALS:\n");
+        out.push_str(&format!("Median RTT Delta (Relay - Direct): {:+.2} ms\n", campaign.delta_median_ms));
+        out.push_str(&format!("p95 RTT Delta (Relay - Direct):    {:+.2} ms\n", campaign.delta_p95_ms));
+        if let Some(ref ci) = comp.confidence_interval_95 {
+            out.push_str(&format!(
+                "Composed 95% Confidence Interval:   [{:.2}, {:.2}] ms (+/- {:.2} ms)\n",
+                ci.lower_bound_ms, ci.upper_bound_ms, ci.margin_of_error_ms
+            ));
+        }
+        if let Some(ref ci) = d.confidence_interval_95 {
+            out.push_str(&format!(
+                "Direct Path 95% Confidence Interval: [{:.2}, {:.2}] ms (+/- {:.2} ms)\n",
+                ci.lower_bound_ms, ci.upper_bound_ms, ci.margin_of_error_ms
+            ));
+        }
+        out.push_str("--------------------------------------------------------------------------------\n");
+        out.push_str("SCIENTIFIC DISCLAIMER:\n");
+        out.push_str(&format!("{}\n", campaign.scientific_disclaimer));
+        out.push_str("================================================================================\n");
+        out
+    }
+
+    pub fn format_diversity_text(res: &crate::relay::models::PathDiversityResult) -> String {
+        let mut out = String::new();
+        out.push_str("================================================================================\n");
+        out.push_str("                    RIFTROUTE PATH DIVERSITY ANALYSIS                           \n");
+        out.push_str("================================================================================\n");
+        out.push_str(&format!("Classification:          {}\n", res.diversity_type));
+        out.push_str(&format!("Direct Route FP:         {}\n", res.direct_fingerprint));
+        out.push_str(&format!("Leg 1 (Client->Relay) FP: {}\n", res.leg1_fingerprint));
+        out.push_str(&format!("Leg 2 (Relay->Dest) FP:  {}\n", res.leg2_fingerprint));
+        out.push_str(&format!("Direct Hop Count:        {}\n", res.direct_hop_count));
+        out.push_str(&format!("Relay Hop Count:         {}\n", res.relay_hop_count));
+        out.push_str(&format!("Distinct Hops Count:     {}\n", res.distinct_hops_count));
+        out.push_str(&format!("Analysis Rationale:      {}\n", res.rationale));
+        out.push_str("================================================================================\n");
+        out
+    }
+
+    pub fn format_failure_test_text(res: &crate::relay::models::RelayFailureTestResult) -> String {
+        let mut out = String::new();
+        out.push_str("================================================================================\n");
+        out.push_str("               RIFTROUTE RELAY FAILURE & RECOVERY TEST                          \n");
+        out.push_str("================================================================================\n");
+        out.push_str(&format!("Relay ID:                {}\n", res.relay_id));
+        out.push_str(&format!("Initial Status:          {:?}\n", res.initial_status));
+        out.push_str(&format!("Failure Detected:        {}\n", res.failure_detected));
+        out.push_str(&format!("Failure Mode Observed:   {:?}\n", res.failure_mode_observed));
+        out.push_str(&format!("Detection Latency:       {:.2} ms\n", res.failure_detection_latency_ms));
+        out.push_str(&format!("Recovery Detected:       {}\n", res.recovery_detected));
+        out.push_str(&format!("Recovery Latency:        {:.2} ms\n", res.recovery_detection_latency_ms));
+        out.push_str(&format!("Timestamp (UTC):         {}\n", res.timestamp_utc));
+        out.push_str("================================================================================\n");
+        out
+    }
+
     pub fn save_json<T: serde::Serialize, P: AsRef<Path>>(data: &T, path: P) -> Result<PathBuf, String> {
         let p = path.as_ref();
         if let Some(parent) = p.parent() {

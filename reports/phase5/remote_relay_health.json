@@ -1,0 +1,15 @@
+{
+  "timestamp_utc": "2026-10-02T14:32:40Z",
+  "relay_id": "relay_local_01",
+  "endpoint": "127.0.0.1:44321",
+  "is_alive": true,
+  "status": "Online",
+  "uptime_seconds": 128,
+  "active_measurement_jobs": 0,
+  "total_measurements_completed": 11,
+  "cpu_usage_pct": 0.0,
+  "memory_used_bytes": 8388608,
+  "availability_rate_pct": 100.0,
+  "control_channel_rtt_ms": 0.28,
+  "authentication_success_rate_pct": 100.0
+}

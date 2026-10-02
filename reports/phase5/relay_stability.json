@@ -1,0 +1,17 @@
+{
+  "sample_count": 10,
+  "min_ms": 22.5437,
+  "max_ms": 63.5836,
+  "mean_ms": 40.11056,
+  "median_ms": 38.3112,
+  "p95_ms": 61.10553999999999,
+  "p99_ms": 63.087987999999996,
+  "std_dev_ms": 13.905355390176517,
+  "jitter_ms": 18.77962222222222,
+  "confidence_interval_95": {
+    "confidence_level_pct": 95.0,
+    "lower_bound_ms": 30.16395907726367,
+    "upper_bound_ms": 50.05716092273633,
+    "margin_of_error_ms": 9.946600922736328
+  }
+}

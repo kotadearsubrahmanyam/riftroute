@@ -1,0 +1,22 @@
+{
+  "relay_id": "relay_local_01",
+  "endpoint": "127.0.0.1:44321",
+  "sample_count": 10,
+  "probe_type": "TCP_CONNECT",
+  "statistics": {
+    "min_ms": 9.903,
+    "max_ms": 50.5836,
+    "mean_ms": 26.9106,
+    "median_ms": 24.7188,
+    "p95_ms": 48.1055,
+    "p99_ms": 50.0880,
+    "std_dev_ms": 14.0116,
+    "jitter_ms": 19.4891,
+    "confidence_interval_95": {
+      "lower_bound_ms": 16.8880,
+      "upper_bound_ms": 36.9331,
+      "margin_of_error_ms": 10.0226
+    }
+  },
+  "samples": [20.58, 17.06, 50.58, 37.88, 10.54, 28.85, 29.05, 9.90, 45.08, 19.58]
+}
